@@ -35,10 +35,4 @@ jobs:
         run: python podcast.py
       - name: Guardar el feed actualizado
         if: always()
-        run: |
-          git config user.name "podcast-bot"
-          git config user.email "podcast-bot@users.noreply.github.com"
-          git add episodes.json ultimos_videos.json docs/
-          git add ultimo_error.txt 2>/dev/null || true
-          git diff --cached --quiet || (git commit -m "Actualizar el podcast" && git pull --rebase origin main && git push)
-
+        run: ./guardar.sh

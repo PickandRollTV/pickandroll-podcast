@@ -182,6 +182,8 @@ def main():
 
     # Si no se encuentra el saludo de bienvenida, se recortan estos segundos.
     fallback_seconds = int(config.get("countdown_seconds", 0))
+    # La URL de la portada del programa indica dónde sirve GitHub Pages la carpeta docs/.
+    covers_url = config["show"]["image"].rsplit("/", 1)[0]
     failures = 0
     for vod in sorted(pending, key=lambda v: v["start"]):
         print(f"Publicando: {vod['title']} ({vod['id']})")
@@ -203,12 +205,15 @@ def main():
         episode = episode_from_vod(vod, url, size, skip, config)
         episode["recorte"] = trim_note[:3000]
         episodes.append(episode)
-        # Guardamos tras cada episodio para no volver a subir uno ya publicado si algo falla después.
+        # Guardamos y publicamos tras cada episodio: así sale en Spotify sin esperar al resto
+        # del lote, y no se vuelve a subir si algo falla después.
+        add_covers(episodes, FEED_FILE.parent, covers_url)
         save_json(EPISODES_FILE, episodes)
         write_feed(config, episodes, FEED_FILE)
+        if os.environ.get("GITHUB_ACTIONS"):
+            subprocess.run([str(ROOT / "guardar.sh")], cwd=ROOT, check=False)
 
-    # La URL de la portada del programa indica dónde sirve GitHub Pages la carpeta docs/.
-    if add_covers(episodes, FEED_FILE.parent, config["show"]["image"].rsplit("/", 1)[0]):
+    if add_covers(episodes, FEED_FILE.parent, covers_url):
         save_json(EPISODES_FILE, episodes)
     write_feed(config, episodes, FEED_FILE)
     print(f"{len(pending) - failures} episodio(s) nuevo(s); {len(episodes)} en total")
