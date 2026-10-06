@@ -10,6 +10,7 @@ jobs:
       - run: pip install "yt-dlp[default]"
       - name: Listar VODs y descargar un minuto de audio
         run: |
+          set +e
           {
             yt-dlp --flat-playlist --print "%(id)s %(title)s" "https://www.twitch.tv/pickandrolltv/videos?filter=archives&sort=time" 2>&1 | head -10
             ID=$(yt-dlp --flat-playlist --print "%(id)s" "https://www.twitch.tv/pickandrolltv/videos?filter=archives&sort=time" 2>/dev/null | head -1)
