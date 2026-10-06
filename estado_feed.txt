@@ -1,4 +1,5 @@
-Tue Oct  6 17:29:19 UTC 2026
+Tue Oct  6 17:30:22 UTC 2026
 https://pickandrolltv.github.io/pickandroll-podcast/feed.xml -> 404 text/html; charset=utf-8 items=0
+https://pickandrolltv.github.io/pickandroll-podcast/docs/feed.xml -> 200 application/xml items=9
 https://raw.githubusercontent.com/PickandRollTV/pickandroll-podcast/main/docs/feed.xml -> 200 text/plain; charset=utf-8 items=9
 audio https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597.mp3 -> 200 application/octet-stream 0
