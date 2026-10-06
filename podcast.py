@@ -1,30 +1,27 @@
 #!/usr/bin/env python3
-"""Publica como episodio de podcast cada directo terminado en el canal de YouTube.
+"""Publica como episodio de podcast cada directo terminado en el canal de Twitch.
+
+Usamos Twitch como fuente porque el directo sale a la vez en YouTube, Twitch y Kick,
+y YouTube bloquea las descargas desde los servidores de GitHub.
 
 Flujo de cada ejecución:
-  1. Pregunta a la API de YouTube por los últimos vídeos del canal y se queda con
-     los directos que ya han terminado y son públicos, más los vídeos normales cuyo
-     título encaja con "also_publish_titles" de config.json (los post partido).
+  1. Lista los últimos directos guardados (VODs) del canal de Twitch y se queda con
+     los que ya han terminado.
   2. Para cada uno que aún no esté en episodes.json: descarga solo el audio (MP3),
-     lo sube como "release" de GitHub y lo apunta en episodes.json.
+     recorta la cuenta atrás, lo sube como "release" de GitHub y lo apunta en episodes.json.
   3. Regenera docs/feed.xml, el RSS que lee Spotify (servido con GitHub Pages).
 
 Variables de entorno:
-  YT_API_KEY          clave de la API de YouTube Data v3 (obligatoria)
   GITHUB_REPOSITORY   owner/repo donde se suben los audios (lo pone GitHub Actions)
   GH_TOKEN            token con permiso para crear releases (lo pone GitHub Actions)
-  YT_COOKIES_FILE     opcional, cookies.txt para cuando YouTube pide "no soy un robot"
 """
 import datetime
 import json
 import os
 import pathlib
-import re
 import subprocess
 import sys
 import tempfile
-import urllib.parse
-import urllib.request
 
 from feed import write_feed
 from intro import intro_offset
@@ -36,10 +33,12 @@ FEED_FILE = ROOT / "docs" / "feed.xml"
 STATUS_FILE = ROOT / "ultimos_videos.json"
 # Último error de descarga o subida, para poder revisarlo sin abrir los registros de GitHub.
 ERROR_FILE = ROOT / "ultimo_error.txt"
-YT_API = "https://www.googleapis.com/youtube/v3/"
 
-# Espera tras el final del directo antes de descargarlo, para que YouTube termine de procesarlo.
+# Mientras dura el directo el VOD va creciendo; damos por terminado el que lleva
+# este tiempo sin crecer.
 MIN_MINUTES_AFTER_END = 15
+# Cuántos VODs recientes se revisan en cada pasada.
+RECENT_VODS = 8
 
 
 def load_json(path, default):
@@ -54,87 +53,52 @@ def parse_time(value):
     return datetime.datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
-def iso_duration_to_seconds(value):
-    """'PT2H3M4S' -> 7384."""
-    match = re.fullmatch(r"P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", value or "")
-    if not match:
-        return 0
-    days, hours, minutes, seconds = (int(g or 0) for g in match.groups())
-    return ((days * 24 + hours) * 60 + minutes) * 60 + seconds
+def yt_dlp_json(*args):
+    out = subprocess.run(["yt-dlp", "--no-warnings", *args], check=True, capture_output=True, text=True).stdout
+    return [json.loads(line) for line in out.splitlines() if line.strip()]
 
 
-def youtube(endpoint, **params):
-    params["key"] = os.environ["YT_API_KEY"]
-    url = YT_API + endpoint + "?" + urllib.parse.urlencode(params)
-    with urllib.request.urlopen(url, timeout=30) as response:
-        return json.load(response)
+def recent_vods(channel):
+    """Últimos directos guardados del canal, con fecha de inicio y duración."""
+    listing = yt_dlp_json(
+        "--flat-playlist", "--playlist-end", str(RECENT_VODS), "-j",
+        f"https://www.twitch.tv/{channel}/videos?filter=archives&sort=time",
+    )
+    vods = []
+    for entry in listing:
+        info = yt_dlp_json("--skip-download", "-j", f"https://www.twitch.tv/videos/{entry['id'].lstrip('v')}")[0]
+        vods.append({
+            "id": info["id"].lstrip("v"),
+            "title": info.get("title") or entry.get("title") or "Directo",
+            "start": datetime.datetime.fromtimestamp(info["timestamp"], datetime.timezone.utc),
+            "duration": int(info.get("duration") or 0),
+            "thumbnail": info.get("thumbnail"),
+            "url": f"https://www.twitch.tv/videos/{info['id'].lstrip('v')}",
+        })
+    return vods
 
 
-def recent_videos(channel_id):
-    """Últimos 15 vídeos del canal con sus datos de directo (cuesta 2 unidades de cuota)."""
-    uploads_playlist = "UU" + channel_id[2:]
-    items = youtube("playlistItems", part="contentDetails", playlistId=uploads_playlist, maxResults=15)["items"]
-    ids = [item["contentDetails"]["videoId"] for item in items]
-    if not ids:
-        return []
-    return youtube("videos", part="snippet,contentDetails,liveStreamingDetails,status", id=",".join(ids))["items"]
-
-
-def available_since(video, title_patterns):
-    """Desde cuándo el vídeo cuenta como episodio, o None si no hay que publicarlo.
-
-    Cuentan los directos ya terminados y, además, los vídeos subidos cuyo título
-    coincide con algún patrón de config.json (por ejemplo los post partido).
-    """
-    if video["status"]["privacyStatus"] != "public":
-        return None
-    ended = video.get("liveStreamingDetails", {}).get("actualEndTime")
-    if ended:
-        return parse_time(ended)
-    if "liveStreamingDetails" in video:  # Directo programado o en curso.
-        return None
-    title = video["snippet"]["title"]
-    is_short = "#short" in title.lower() or iso_duration_to_seconds(video["contentDetails"].get("duration")) < 180
-    if not is_short and any(re.search(p, title, re.IGNORECASE) for p in title_patterns):
-        return parse_time(video["snippet"]["publishedAt"])
-    return None
-
-
-def write_status(videos):
+def write_status(vods):
     """Deja en ultimos_videos.json lo que vio la última pasada, para revisar por qué se publicó o no algo."""
     save_json(STATUS_FILE, [
-        {
-            "id": v["id"],
-            "titulo": v["snippet"]["title"],
-            "privacidad": v["status"]["privacyStatus"],
-            "fin_del_directo": v.get("liveStreamingDetails", {}).get("actualEndTime"),
-        }
-        for v in videos
+        {"id": v["id"], "titulo": v["title"], "inicio": v["start"].isoformat(), "duracion_min": v["duration"] // 60}
+        for v in vods
     ])
 
 
-def best_thumbnail(snippet):
-    thumbs = snippet.get("thumbnails", {})
-    for size in ("maxres", "standard", "high", "medium", "default"):
-        if size in thumbs:
-            return thumbs[size]["url"]
-    return None
-
-
-def download_audio(video_id, workdir):
-    cmd = [
-        "yt-dlp", "--no-playlist", "--quiet", "--no-warnings",
-        "-f", "bestaudio/best", "-x", "--audio-format", "mp3", "--audio-quality", "96K",
-        # Mono: es una retransmisión hablada y el archivo pesa la mitad.
-        "--postprocessor-args", "ExtractAudio:-ac 1",
-        "-o", str(workdir / "%(id)s.%(ext)s"),
-        f"https://www.youtube.com/watch?v={video_id}",
-    ]
-    cookies = os.environ.get("YT_COOKIES_FILE")
-    if cookies and pathlib.Path(cookies).exists():
-        cmd[1:1] = ["--cookies", cookies]
-    subprocess.run(cmd, check=True, capture_output=True, text=True)
-    return workdir / f"{video_id}.mp3"
+def download_audio(vod, workdir):
+    out = workdir / f"{vod['id']}.mp3"
+    subprocess.run(
+        ["yt-dlp", "--no-warnings", "--quiet",
+         # Twitch ofrece una pista "audio_only"; si no está, la calidad de vídeo más baja.
+         "-f", "audio_only/worst", "-x", "--audio-format", "mp3", "--audio-quality", "96K",
+         # Mono: es una retransmisión hablada y el archivo pesa la mitad.
+         "--postprocessor-args", "ExtractAudio:-ac 1",
+         "-o", str(workdir / "%(id)s.%(ext)s"), vod["url"]],
+        check=True, capture_output=True, text=True,
+    )
+    # yt-dlp nombra el archivo con el id de Twitch, que empieza por "v".
+    return next(workdir.glob("*.mp3"), out)
 
 
 def trim_start(audio_path, seconds):
@@ -162,19 +126,20 @@ def upload_audio(tag, title, audio_path):
     return f"https://github.com/{repo}/releases/download/{tag}/{audio_path.name}"
 
 
-def episode_from_video(video, audio_url, audio_bytes, trimmed_seconds=0):
-    snippet = video["snippet"]
-    video_url = f"https://www.youtube.com/watch?v={video['id']}"
+def episode_from_vod(vod, audio_url, audio_bytes, trimmed_seconds, config):
+    links = [f"Directo completo en Twitch: {vod['url']}"]
+    if config.get("youtube_channel_url"):
+        links.append(f"Canal de YouTube: {config['youtube_channel_url']}")
     return {
-        "guid": f"youtube:{video['id']}",
-        "source": "youtube",
-        "video_id": video["id"],
-        "title": snippet["title"],
-        "description": f"{snippet.get('description', '').strip()}\n\nDirecto completo en vídeo: {video_url}".strip(),
-        "published": video.get("liveStreamingDetails", {}).get("actualStartTime") or snippet["publishedAt"],
-        "duration": max(iso_duration_to_seconds(video["contentDetails"].get("duration")) - trimmed_seconds, 0),
-        "image": best_thumbnail(snippet),
-        "link": video_url,
+        "guid": f"twitch:{vod['id']}",
+        "source": "twitch",
+        "vod_id": vod["id"],
+        "title": vod["title"],
+        "description": "\n".join(links),
+        "published": vod["start"].isoformat(),
+        "duration": max(vod["duration"] - int(trimmed_seconds), 0),
+        "image": vod["thumbnail"],
+        "link": vod["url"],
         "audio_url": audio_url,
         "audio_bytes": audio_bytes,
         "audio_type": "audio/mpeg",
@@ -183,50 +148,45 @@ def episode_from_video(video, audio_url, audio_bytes, trimmed_seconds=0):
 
 def main():
     config = load_json(CONFIG_FILE, {})
-    if not os.environ.get("YT_API_KEY") or "x" * 10 in config["youtube_channel_id"]:
-        print("Falta la clave YT_API_KEY o el ID del canal en config.json; no hago nada todavía.")
-        return 0
     episodes = load_json(EPISODES_FILE, [])
-    known = {e.get("video_id") for e in episodes}
+    known = {e.get("vod_id") for e in episodes}
     publish_after = parse_time(config["publish_streams_after"])
+    min_seconds = int(config.get("min_stream_minutes", 20)) * 60
     now = datetime.datetime.now(datetime.timezone.utc)
 
+    vods = recent_vods(config["twitch_channel"])
+    write_status(vods)
     pending = []
-    videos = recent_videos(config["youtube_channel_id"])
-    write_status(videos)
-    title_patterns = config.get("also_publish_titles", [])
-    for video in videos:
-        ended = available_since(video, title_patterns)
-        if ended is None or video["id"] in known or ended < publish_after:
+    for vod in vods:
+        ended = vod["start"] + datetime.timedelta(seconds=vod["duration"])
+        # Los cortes cortos (un directo que se reinicia) no son episodios.
+        if vod["id"] in known or vod["start"] < publish_after or vod["duration"] < min_seconds:
             continue
         if now - ended < datetime.timedelta(minutes=MIN_MINUTES_AFTER_END):
-            print(f"{video['id']}: terminó hace muy poco, se publicará en la próxima pasada")
+            print(f"{vod['id']}: sigue en directo o acaba de terminar; se publicará en otra pasada")
             continue
-        pending.append((ended, video))
+        pending.append(vod)
 
     # Si no se encuentra el saludo de bienvenida, se recortan estos segundos.
     fallback_seconds = int(config.get("countdown_seconds", 0))
     failures = 0
-    for _ended, video in sorted(pending, key=lambda pair: pair[0]):
-        title = video["snippet"]["title"]
-        print(f"Publicando: {title} ({video['id']})")
+    for vod in sorted(pending, key=lambda v: v["start"]):
+        print(f"Publicando: {vod['title']} ({vod['id']})")
         try:
             with tempfile.TemporaryDirectory() as tmp:
-                audio = download_audio(video["id"], pathlib.Path(tmp))
+                audio = download_audio(vod, pathlib.Path(tmp))
                 skip = intro_offset(audio, fallback_seconds)
                 audio = trim_start(audio, skip)
                 size = audio.stat().st_size
-                url = upload_audio(f"ep-{video['id']}", title, audio)
+                url = upload_audio(f"twitch-{vod['id']}", vod["title"], audio)
         except subprocess.CalledProcessError as error:
             # Se reintenta solo en la siguiente ejecución, porque no queda apuntado en episodes.json.
             detail = (error.stderr or "").strip()[-2000:]
             print(f"  Falló ({error}); se reintentará en la próxima pasada\n{detail}", file=sys.stderr)
-            cookies = pathlib.Path(os.environ.get("YT_COOKIES_FILE", ""))
-            cookies_info = f"cookies: {cookies.stat().st_size} bytes" if cookies.is_file() else "cookies: no hay"
-            ERROR_FILE.write_text(f"{video['id']} {title}\n{cookies_info}\n{error}\n{detail}\n", encoding="utf-8")
+            ERROR_FILE.write_text(f"{vod['id']} {vod['title']}\n{error}\n{detail}\n", encoding="utf-8")
             failures += 1
             continue
-        episodes.append(episode_from_video(video, url, size, skip))
+        episodes.append(episode_from_vod(vod, url, size, skip, config))
         # Guardamos tras cada episodio para no volver a subir uno ya publicado si algo falla después.
         save_json(EPISODES_FILE, episodes)
         write_feed(config, episodes, FEED_FILE)
