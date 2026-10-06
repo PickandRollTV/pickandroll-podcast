@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title>PickandRollTV</title>
+    <link>https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</link>
+    <language>es</language>
+    <description>Los directos de PickandRollTV, ahora en formato podcast.</description>
+    <atom:link href="https://pickandrolltv.github.io/pickandroll-podcast/feed.xml" rel="self" type="application/rss+xml" />
+    <itunes:author>PickandRollTV</itunes:author>
+    <itunes:summary>Los directos de PickandRollTV, ahora en formato podcast.</itunes:summary>
+    <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/cover.jpg" />
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <itunes:owner>
+      <itunes:name>PickandRollTV</itunes:name>
+      <itunes:email>TU_EMAIL_AQUI</itunes:email>
+    </itunes:owner>
+    <itunes:category text="Sports">
+      <itunes:category text="Basketball" />
+    </itunes:category>
+  </channel>
+</rss>
