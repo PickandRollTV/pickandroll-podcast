@@ -258,7 +258,7 @@ def main():
         save_json(EPISODES_FILE, episodes)
         write_feed(config, episodes, FEED_FILE)
         if os.environ.get("GITHUB_ACTIONS"):
-            subprocess.run([str(ROOT / "guardar.sh")], cwd=ROOT, check=False)
+            subprocess.run([sys.executable, str(ROOT / "guardar.py")], cwd=ROOT, check=False)
 
     # El resultado suele publicarse un rato después del partido; se reintenta en cada pasada.
     try:

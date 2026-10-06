@@ -35,4 +35,4 @@ jobs:
         run: python podcast.py
       - name: Guardar el feed actualizado
         if: always()
-        run: ./guardar.sh
+        run: python guardar.py
