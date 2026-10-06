@@ -136,6 +136,9 @@ def episode_from_video(video, audio_url, audio_bytes):
 
 def main():
     config = load_json(CONFIG_FILE, {})
+    if not os.environ.get("YT_API_KEY") or "x" * 10 in config["youtube_channel_id"]:
+        print("Falta la clave YT_API_KEY o el ID del canal en config.json; no hago nada todavía.")
+        return 0
     episodes = load_json(EPISODES_FILE, [])
     known = {e.get("video_id") for e in episodes}
     publish_after = parse_time(config["publish_streams_after"])
