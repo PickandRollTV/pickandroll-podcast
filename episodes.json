@@ -126,15 +126,17 @@
     "title": "🏀 VALENCIA BASKET v BARÇA | SEMIFINAL SUPERCOPA ENDESA 🏆",
     "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2878537661\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
     "published": "2026-09-19T17:31:24+00:00",
-    "duration": 17699,
+    "duration": 17389,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/292ba770840b2635045e_pickandrolltv_317770243554_1789839079/thumb/custom-ceafbdeb-c410-422d-b38d-969aadaa1f39-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2878537661",
     "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2878537661/v2878537661.mp3",
-    "audio_bytes": 212393524,
+    "audio_bytes": 204952468,
     "audio_type": "audio/mpeg",
     "recorte": "No encontré el saludo. Oí: 2:00 Somos una pilota del Vena. Somos la suor de la pista. | 2:07 Somos el que aplaudimos, el que hemos celebrado. | 2:11 Somos los dos ados y el 134 a 124. | 2:17 Somos el que hemos superado, la ley contingida. | 2:20 El nervio del ac. Somos los tres ados. | 2:28 De tir, lío. Somos los rebots que se escapan. | 2:33 Y los que agafemos. Somos pinia y somos palado. | 2:39 Somos el siguiente amibre. | 2:42 El cinco iniciales y los que salen de la banqueta. | 2:45 Somos los que secaremos, los que hemos patido. | 2:50 Somos la bolsina, la bandera, la llave. | 2:54 Somos los que no deja de creer. Somos la remontada y la sentencia. | 2:59 Somos la maxada. Somos el 24 de agosto. | 3:07 Somos 24 de agosto. | 3:10 Somos los que volen de confiar en el equipo. | 3:18 Somos el 2003 o el 2010. | 3:24 Somos la última pilota. Somos campeones. | 3:32 Somos centenarios. | 3:38 Un escudo, un clave. | 5:13 ¡Bestial, bestial! | 5:16 ¡Qué barbaridad! | 5:19 ¡Bestial, bestial! | 5:22 ¿Cómo arranca este directo? | 5:25 Tengo aquíma en el olímpic de Balona. | 5:29 Estamos viendo cómo Juventus está merendando a Vasconia. | 5:33 Y yo, no sé ustedes, tengo muchísimas ganitas. | 5:37 Ganitas de ver a nuestro equipo, de ver la competición. | 5:40 Y de qué arranque ya todo. Tengo ganas de Amarón. | 5:44 ¡Estoy ganas de Balón! | 5:47 ¡Escudos, escudos, escudos! | 5:50 Tiene toda la vibra positiva. Quiero el apoyo de la yen blaugrana. | 5:55 ¡Qué barbaridad! | 5:58 ¡Apica el rol! ¡Arriba, arriba, arriba, Barça! | 6:02 ¡Amarrrrrr! | 6:39 ¡Escudr, escudr, escudr, escudr! | 6:41 ¡Buenas tardes, camisans! | 7:48 ¡Hola, hola! | 7:51 ¡Buenas tardes, ficanroles! | 7:54 ¿Cómo estás? | 7:57 Muy bien, también paso aquí, que hay en Balona.",
-    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2878537661-5f463e48.jpg",
-    "cover_key": "5f463e48"
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2878537661-5653c486.jpg",
+    "cover_key": "5653c486",
+    "recorte_extra": 310,
+    "resultado": "86-87"
   },
   {
     "guid": "twitch:2879416124",
@@ -167,8 +169,9 @@
     "audio_bytes": 202482004,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:59: 3:22 Somos campeones, somos centenaris. | 3:35 Un escut, todo un clav. | 5:59 Buenas tardes y bienvenidos amigas, amigas, a Pican Roll.",
-    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2882894090-dafe68ee.jpg",
-    "cover_key": "dafe68ee"
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2882894090-449ce35a.jpg",
+    "cover_key": "449ce35a",
+    "resultado": "89-82"
   },
   {
     "guid": "twitch:2884729939",
@@ -184,8 +187,9 @@
     "audio_bytes": 170334580,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:08: 3:30 Un escut. | 3:36 Todo un clav. | 5:08 ¡Bienvenidos amigos, amigos de Pican Roll!",
-    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2884729939-7b74ace8.jpg",
-    "cover_key": "7b74ace8"
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2884729939-a904822f.jpg",
+    "cover_key": "a904822f",
+    "resultado": "119-101"
   },
   {
     "guid": "twitch:2887250903",
@@ -201,8 +205,9 @@
     "audio_bytes": 158757268,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:56: 3:30 Un escut. | 3:36 Todo un clav. | 3:56 Buenas tardes y bienvenidos a Pick and Roll.",
-    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2887250903-a9c14e25.jpg",
-    "cover_key": "a9c14e25"
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2887250903-2bd8d133.jpg",
+    "cover_key": "2bd8d133",
+    "resultado": "94-87"
   },
   {
     "guid": "twitch:2889896671",
@@ -218,8 +223,9 @@
     "audio_bytes": 156337492,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 13:12: 14:33 La calificación última, sé que te decidió. | 14:36 Lo que sí que, la verdad, Japuel ayer ganaba de 20 y tercer cuarto | 14:42 pecho fría total que se puse en Madrid en el partido. | 14:47 Y lástima no. En el último cuarto menos mal que arreglaron un pocadas cosas | 14:53 y ganaron el que tenía que ganar. | 14:55 Dice Miguel Terol, dice Bono Vesprá y Forza Barça que no era bueno.",
-    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2889896671-905fe7db.jpg",
-    "cover_key": "905fe7db"
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2889896671-733e45a2.jpg",
+    "cover_key": "733e45a2",
+    "resultado": "82-95"
   },
   {
     "guid": "twitch:2891818597",
@@ -235,7 +241,8 @@
     "audio_bytes": 184642420,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:21: 3:25 Somos campos, somos centenarios. | 3:36 Un escudo, un clav. | 5:21 ¡Bienvenidos a la maqueda para nuestro video!",
-    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2891818597-9e6b54a9.jpg",
-    "cover_key": "9e6b54a9"
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2891818597-11f4f38b.jpg",
+    "cover_key": "11f4f38b",
+    "resultado": "100-94"
   }
 ]
