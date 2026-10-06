@@ -14,7 +14,9 @@ SEARCH_SECONDS = 15 * 60
 LEAD_IN_SECONDS = 1.0
 
 GREETING = re.compile(r"\bbuen[oa]s? (tardes|dias|noches)\b")
-WELCOME = re.compile(r"bienvenid\w* a (la )?(pick|pic|pi) ?(and|an|en|n|&)? ?r?oll?|magia del baloncesto")
+# Whisper escribe "PickandRoll" de mil maneras ("Peak and Road"...), así que basta con
+# "bienvenidos": la cuenta atrás es música e himno, y ahí no se dice.
+WELCOME = re.compile(r"\bbienvenid[oa]s?\b|magia del (baloncesto|palau)")
 
 
 def normalize(text):
