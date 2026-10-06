@@ -102,5 +102,20 @@
     "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-008/episodio-008.mp3",
     "audio_bytes": 280786232,
     "audio_type": "audio/mpeg"
+  },
+  {
+    "guid": "twitch:2891818597",
+    "source": "twitch",
+    "vod_id": "2891818597",
+    "title": "🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2891818597\nCanal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw",
+    "published": "2026-10-04T16:17:07+00:00",
+    "duration": 15707,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/1e2569de957f8c875fbb_pickandrolltv_317936944483_1791130620//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2891818597",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597.mp3",
+    "audio_bytes": 188487796,
+    "audio_type": "audio/mpeg",
+    "recorte": "No encontré el saludo. Oí: 0:00 ¿Dónde la suor de la pista? | 2:04 Somo el que aplaudimos, el que hemos celebrado. | 2:08 Somos los dos abozos y el 134 a 124. | 2:14 Somos el que hemos superado, la ley contingida, el nervio de la grada. | 2:21 Somos tres, dos, tres, de tir y lluvia. | 2:27 Somos los rebots que se escapen | 2:29 y los que agafemos. | 2:33 Somos pinya y somos Palau. | 2:36 Somos el Seguien Camibra, el 5 inicial y qui sort de la banqueta. | 2:42 Somos el que secaremos, el que hemos patido. | 2:46 Somos Bolzina, hayau. | 2:51 Somos quien no deja de creer. | 2:53 Somos la remontada y la sentencia. | 2:56 Somos Machada. | 2:58 Somos el 24 de agosto. | 3:04 Somos 24 de agosto. | 3:07 Somos los dos abozos que se escapen. | 3:10 Somos el 2003 o el 2010. | 3:22 Somos el último piloto. | 3:29 Somos centenarios. | 3:36 Somos un escudo, un clavito. | 5:22 Bienvenidos a la maqueda de Palau. | 5:25 Bienvenidos a Peak and Road. | 5:29 Saludos a Manopá, a mi degustia, Carlos Bucop, | 5:31 a Jorge Felicamus, | 5:32 a Tauro Marta, Fernández de Finosa, | 5:35 a ECM, a Michael, | 5:37 a Queen Maria, a Joan Luigi, | 5:39 a Nicolai, a Jorge, | 5:41 a Tauro que va llegando y salvando. | 5:43 Hola, hola, hola, hola, hola, hola, hola. | 5:47 Ale, ale, ale. | 5:50 Ale, ale, ale. | 6:00 Qué barbaridad, amigos, amigas. | 6:02 ¿Cómo está el baloncestro? | 6:04 ¿Cómo está el jogurt? | 6:06 Está hora de la tarde. | 6:08 Hay emoción, hay ilusión. | 6:10 Y hemos visto una jornada | 6:12 totalmente vibrante y apasionante"
   }
 ]
