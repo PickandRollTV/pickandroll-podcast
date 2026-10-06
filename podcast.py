@@ -3,7 +3,8 @@
 
 Flujo de cada ejecución:
   1. Pregunta a la API de YouTube por los últimos vídeos del canal y se queda con
-     los directos que ya han terminado y son públicos.
+     los directos que ya han terminado y son públicos, más los vídeos normales cuyo
+     título encaja con "also_publish_titles" de config.json (los post partido).
   2. Para cada uno que aún no esté en episodes.json: descarga solo el audio (MP3),
      lo sube como "release" de GitHub y lo apunta en episodes.json.
   3. Regenera docs/feed.xml, el RSS que lee Spotify (servido con GitHub Pages).
@@ -33,6 +34,8 @@ CONFIG_FILE = ROOT / "config.json"
 EPISODES_FILE = ROOT / "episodes.json"
 FEED_FILE = ROOT / "docs" / "feed.xml"
 STATUS_FILE = ROOT / "ultimos_videos.json"
+# Último error de descarga o subida, para poder revisarlo sin abrir los registros de GitHub.
+ERROR_FILE = ROOT / "ultimo_error.txt"
 YT_API = "https://www.googleapis.com/youtube/v3/"
 
 # Espera tras el final del directo antes de descargarlo, para que YouTube termine de procesarlo.
@@ -77,8 +80,24 @@ def recent_videos(channel_id):
     return youtube("videos", part="snippet,contentDetails,liveStreamingDetails,status", id=",".join(ids))["items"]
 
 
-def is_finished_stream(video):
-    return bool(video.get("liveStreamingDetails", {}).get("actualEndTime")) and video["status"]["privacyStatus"] == "public"
+def available_since(video, title_patterns):
+    """Desde cuándo el vídeo cuenta como episodio, o None si no hay que publicarlo.
+
+    Cuentan los directos ya terminados y, además, los vídeos subidos cuyo título
+    coincide con algún patrón de config.json (por ejemplo los post partido).
+    """
+    if video["status"]["privacyStatus"] != "public":
+        return None
+    ended = video.get("liveStreamingDetails", {}).get("actualEndTime")
+    if ended:
+        return parse_time(ended)
+    if "liveStreamingDetails" in video:  # Directo programado o en curso.
+        return None
+    title = video["snippet"]["title"]
+    is_short = "#short" in title.lower() or iso_duration_to_seconds(video["contentDetails"].get("duration")) < 180
+    if not is_short and any(re.search(p, title, re.IGNORECASE) for p in title_patterns):
+        return parse_time(video["snippet"]["publishedAt"])
+    return None
 
 
 def write_status(videos):
@@ -114,7 +133,7 @@ def download_audio(video_id, workdir):
     cookies = os.environ.get("YT_COOKIES_FILE")
     if cookies and pathlib.Path(cookies).exists():
         cmd[1:1] = ["--cookies", cookies]
-    subprocess.run(cmd, check=True)
+    subprocess.run(cmd, check=True, capture_output=True, text=True)
     return workdir / f"{video_id}.mp3"
 
 
@@ -126,7 +145,7 @@ def trim_start(audio_path, seconds):
     subprocess.run(
         ["ffmpeg", "-loglevel", "error", "-y", "-ss", str(seconds), "-i", str(audio_path),
          "-c", "copy", str(trimmed)],
-        check=True,
+        check=True, capture_output=True, text=True,
     )
     audio_path.unlink()
     return trimmed.rename(audio_path)
@@ -138,7 +157,7 @@ def upload_audio(tag, title, audio_path):
     subprocess.run(
         ["gh", "release", "create", tag, str(audio_path), "--repo", repo,
          "--title", title, "--notes", "Audio del episodio del podcast."],
-        check=True,
+        check=True, capture_output=True, text=True,
     )
     return f"https://github.com/{repo}/releases/download/{tag}/{audio_path.name}"
 
@@ -152,7 +171,7 @@ def episode_from_video(video, audio_url, audio_bytes, trimmed_seconds=0):
         "video_id": video["id"],
         "title": snippet["title"],
         "description": f"{snippet.get('description', '').strip()}\n\nDirecto completo en vídeo: {video_url}".strip(),
-        "published": video["liveStreamingDetails"].get("actualStartTime") or snippet["publishedAt"],
+        "published": video.get("liveStreamingDetails", {}).get("actualStartTime") or snippet["publishedAt"],
         "duration": max(iso_duration_to_seconds(video["contentDetails"].get("duration")) - trimmed_seconds, 0),
         "image": best_thumbnail(snippet),
         "link": video_url,
@@ -175,19 +194,20 @@ def main():
     pending = []
     videos = recent_videos(config["youtube_channel_id"])
     write_status(videos)
-    for video in filter(is_finished_stream, videos):
-        ended = parse_time(video["liveStreamingDetails"]["actualEndTime"])
-        if video["id"] in known or ended < publish_after:
+    title_patterns = config.get("also_publish_titles", [])
+    for video in videos:
+        ended = available_since(video, title_patterns)
+        if ended is None or video["id"] in known or ended < publish_after:
             continue
         if now - ended < datetime.timedelta(minutes=MIN_MINUTES_AFTER_END):
             print(f"{video['id']}: terminó hace muy poco, se publicará en la próxima pasada")
             continue
-        pending.append(video)
+        pending.append((ended, video))
 
     # Si no se encuentra el saludo de bienvenida, se recortan estos segundos.
     fallback_seconds = int(config.get("countdown_seconds", 0))
     failures = 0
-    for video in sorted(pending, key=lambda v: v["liveStreamingDetails"]["actualEndTime"]):
+    for _ended, video in sorted(pending, key=lambda pair: pair[0]):
         title = video["snippet"]["title"]
         print(f"Publicando: {title} ({video['id']})")
         try:
@@ -199,7 +219,9 @@ def main():
                 url = upload_audio(f"ep-{video['id']}", title, audio)
         except subprocess.CalledProcessError as error:
             # Se reintenta solo en la siguiente ejecución, porque no queda apuntado en episodes.json.
-            print(f"  Falló ({error}); se reintentará en la próxima pasada", file=sys.stderr)
+            detail = (error.stderr or "").strip()[-2000:]
+            print(f"  Falló ({error}); se reintentará en la próxima pasada\n{detail}", file=sys.stderr)
+            ERROR_FILE.write_text(f"{video['id']} {title}\n{error}\n{detail}\n", encoding="utf-8")
             failures += 1
             continue
         episodes.append(episode_from_video(video, url, size, skip))

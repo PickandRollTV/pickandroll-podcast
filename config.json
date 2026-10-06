@@ -1,6 +1,7 @@
 {
   "youtube_channel_id": "UCtd3ON5tvcN-yjziQBy37Aw",
   "countdown_seconds": 0,
+  "also_publish_titles": ["post ?partido", "d[ií]a de partid"],
   "publish_streams_after": "2026-10-04T00:00:00Z",
   "feed_url": "https://pickandrolltv.github.io/pickandroll-podcast/feed.xml",
   "show": {
