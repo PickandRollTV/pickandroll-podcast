@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "id": "2891818597",
+    "titulo": "🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2",
+    "inicio": "2026-10-04T16:17:07+00:00",
+    "duracion_min": 261
+  },
+  {
+    "id": "2889896671",
+    "titulo": "🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3",
+    "inicio": "2026-10-02T16:37:35+00:00",
+    "duracion_min": 230
+  },
+  {
+    "id": "2889891389",
+    "titulo": "🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3",
+    "inicio": "2026-10-02T16:30:39+00:00",
+    "duracion_min": 5
+  },
+  {
+    "id": "2887250903",
+    "titulo": "🏀 DUBAI BASKETBALL v BARÇA BASKET | 🏆Euroleague Round 2",
+    "inicio": "2026-09-29T15:30:30+00:00",
+    "duracion_min": 224
+  },
+  {
+    "id": "2884729939",
+    "titulo": "🏀 BARÇA BASKET v LEYMA CORUÑA | LIGA ENDESA J1🏆",
+    "inicio": "2026-09-26T18:01:09+00:00",
+    "duracion_min": 241
+  },
+  {
+    "id": "2882894090",
+    "titulo": "🏀 BARÇA BASKET v ANADOLU EFES | EUROLEAGUE ROUND 1 🏆",
+    "inicio": "2026-09-24T17:31:36+00:00",
+    "duracion_min": 287
+  },
+  {
+    "id": "2879416124",
+    "titulo": "🏀 JOVENTUT BADALONA v BARÇA | FINAL SUPERCOPA ENDESA 🏆",
+    "inicio": "2026-09-20T16:01:19+00:00",
+    "duracion_min": 304
+  },
+  {
+    "id": "2878537661",
+    "titulo": "🏀 VALENCIA BASKET v BARÇA | SEMIFINAL SUPERCOPA ENDESA 🏆",
+    "inicio": "2026-09-19T17:31:24+00:00",
+    "duracion_min": 294
+  }
+]
