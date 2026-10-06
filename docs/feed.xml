@@ -7,7 +7,7 @@
     <description>¡Toda la actualidad del Barça Basket en un solo lugar! El podcast de PickandRollTV: directos de cada partido, postpartidos, ruedas de prensa y análisis del Barça Basket, la Euroliga y la Liga Endesa. Cada directo llega aquí en cuanto termina para que lo escuches cuando quieras. Noticias y crónicas en pickandroll.tv. Bienvenidos a la magia del baloncesto.</description>
     <copyright>© 2026 PickandRollTV</copyright>
     <image>
-      <url>https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg</url>
+      <url>https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg</url>
       <title>PickandRollTV</title>
       <link>https://pickandroll.tv</link>
     </image>
@@ -15,7 +15,7 @@
     <itunes:title>PickandRollTV</itunes:title>
     <itunes:author>PickandRollTV</itunes:author>
     <itunes:summary>¡Toda la actualidad del Barça Basket en un solo lugar! El podcast de PickandRollTV: directos de cada partido, postpartidos, ruedas de prensa y análisis del Barça Basket, la Euroliga y la Liga Endesa. Cada directo llega aquí en cuanto termina para que lo escuches cuando quieras. Noticias y crónicas en pickandroll.tv. Bienvenidos a la magia del baloncesto.</itunes:summary>
-    <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+    <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
     <itunes:explicit>false</itunes:explicit>
     <itunes:type>episodic</itunes:type>
     <itunes:owner>
@@ -35,7 +35,7 @@
       <pubDate>Sun, 04 Oct 2026 16:17:07 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597.mp3" length="184642420" type="audio/mpeg" />
       <itunes:duration>15387</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>9</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -51,7 +51,7 @@
       <pubDate>Wed, 01 Apr 2026 11:25:37 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-008/episodio-008.mp3" length="280786232" type="audio/mpeg" />
       <itunes:duration>17549</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>8</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -67,7 +67,7 @@
       <pubDate>Wed, 25 Mar 2026 11:17:56 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-007/episodio-007.mp3" length="242743587" type="audio/mpeg" />
       <itunes:duration>15171</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>7</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -83,7 +83,7 @@
       <pubDate>Mon, 23 Mar 2026 10:09:16 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-006/episodio-006.mp3" length="212671842" type="audio/mpeg" />
       <itunes:duration>13291</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>6</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -99,7 +99,7 @@
       <pubDate>Fri, 20 Mar 2026 11:44:06 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-005/episodio-005.mp3" length="178582255" type="audio/mpeg" />
       <itunes:duration>11161</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>5</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -115,7 +115,7 @@
       <pubDate>Thu, 19 Mar 2026 11:17:26 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-004/episodio-004.mp3" length="174568175" type="audio/mpeg" />
       <itunes:duration>10910</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>4</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -131,7 +131,7 @@
       <pubDate>Thu, 19 Mar 2026 11:12:41 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-003/episodio-003.mp3" length="272771447" type="audio/mpeg" />
       <itunes:duration>17048</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>3</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -147,7 +147,7 @@
       <pubDate>Mon, 09 Mar 2026 10:53:56 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-002/episodio-002.mp3" length="156889337" type="audio/mpeg" />
       <itunes:duration>9805</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>2</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
@@ -163,7 +163,7 @@
       <pubDate>Fri, 06 Mar 2026 11:28:35 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-001/episodio-001.mp3" length="234124851" type="audio/mpeg" />
       <itunes:duration>14632</itunes:duration>
-      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/portada.jpg" />
       <itunes:episode>1</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
