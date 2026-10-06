@@ -72,11 +72,9 @@ def twitch_description(episode, config):
         f"<p><strong>{html.escape(clean_title(episode['title']))}</strong></p>",
         f"<p>{html.escape(show['episode_blurb'])}</p>" if show.get("episode_blurb") else "",
     ]
-    # Twitch borra los directos guardados a los pocos días, así que enlazamos a los canales.
-    links = ["Síguenos en directo:"]
-    for label, key in (("YouTube", "youtube_channel_url"), ("Twitch", "twitch_url")):
-        if config.get(key):
-            links.append(f'{label}: <a href="{config[key]}">{config[key]}</a>')
+    # Twitch borra los directos guardados a los pocos días, así que enlazamos a los canales,
+    # los mismos que aparecen en la web.
+    links = ["Síguenos:"] + [f'{label}: <a href="{url}">{url}</a>' for label, url in config.get("social_links", [])]
     lines.append("<p>" + "<br/>".join(links) + "</p>")
     return "".join(line for line in lines if line)
 

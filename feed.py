@@ -63,7 +63,7 @@ def write_feed(config, episodes, path):
         _sub(item, f"{{{ITUNES}}}title", title)
         _sub(item, "description", description)
         _sub(item, f"{{{CONTENT}}}encoded", description.replace("\n", "<br/>"))
-        link = config.get("twitch_url") if episode.get("source") == "twitch" else episode.get("link")
+        link = (config.get("website_url") or config.get("twitch_url")) if episode.get("source") == "twitch" else episode.get("link")
         if link:
             _sub(item, "link", link)
         # El guid no cambia nunca: así Spotify no duplica episodios al mover el feed.
