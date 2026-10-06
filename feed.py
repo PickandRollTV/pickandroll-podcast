@@ -8,9 +8,11 @@ from presentacion import clean_title, episode_description
 ITUNES = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 ATOM = "http://www.w3.org/2005/Atom"
 CONTENT = "http://purl.org/rss/1.0/modules/content/"
+PODCAST = "https://podcastindex.org/namespace/1.0"
 ET.register_namespace("itunes", ITUNES)
 ET.register_namespace("atom", ATOM)
 ET.register_namespace("content", CONTENT)
+ET.register_namespace("podcast", PODCAST)
 
 
 def _sub(parent, tag, text=None, **attrs):
@@ -45,6 +47,9 @@ def write_feed(config, episodes, path):
     _sub(channel, f"{{{ITUNES}}}image", href=show["image"])
     _sub(channel, f"{{{ITUNES}}}explicit", "true" if show.get("explicit") else "false")
     _sub(channel, f"{{{ITUNES}}}type", "episodic")
+    # Bloqueo contra importaciones ajenas; se activa (show.locked) cuando termine la mudanza a este feed.
+    if show.get("locked"):
+        _sub(channel, f"{{{PODCAST}}}locked", "yes", owner=show["owner_email"])
     owner = _sub(channel, f"{{{ITUNES}}}owner")
     _sub(owner, f"{{{ITUNES}}}name", show["author"])
     _sub(owner, f"{{{ITUNES}}}email", show["owner_email"])

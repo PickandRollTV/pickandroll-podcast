@@ -11,7 +11,7 @@ import unicodedata
 # Minutos del principio que se escuchan como máximo buscando el saludo.
 SEARCH_SECONDS = 15 * 60
 # Margen antes del saludo para no comerse la primera sílaba.
-LEAD_IN_SECONDS = 1.0
+LEAD_IN_SECONDS = 3.0
 
 GREETING = re.compile(r"\bbuen[oa]s? (tardes|dias|noches)\b")
 # Whisper escribe "PickandRoll" de mil maneras ("Peak and Road"...), así que basta con
@@ -83,4 +83,4 @@ def intro_offset(audio_path, fallback_seconds=0):
         return fallback_seconds, f"No se pudo buscar el saludo: {error}"
     if found is None:
         return fallback_seconds, "No encontré el saludo. Oí: " + " | ".join(heard[:40])
-    return max(found - LEAD_IN_SECONDS, 0), f"Saludo en {int(found // 60)}:{int(found % 60):02d}: " + " | ".join(heard[-3:])
+    return max(found - LEAD_IN_SECONDS, 0), f"Saludo en {int(found // 60)}:{int(found % 60):02d}: " + " | ".join(heard[-6:])
