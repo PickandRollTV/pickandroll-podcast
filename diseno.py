@@ -16,10 +16,12 @@ LOGO = ROOT / "portada" / "logo-redondo-pickandroll.webp"
 FONTS = ROOT / "fonts"
 SIZE = 3000
 
-NAVY = (8, 18, 46)
-BLUE = (30, 58, 130)
-GARNET = (128, 14, 52)
-YELLOW = (240, 196, 64)
+# Colores oficiales del FC Barcelona: azul #004D98, grana #A50044 y amarillo #EDBB00.
+BLUE = (0, 77, 152)
+NAVY = (0, 34, 82)        # El mismo azul, oscurecido para el degradado.
+GARNET = (165, 0, 68)
+GARNET_DARK = (92, 0, 38)
+YELLOW = (237, 187, 0)
 WHITE = (255, 255, 255)
 
 
@@ -44,7 +46,7 @@ def background():
     # Panel granate en diagonal, con un filo amarillo.
     panel = Image.new("L", (SIZE, SIZE), 0)
     ImageDraw.Draw(panel).polygon([(0, 2050), (SIZE, 1500), (SIZE, SIZE), (0, SIZE)], fill=255)
-    garnet = _gradient(GARNET, (70, 6, 30))
+    garnet = _gradient(GARNET, GARNET_DARK)
     image = Image.composite(garnet, image, panel)
     edge = Image.new("L", (SIZE, SIZE), 0)
     ImageDraw.Draw(edge).polygon([(0, 2050), (SIZE, 1500), (SIZE, 1530), (0, 2080)], fill=255)
@@ -92,7 +94,7 @@ def gold_text(image, xy, text, fnt, anchor="mm"):
     image.paste(Image.new("RGB", image.size, (0, 0, 0)), (28, 46), shadow)
     top, bottom = box[1], box[3]
     ramp = Image.linear_gradient("L").resize((1, bottom - top)).resize((image.width, bottom - top))
-    stops = [(0.0, (255, 241, 190)), (0.45, (246, 202, 82)), (0.55, (222, 168, 44)), (1.0, (255, 214, 110))]
+    stops = [(0.0, (255, 232, 140)), (0.45, (237, 187, 0)), (0.55, (204, 152, 0)), (1.0, (246, 204, 60))]
     def color(t):
         for (a, ca), (b, cb) in zip(stops, stops[1:]):
             if t <= b:
@@ -117,6 +119,11 @@ def frame(image):
     """Marco fino dorado, como las tarjetas de las retransmisiones."""
     draw = ImageDraw.Draw(image)
     draw.rectangle((60, 60, SIZE - 60, SIZE - 60), outline=(200, 160, 60), width=8)
+
+
+def cap_height(fnt):
+    probe = ImageDraw.Draw(Image.new("L", (1, 1)))
+    return -probe.textbbox((0, 0), "H0", font=fnt, anchor="ls")[1]
 
 
 def shadowed_text(image, xy, text, fnt, fill, anchor="la", shadow=40):
@@ -164,10 +171,19 @@ def render(home, score, away, competition, kicker_date):
     image.paste(logo, (SIZE - margin - 470, 120), logo)
 
     if home:
-        shadowed_text(image, (margin, 640), short_name(home), fit(short_name(home), "BlackItalic", 560, width), WHITE)
         big = score.replace("-", "–") if score else "VS"
-        gold_text(image, (SIZE / 2, 1660), big, fit(big, "BlackItalic", 1080, width))
-        shadowed_text(image, (SIZE - margin, 2560), short_name(away), fit(short_name(away), "BlackItalic", 560, width), WHITE, anchor="rd")
+        home_font = fit(short_name(home), "BlackItalic", 560, width)
+        score_font = fit(big, "BlackItalic", 1080, width)
+        away_font = fit(short_name(away), "BlackItalic", 560, width)
+        # Se colocan por la altura de las mayúsculas (sin contar la cedilla de BARÇA), con
+        # el mismo hueco entre el equipo de arriba y el marcador que entre el marcador y el de abajo.
+        gap = 150
+        home_base = 560 + cap_height(home_font)
+        score_base = home_base + gap + cap_height(score_font)
+        away_base = score_base + gap + cap_height(away_font)
+        shadowed_text(image, (margin, home_base), short_name(home), home_font, WHITE, anchor="ls")
+        gold_text(image, (SIZE / 2, score_base), big, score_font, anchor="ms")
+        shadowed_text(image, (SIZE - margin, away_base), short_name(away), away_font, WHITE, anchor="rs")
     # Abajo: la marca y el resultado para el Barça.
     draw = ImageDraw.Draw(image)
     draw.text((margin, SIZE - 170), "PICKANDROLLTV  ·  PODCAST", font=font("SemiBold", 120), fill=WHITE, anchor="ld")
