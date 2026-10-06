@@ -158,25 +158,31 @@ def episode_from_vod(vod, audio_url, audio_bytes, trimmed_seconds, config):
     }
 
 
-def apply_extra_trims(episodes, config):
-    """Recorta a posteriori los episodios que lo piden en config.json ("recortes_extra": {vod: segundos}).
+def audio_seconds(path):
+    out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+                         check=True, capture_output=True, text=True).stdout
+    return int(float(out.strip()))
 
-    Para cuando no se encontró bien el inicio del directo: se baja el audio ya publicado,
-    se le quitan esos segundos del principio y se vuelve a subir en el mismo sitio.
+
+def apply_manual_trims(episodes, config):
+    """Vuelve a publicar, recortado a mano, un directo cuyo inicio no se detectó bien.
+
+    En config.json, "recortes_manuales": {vod: segundo del directo en que empieza}. Se
+    parte siempre del directo original de Twitch, así que repetirlo no recorta de más.
     """
     changed = False
     for episode in episodes:
-        seconds = int(config.get("recortes_extra", {}).get(episode.get("vod_id", ""), 0))
-        if not seconds or episode.get("recorte_extra") == seconds:
+        seconds = config.get("recortes_manuales", {}).get(episode.get("vod_id", ""))
+        if seconds is None or episode.get("recorte_manual") == seconds:
             continue
+        vod = {"id": episode["vod_id"], "url": f"https://www.twitch.tv/videos/{episode['vod_id']}"}
         with tempfile.TemporaryDirectory() as tmp:
-            audio = pathlib.Path(tmp) / episode["audio_url"].rsplit("/", 1)[1]
-            subprocess.run(["curl", "-sSfL", "-o", str(audio), episode["audio_url"]], check=True)
-            audio = trim_start(audio, seconds)
+            audio = trim_start(download_audio(vod, pathlib.Path(tmp)), int(seconds))
             upload_audio(f"twitch-{episode['vod_id']}", episode["title"], audio)
             episode["audio_bytes"] = audio.stat().st_size
-        episode["duration"] = max(episode["duration"] - seconds, 0)
-        episode["recorte_extra"] = seconds
+            episode["duration"] = audio_seconds(audio)
+        episode["recorte_manual"] = seconds
+        episode.pop("recorte_extra", None)
         changed = True
     return changed
 
@@ -262,7 +268,7 @@ def main():
 
     # El resultado suele publicarse un rato después del partido; se reintenta en cada pasada.
     try:
-        trimmed = apply_extra_trims(episodes, config)
+        trimmed = apply_manual_trims(episodes, config)
     except subprocess.CalledProcessError as error:
         print(f"No se pudo recortar de nuevo: {error}", file=sys.stderr)
         trimmed = False
