@@ -132,6 +132,9 @@ def upload_audio(tag, title, audio_path):
         cmd = ["gh", "release", "create", tag, str(audio_path), "--repo", repo,
                "--title", title, "--notes", "Audio del episodio del podcast."]
     subprocess.run(cmd, check=True, capture_output=True, text=True)
+    # Si un fallo de GitHub dejó la release como borrador, el audio no sería público.
+    subprocess.run(["gh", "release", "edit", tag, "--repo", repo, "--draft=false"],
+                   check=True, capture_output=True, text=True)
     return f"https://github.com/{repo}/releases/download/{tag}/{audio_path.name}"
 
 
@@ -153,6 +156,29 @@ def episode_from_vod(vod, audio_url, audio_bytes, trimmed_seconds, config):
         "audio_bytes": audio_bytes,
         "audio_type": "audio/mpeg",
     }
+
+
+def apply_extra_trims(episodes, config):
+    """Recorta a posteriori los episodios que lo piden en config.json ("recortes_extra": {vod: segundos}).
+
+    Para cuando no se encontró bien el inicio del directo: se baja el audio ya publicado,
+    se le quitan esos segundos del principio y se vuelve a subir en el mismo sitio.
+    """
+    changed = False
+    for episode in episodes:
+        seconds = int(config.get("recortes_extra", {}).get(episode.get("vod_id", ""), 0))
+        if not seconds or episode.get("recorte_extra") == seconds:
+            continue
+        with tempfile.TemporaryDirectory() as tmp:
+            audio = pathlib.Path(tmp) / episode["audio_url"].rsplit("/", 1)[1]
+            subprocess.run(["curl", "-sSfL", "-o", str(audio), episode["audio_url"]], check=True)
+            audio = trim_start(audio, seconds)
+            upload_audio(f"twitch-{episode['vod_id']}", episode["title"], audio)
+            episode["audio_bytes"] = audio.stat().st_size
+        episode["duration"] = max(episode["duration"] - seconds, 0)
+        episode["recorte_extra"] = seconds
+        changed = True
+    return changed
 
 
 def add_scores(episodes, now):
@@ -234,7 +260,12 @@ def main():
             subprocess.run([str(ROOT / "guardar.sh")], cwd=ROOT, check=False)
 
     # El resultado suele publicarse un rato después del partido; se reintenta en cada pasada.
-    if add_scores(episodes, now) | bool(add_covers(episodes, FEED_FILE.parent, covers_url)):
+    try:
+        trimmed = apply_extra_trims(episodes, config)
+    except subprocess.CalledProcessError as error:
+        print(f"No se pudo recortar de nuevo: {error}", file=sys.stderr)
+        trimmed = False
+    if trimmed | add_scores(episodes, now) | bool(add_covers(episodes, FEED_FILE.parent, covers_url)):
         save_json(EPISODES_FILE, episodes)
     write_feed(config, episodes, FEED_FILE)
     print(f"{len(pending) - failures} episodio(s) nuevo(s); {len(episodes)} en total")

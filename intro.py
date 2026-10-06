@@ -17,6 +17,9 @@ GREETING = re.compile(r"\bbuen[oa]s? (tardes|dias|noches)\b")
 # Whisper escribe "PickandRoll" de mil maneras ("Peak and Road"...), así que basta con
 # "bienvenidos": la cuenta atrás es música e himno, y ahí no se dice.
 WELCOME = re.compile(r"\bbienvenid[oa]s?\b|magia del (baloncesto|palau)")
+# La cuenta atrás acaba siempre con el himno ("...somos centenarios, un escudo, un clavel").
+# Si no hay "bienvenidos", el directo empieza con lo primero que se dice después.
+ANTHEM_END = re.compile(r"\bun escu(do|t)\b|\bclav")
 
 
 def normalize(text):
@@ -26,14 +29,21 @@ def normalize(text):
 
 
 def find_greeting(segments):
-    """Recibe (inicio, fin, texto) en orden y devuelve el segundo donde empieza el saludo.
+    """Recibe (inicio, fin, texto) en orden y devuelve el segundo donde empieza el directo.
 
     Vale el primer "bienvenidos a PickandRoll" / "magia del baloncesto"; si justo antes
-    (menos de 20 s) hay un "buenas tardes/días/noches", se corta desde ese saludo.
+    (menos de 20 s) hay un "buenas tardes/días/noches", se corta desde ese saludo. Si no
+    aparece, se corta en lo primero que se dice tras el himno de la cuenta atrás.
     """
     greeting_start = None
+    after_anthem = None
+    anthem_ended = False
     for start, _end, text in segments:
         text = normalize(text)
+        if anthem_ended and after_anthem is None and not ANTHEM_END.search(text):
+            after_anthem = start
+        if ANTHEM_END.search(text):
+            anthem_ended, after_anthem = True, None
         if GREETING.search(text) and greeting_start is None:
             greeting_start = start
         if WELCOME.search(text):
@@ -42,7 +52,7 @@ def find_greeting(segments):
             return start
         if greeting_start is not None and start - greeting_start > 20:
             greeting_start = None
-    return None
+    return after_anthem
 
 
 def transcribe_start(audio_path, model_size="small"):
