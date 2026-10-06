@@ -64,6 +64,9 @@ def recent_vods(channel):
         "--flat-playlist", "--playlist-end", str(RECENT_VODS), "-j",
         f"https://www.twitch.tv/{channel}/videos?filter=archives&sort=time",
     )
+    if not listing:
+        # Twitch a veces devuelve la lista vacía; mejor fallar y reintentar que no ver nada.
+        raise RuntimeError(f"Twitch no devolvió ningún directo guardado de {channel}")
     vods = []
     for entry in listing:
         info = yt_dlp_json("--skip-download", "-j", f"https://www.twitch.tv/videos/{entry['id'].lstrip('v')}")[0]
@@ -157,7 +160,13 @@ def main():
     min_seconds = int(config.get("min_stream_minutes", 20)) * 60
     now = datetime.datetime.now(datetime.timezone.utc)
 
-    vods = recent_vods(config["twitch_channel"])
+    try:
+        vods = recent_vods(config["twitch_channel"])
+    except (RuntimeError, subprocess.CalledProcessError) as error:
+        detail = getattr(error, "stderr", "") or ""
+        ERROR_FILE.write_text(f"No se pudo leer Twitch: {error}\n{detail[-2000:]}\n", encoding="utf-8")
+        print(f"No se pudo leer Twitch: {error}", file=sys.stderr)
+        return 1
     write_status(vods)
     pending = []
     for vod in vods:
