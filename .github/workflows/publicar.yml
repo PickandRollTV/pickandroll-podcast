@@ -26,6 +26,10 @@ jobs:
           python-version: "3.12"
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - run: pip install -r requirements.txt
+      # yt-dlp necesita un intérprete de JavaScript para resolver los vídeos de YouTube.
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
       # El modelo de voz (Whisper) se descarga una vez y se reutiliza en cada pasada.
       - uses: actions/cache@v4
         with:
