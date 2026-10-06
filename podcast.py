@@ -221,7 +221,9 @@ def main():
             # Se reintenta solo en la siguiente ejecución, porque no queda apuntado en episodes.json.
             detail = (error.stderr or "").strip()[-2000:]
             print(f"  Falló ({error}); se reintentará en la próxima pasada\n{detail}", file=sys.stderr)
-            ERROR_FILE.write_text(f"{video['id']} {title}\n{error}\n{detail}\n", encoding="utf-8")
+            cookies = pathlib.Path(os.environ.get("YT_COOKIES_FILE", ""))
+            cookies_info = f"cookies: {cookies.stat().st_size} bytes" if cookies.is_file() else "cookies: no hay"
+            ERROR_FILE.write_text(f"{video['id']} {title}\n{cookies_info}\n{error}\n{detail}\n", encoding="utf-8")
             failures += 1
             continue
         episodes.append(episode_from_video(video, url, size, skip))

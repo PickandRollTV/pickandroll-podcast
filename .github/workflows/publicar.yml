@@ -32,8 +32,8 @@ jobs:
           path: ~/.cache/huggingface
           key: whisper-small
       - name: Guardar cookies de YouTube (opcional)
-        if: env.YT_COOKIES != ''
-        run: printf '%s' "$YT_COOKIES" > "$RUNNER_TEMP/cookies.txt"
+        run: |
+          if [ -n "$YT_COOKIES" ]; then printf '%s\n' "$YT_COOKIES" > "$RUNNER_TEMP/cookies.txt"; fi
       - name: Buscar directos terminados y publicarlos
         env:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
