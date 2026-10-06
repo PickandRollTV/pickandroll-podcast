@@ -1,4 +1,2 @@
-2889896671 🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3
-Command '['gh', 'release', 'create', 'twitch-2889896671', '/tmp/tmpxe9dt3sx/v2889896671.mp3', '--repo', 'PickandRollTV/pickandroll-podcast', '--title', '🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3', '--notes', 'Audio del episodio del podcast.']' returned non-zero exit status 1.
-HTTP 502: Server Error (https://api.github.com/repos/PickandRollTV/pickandroll-podcast/releases/405084563)
-cleaning up draft failed: HTTP 502: Server Error (https://api.github.com/repos/PickandRollTV/pickandroll-podcast/releases/405084563)
+No se pudo leer Twitch: Twitch no devolvió ningún directo guardado de pickandrolltv
+
