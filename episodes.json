@@ -120,23 +120,6 @@
     "cover_key": "6c9b47cf"
   },
   {
-    "guid": "twitch:2891818597",
-    "source": "twitch",
-    "vod_id": "2891818597",
-    "title": "🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2",
-    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2891818597\nCanal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw",
-    "published": "2026-10-04T16:17:07+00:00",
-    "duration": 15387,
-    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/1e2569de957f8c875fbb_pickandrolltv_317936944483_1791130620//thumb/thumb0-0x0.jpg",
-    "link": "https://www.twitch.tv/videos/2891818597",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597.mp3",
-    "audio_bytes": 184642420,
-    "audio_type": "audio/mpeg",
-    "recorte": "Saludo en 5:21: 3:25 Somos campos, somos centenarios. | 3:36 Un escudo, un clav. | 5:21 ¡Bienvenidos a la maqueda para nuestro video!",
-    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2891818597-9e6b54a9.jpg",
-    "cover_key": "9e6b54a9"
-  },
-  {
     "guid": "twitch:2878537661",
     "source": "twitch",
     "vod_id": "2878537661",
@@ -228,14 +211,31 @@
     "title": "🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3",
     "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2889896671\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
     "published": "2026-10-02T16:37:35+00:00",
-    "duration": 13044,
+    "duration": 13028,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/0bbaa3653fe8dbc2ca8e_pickandrolltv_317917527651_1790959049//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2889896671",
     "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2889896671/v2889896671.mp3",
-    "audio_bytes": 156531316,
+    "audio_bytes": 156337492,
     "audio_type": "audio/mpeg",
-    "recorte": "Saludo en 12:56: 14:04 adiado querido es parte eso es parte de el show business tú sabes exacto aquí esto es otra cosa | 14:16 decíamos la jornada ayer japo el 102 98 real madrid | 14:24 camisanz camisanz real madrid 0 3 0 3 van ahora mismo la calificación último | 14:35 lo que sí que la verdad japo el ayer se ha ganado de 20 y el tercer cuarto pecho fría total que se | 14:44 puse en madrid en el partido vaya y la fima la fima no en el último cuarto menos mal que arreglaron | 14:52 un poco las cosas y ganaron el que tenía que ganar vaya dice miquel miquel terror dice bueno",
+    "recorte": "Saludo en 13:12: 14:33 La calificación última, sé que te decidió. | 14:36 Lo que sí que, la verdad, Japuel ayer ganaba de 20 y tercer cuarto | 14:42 pecho fría total que se puse en Madrid en el partido. | 14:47 Y lástima no. En el último cuarto menos mal que arreglaron un pocadas cosas | 14:53 y ganaron el que tenía que ganar. | 14:55 Dice Miguel Terol, dice Bono Vesprá y Forza Barça que no era bueno.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2889896671-905fe7db.jpg",
     "cover_key": "905fe7db"
+  },
+  {
+    "guid": "twitch:2891818597",
+    "source": "twitch",
+    "vod_id": "2891818597",
+    "title": "🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2891818597\nCanal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw",
+    "published": "2026-10-04T16:17:07+00:00",
+    "duration": 15387,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/1e2569de957f8c875fbb_pickandrolltv_317936944483_1791130620//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2891818597",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597.mp3",
+    "audio_bytes": 184642420,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 5:21: 3:25 Somos campos, somos centenarios. | 3:36 Un escudo, un clav. | 5:21 ¡Bienvenidos a la maqueda para nuestro video!",
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2891818597-9e6b54a9.jpg",
+    "cover_key": "9e6b54a9"
   }
 ]
