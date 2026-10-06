@@ -26,6 +26,7 @@ import urllib.parse
 import urllib.request
 
 from feed import write_feed
+from intro import intro_offset
 
 ROOT = pathlib.Path(__file__).resolve().parent
 CONFIG_FILE = ROOT / "config.json"
@@ -168,15 +169,17 @@ def main():
             continue
         pending.append(video)
 
-    # Segundos de cuenta atrás que se recortan al principio de cada directo.
-    skip = int(config.get("countdown_seconds", 0))
+    # Si no se encuentra el saludo de bienvenida, se recortan estos segundos.
+    fallback_seconds = int(config.get("countdown_seconds", 0))
     failures = 0
     for video in sorted(pending, key=lambda v: v["liveStreamingDetails"]["actualEndTime"]):
         title = video["snippet"]["title"]
         print(f"Publicando: {title} ({video['id']})")
         try:
             with tempfile.TemporaryDirectory() as tmp:
-                audio = trim_start(download_audio(video["id"], pathlib.Path(tmp)), skip)
+                audio = download_audio(video["id"], pathlib.Path(tmp))
+                skip = intro_offset(audio, fallback_seconds)
+                audio = trim_start(audio, skip)
                 size = audio.stat().st_size
                 url = upload_audio(f"ep-{video['id']}", title, audio)
         except subprocess.CalledProcessError as error:
