@@ -32,6 +32,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 CONFIG_FILE = ROOT / "config.json"
 EPISODES_FILE = ROOT / "episodes.json"
 FEED_FILE = ROOT / "docs" / "feed.xml"
+STATUS_FILE = ROOT / "ultimos_videos.json"
 YT_API = "https://www.googleapis.com/youtube/v3/"
 
 # Espera tras el final del directo antes de descargarlo, para que YouTube termine de procesarlo.
@@ -66,19 +67,31 @@ def youtube(endpoint, **params):
         return json.load(response)
 
 
-def finished_streams(channel_id):
-    """Directos públicos ya terminados entre los últimos vídeos del canal (cuesta 2 unidades de cuota)."""
+def recent_videos(channel_id):
+    """Últimos 15 vídeos del canal con sus datos de directo (cuesta 2 unidades de cuota)."""
     uploads_playlist = "UU" + channel_id[2:]
     items = youtube("playlistItems", part="contentDetails", playlistId=uploads_playlist, maxResults=15)["items"]
     ids = [item["contentDetails"]["videoId"] for item in items]
     if not ids:
         return []
-    videos = youtube("videos", part="snippet,contentDetails,liveStreamingDetails,status", id=",".join(ids))["items"]
-    return [
-        v for v in videos
-        if v.get("liveStreamingDetails", {}).get("actualEndTime")
-        and v["status"]["privacyStatus"] == "public"
-    ]
+    return youtube("videos", part="snippet,contentDetails,liveStreamingDetails,status", id=",".join(ids))["items"]
+
+
+def is_finished_stream(video):
+    return bool(video.get("liveStreamingDetails", {}).get("actualEndTime")) and video["status"]["privacyStatus"] == "public"
+
+
+def write_status(videos):
+    """Deja en ultimos_videos.json lo que vio la última pasada, para revisar por qué se publicó o no algo."""
+    save_json(STATUS_FILE, [
+        {
+            "id": v["id"],
+            "titulo": v["snippet"]["title"],
+            "privacidad": v["status"]["privacyStatus"],
+            "fin_del_directo": v.get("liveStreamingDetails", {}).get("actualEndTime"),
+        }
+        for v in videos
+    ])
 
 
 def best_thumbnail(snippet):
@@ -160,7 +173,9 @@ def main():
     now = datetime.datetime.now(datetime.timezone.utc)
 
     pending = []
-    for video in finished_streams(config["youtube_channel_id"]):
+    videos = recent_videos(config["youtube_channel_id"])
+    write_status(videos)
+    for video in filter(is_finished_stream, videos):
         ended = parse_time(video["liveStreamingDetails"]["actualEndTime"])
         if video["id"] in known or ended < publish_after:
             continue
