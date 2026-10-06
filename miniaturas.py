@@ -53,62 +53,20 @@ def split_match(title):
     return home, (None if score == "vs" else score), away, rest
 
 
-def short_name(team):
-    """En pequeño cuenta cada letra: "Valencia Basket" -> "VALENCIA", "Dubai Basketball" -> "DUBAI"."""
-    name = re.sub(r"\s+(basket|basketball|badalona)$", "", team.strip(), flags=re.I)
-    return name.upper()
-
-
-def _height(draw, text, font):
-    left, top, right, bottom = draw.textbbox((0, 0), text, font=font)
-    return bottom - top
+def competition_label(rest):
+    """"Liga Endesa Jornada 2" -> "Liga Endesa · Jornada 2"; con subtítulo, solo la competición."""
+    label = rest.split(" | ")[-1] if rest else ""
+    return re.sub(r"\s+(Jornada \d+)$", r" · \1", label)
 
 
 def render(title, published):
-    """Pensada para verse en pequeño: Spotify la enseña a unos 120 píxeles en la lista."""
+    from diseno import render as draw_cover
+
     home, score, away, rest = split_match(title)
-    image = Image.new("RGB", (SIZE, SIZE), BLUE)
-    draw = ImageDraw.Draw(image)
-    width = SIZE - 240
-
-    # Franja inferior con la competición, en el azul oscuro y el amarillo del logo.
-    band = 2430
-    draw.rectangle((0, band, SIZE, SIZE), fill=NAVY)
-    draw.rectangle((0, band - 30, SIZE, band), fill=YELLOW)
-    # Solo la competición: un subtítulo largo no se leería en pequeño.
-    bottom = rest.split(" | ")[-1].upper() if home and rest else ""
-    bottom = bottom or f"{published.day} {MONTHS[published.month - 1]} {published.year}"
-    font = _fit(draw, bottom, "ExtraBold", 260, width)
-    _center(draw, band + (SIZE - band - _height(draw, bottom, font)) / 2, bottom, font, WHITE)
-
-    logo = Image.open(LOGO).convert("RGBA").resize((640, 640), Image.LANCZOS)
-    image.paste(logo, ((SIZE - 640) // 2, 70), logo)
-
-    if home:
-        middle = score.replace("-", " - ") if score else "VS"
-        lines = [
-            (short_name(home), _fit(draw, short_name(home), "ExtraBold", 470, width), WHITE),
-            (middle, _fit(draw, middle, "ExtraBold", 1000 if score else 600, width), YELLOW),
-            (short_name(away), _fit(draw, short_name(away), "ExtraBold", 470, width), WHITE),
-        ]
-    else:
-        words, lines, line = title.upper().split(), [], ""
-        font = _font("ExtraBold", 300)
-        for word in words:
-            if line and draw.textlength(f"{line} {word}", font=font) > width:
-                lines.append((line, font, WHITE))
-                line = word
-            else:
-                line = f"{line} {word}".strip()
-        lines = (lines + [(line, font, WHITE)])[:4]
-
-    # Centrado vertical en el hueco entre el logo y la franja.
-    gap = 70
-    total = sum(_height(draw, text, font) for text, font, _ in lines) + gap * (len(lines) - 1)
-    y = 740 + (band - 60 - 740 - total) / 2
-    for text, font, color in lines:
-        y = _center(draw, y, text, font, color) + gap
-    return image
+    if not home:
+        # Sin partido reconocible: el título hace de competición y no hay marcador.
+        return draw_cover(None, None, None, title, published)
+    return draw_cover(home, score, away, competition_label(rest), published)
 
 
 def add_covers(episodes, docs_dir, base_url, title_of):
@@ -120,7 +78,7 @@ def add_covers(episodes, docs_dir, base_url, title_of):
     made = 0
     for episode in episodes:
         title = title_of(episode)
-        key = hashlib.sha1(f"v2|{title}".encode()).hexdigest()[:8]
+        key = hashlib.sha1(f"v3|{title}".encode()).hexdigest()[:8]
         if episode.get("cover_key") == key:
             continue
         slug = re.sub(r"[^a-z0-9]+", "-", episode["guid"].lower()).strip("-")
