@@ -11,7 +11,7 @@ jobs:
           set +e
           {
             date -u
-            for u in https://pickandrolltv.github.io/pickandroll-podcast/feed.xml \
+            for u in https://pickandrolltv.github.io/pickandroll-podcast/feed.xml https://pickandrolltv.github.io/pickandroll-podcast/docs/feed.xml \
                      https://raw.githubusercontent.com/PickandRollTV/pickandroll-podcast/main/docs/feed.xml; do
               echo "$u -> $(curl -s -o /tmp/f -w '%{http_code} %{content_type}' "$u") items=$(grep -c '<item>' /tmp/f)"
             done
