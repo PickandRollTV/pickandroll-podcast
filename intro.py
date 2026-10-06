@@ -6,7 +6,6 @@ Whisper y buscamos ese saludo.
 """
 import re
 import subprocess
-import tempfile
 import unicodedata
 
 # Minutos del principio que se escuchan como máximo buscando el saludo.
@@ -46,19 +45,21 @@ def find_greeting(segments):
 
 def transcribe_start(audio_path, model_size="small"):
     """Genera (inicio, fin, texto) de los primeros minutos; se para en cuanto se deja de leer."""
+    import numpy
     from faster_whisper import WhisperModel
 
-    with tempfile.TemporaryDirectory() as tmp:
-        clip = f"{tmp}/inicio.wav"
-        subprocess.run(
-            ["ffmpeg", "-loglevel", "error", "-y", "-i", str(audio_path), "-t", str(SEARCH_SECONDS),
-             "-ac", "1", "-ar", "16000", clip],
-            check=True,
-        )
-        model = WhisperModel(model_size, device="cpu", compute_type="int8")
-        segments, _info = model.transcribe(clip, language="es", vad_filter=True, beam_size=1)
-        for segment in segments:
-            yield segment.start, segment.end, segment.text
+    # Decodificamos con ffmpeg a muestras de 16 kHz en lugar de dejar que lo haga
+    # faster-whisper con PyAV, que falla con algunas versiones de PyAV.
+    pcm = subprocess.run(
+        ["ffmpeg", "-loglevel", "error", "-i", str(audio_path), "-t", str(SEARCH_SECONDS),
+         "-ac", "1", "-ar", "16000", "-f", "f32le", "-"],
+        check=True, capture_output=True,
+    ).stdout
+    samples = numpy.frombuffer(pcm, dtype=numpy.float32)
+    model = WhisperModel(model_size, device="cpu", compute_type="int8")
+    segments, _info = model.transcribe(samples, language="es", vad_filter=True, beam_size=1)
+    for segment in segments:
+        yield segment.start, segment.end, segment.text
 
 
 def intro_offset(audio_path, fallback_seconds=0):
