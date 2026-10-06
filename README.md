@@ -34,6 +34,9 @@ el contenido es el mismo y así no hay episodios duplicados.
    usa la opción de mover el podcast a otro proveedor y pon la URL del feed de arriba.
    Spotify conserva seguidores y episodios.
 
+Los primeros `countdown_seconds` segundos de cada directo (la cuenta atrás) se
+recortan del audio; cámbialo en `config.json` si la cuenta atrás dura otra cosa.
+
 Solo se publican directos que terminen después de `publish_streams_after` en
 `config.json`, para no republicar los que ya subiste a mano.
 

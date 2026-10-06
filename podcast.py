@@ -104,6 +104,20 @@ def download_audio(video_id, workdir):
     return workdir / f"{video_id}.mp3"
 
 
+def trim_start(audio_path, seconds):
+    """Quita los primeros segundos (la cuenta atrás) sin recodificar el audio."""
+    if seconds <= 0:
+        return audio_path
+    trimmed = audio_path.with_name(audio_path.stem + "-podcast.mp3")
+    subprocess.run(
+        ["ffmpeg", "-loglevel", "error", "-y", "-ss", str(seconds), "-i", str(audio_path),
+         "-c", "copy", str(trimmed)],
+        check=True,
+    )
+    audio_path.unlink()
+    return trimmed.rename(audio_path)
+
+
 def upload_audio(tag, title, audio_path):
     """Sube el MP3 como release de GitHub y devuelve su URL pública de descarga."""
     repo = os.environ["GITHUB_REPOSITORY"]
@@ -115,7 +129,7 @@ def upload_audio(tag, title, audio_path):
     return f"https://github.com/{repo}/releases/download/{tag}/{audio_path.name}"
 
 
-def episode_from_video(video, audio_url, audio_bytes):
+def episode_from_video(video, audio_url, audio_bytes, trimmed_seconds=0):
     snippet = video["snippet"]
     video_url = f"https://www.youtube.com/watch?v={video['id']}"
     return {
@@ -125,7 +139,7 @@ def episode_from_video(video, audio_url, audio_bytes):
         "title": snippet["title"],
         "description": f"{snippet.get('description', '').strip()}\n\nDirecto completo en vídeo: {video_url}".strip(),
         "published": video["liveStreamingDetails"].get("actualStartTime") or snippet["publishedAt"],
-        "duration": iso_duration_to_seconds(video["contentDetails"].get("duration")),
+        "duration": max(iso_duration_to_seconds(video["contentDetails"].get("duration")) - trimmed_seconds, 0),
         "image": best_thumbnail(snippet),
         "link": video_url,
         "audio_url": audio_url,
@@ -154,13 +168,15 @@ def main():
             continue
         pending.append(video)
 
+    # Segundos de cuenta atrás que se recortan al principio de cada directo.
+    skip = int(config.get("countdown_seconds", 0))
     failures = 0
     for video in sorted(pending, key=lambda v: v["liveStreamingDetails"]["actualEndTime"]):
         title = video["snippet"]["title"]
         print(f"Publicando: {title} ({video['id']})")
         try:
             with tempfile.TemporaryDirectory() as tmp:
-                audio = download_audio(video["id"], pathlib.Path(tmp))
+                audio = trim_start(download_audio(video["id"], pathlib.Path(tmp)), skip)
                 size = audio.stat().st_size
                 url = upload_audio(f"ep-{video['id']}", title, audio)
         except subprocess.CalledProcessError as error:
@@ -168,7 +184,7 @@ def main():
             print(f"  Falló ({error}); se reintentará en la próxima pasada", file=sys.stderr)
             failures += 1
             continue
-        episodes.append(episode_from_video(video, url, size))
+        episodes.append(episode_from_video(video, url, size, skip))
         # Guardamos tras cada episodio para no volver a subir uno ya publicado si algo falla después.
         save_json(EPISODES_FILE, episodes)
         write_feed(config, episodes, FEED_FILE)

@@ -1,5 +1,6 @@
 {
   "youtube_channel_id": "UCxxxxxxxxxxxxxxxxxxxxxx",
+  "countdown_seconds": 0,
   "publish_streams_after": "2026-10-06T00:00:00Z",
   "feed_url": "https://pickandrolltv.github.io/pickandroll-podcast/feed.xml",
   "show": {
