@@ -66,11 +66,25 @@ def clean_title(title):
     return " | ".join(unique) or title.strip()
 
 
+def with_score(title, score):
+    """"Valencia Basket vs Barça | ..." con "86-87" -> "Valencia Basket 86-87 Barça | ..."."""
+    if not score:
+        return title
+    match, sep, rest = title.partition(" | ")
+    if " vs " not in match:
+        return title
+    return match.replace(" vs ", f" {score} ", 1) + sep + rest
+
+
+def episode_title(episode, config):
+    score = config.get("resultados", {}).get(episode.get("vod_id", "")) or episode.get("resultado")
+    return with_score(clean_title(episode["title"]), score)
+
+
 def twitch_description(episode, config):
     """Descripción de un directo publicado desde Twitch (allí no hay texto que copiar)."""
     show = config["show"]
     lines = [
-        f"<p><strong>{html.escape(clean_title(episode['title']))}</strong></p>",
         f"<p>{html.escape(show['episode_blurb'])}</p>" if show.get("episode_blurb") else "",
     ]
     # Twitch borra los directos guardados a los pocos días, así que enlazamos a los canales,

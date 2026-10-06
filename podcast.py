@@ -26,6 +26,8 @@ import tempfile
 from feed import write_feed
 from intro import intro_offset
 from miniaturas import add_covers
+from presentacion import clean_title
+from resultados import find_score
 
 ROOT = pathlib.Path(__file__).resolve().parent
 CONFIG_FILE = ROOT / "config.json"
@@ -153,6 +155,24 @@ def episode_from_vod(vod, audio_url, audio_bytes, trimmed_seconds, config):
     }
 
 
+def add_scores(episodes, now):
+    """Busca el resultado de los directos recientes que aún no lo tienen. Devuelve si cambió algo."""
+    changed = False
+    for episode in episodes:
+        start = parse_time(episode["published"])
+        if episode.get("source") != "twitch" or episode.get("resultado") or now - start > datetime.timedelta(days=30):
+            continue
+        try:
+            score = find_score(clean_title(episode["title"]).split(" | ")[0], start)
+        except Exception as error:  # Sin resultado el título sale igual, sin marcador.
+            print(f"No se pudo buscar el resultado de {episode['title']}: {error}")
+            continue
+        if score:
+            episode["resultado"] = score
+            changed = True
+    return changed
+
+
 def main():
     config = load_json(CONFIG_FILE, {})
     episodes = load_json(EPISODES_FILE, [])
@@ -213,7 +233,8 @@ def main():
         if os.environ.get("GITHUB_ACTIONS"):
             subprocess.run([str(ROOT / "guardar.sh")], cwd=ROOT, check=False)
 
-    if add_covers(episodes, FEED_FILE.parent, covers_url):
+    # El resultado suele publicarse un rato después del partido; se reintenta en cada pasada.
+    if add_scores(episodes, now) | bool(add_covers(episodes, FEED_FILE.parent, covers_url)):
         save_json(EPISODES_FILE, episodes)
     write_feed(config, episodes, FEED_FILE)
     print(f"{len(pending) - failures} episodio(s) nuevo(s); {len(episodes)} en total")

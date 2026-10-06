@@ -3,7 +3,7 @@ import datetime
 import email.utils
 import xml.etree.ElementTree as ET
 
-from presentacion import clean_title, episode_description
+from presentacion import episode_description, episode_title
 
 ITUNES = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 ATOM = "http://www.w3.org/2005/Atom"
@@ -62,7 +62,7 @@ def write_feed(config, episodes, path):
     numbers = {e["guid"]: n for n, e in enumerate(sorted(episodes, key=lambda e: e["published"]), 1)}
     for episode in sorted(episodes, key=lambda e: e["published"], reverse=True):
         item = _sub(channel, "item")
-        title = clean_title(episode["title"])
+        title = episode_title(episode, config)
         description = episode_description(episode, config)
         _sub(item, "title", title)
         _sub(item, f"{{{ITUNES}}}title", title)

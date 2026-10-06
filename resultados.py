@@ -54,7 +54,6 @@ def find_score(match, start):
     words = rival_words(match)
     if not words:
         return None
-    day = start.strftime("%Y-%m-%d")
     after = (start - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
     before = (start + datetime.timedelta(days=2)).strftime("%Y-%m-%d")
     votes = collections.Counter()
