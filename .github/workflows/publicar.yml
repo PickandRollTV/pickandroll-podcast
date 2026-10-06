@@ -46,13 +46,5 @@ jobs:
           git config user.name "podcast-bot"
           git config user.email "podcast-bot@users.noreply.github.com"
           git add episodes.json docs/
-          git diff --cached --quiet || (git commit -m "Nuevo episodio del podcast" && git push)
+          git diff --cached --quiet || (git commit -m "Actualizar el podcast" && git push)
 
-  # GitHub desactiva los cron tras 60 días sin commits; este paso lo evita.
-  mantener-activo:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gautamkrishnar/keepalive-workflow@v2
