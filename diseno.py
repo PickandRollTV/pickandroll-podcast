@@ -53,8 +53,8 @@ def background():
     # Rayas diagonales finas, muy suaves.
     stripes = Image.new("L", (SIZE, SIZE), 0)
     draw = ImageDraw.Draw(stripes)
-    for x in range(-SIZE, SIZE * 2, 60):
-        draw.line([(x, 0), (x + SIZE, SIZE)], fill=18, width=14)
+    for x in range(-SIZE, SIZE * 2, 34):
+        draw.line([(x, 0), (x + SIZE, SIZE)], fill=9, width=6)
     image = Image.composite(Image.new("RGB", (SIZE, SIZE), WHITE), image, stripes)
 
     # Logo gigante como marca de agua, cortado por la derecha.
@@ -69,9 +69,54 @@ def background():
     glow = glow.filter(ImageFilter.GaussianBlur(400))
     image = Image.composite(Image.new("RGB", (SIZE, SIZE), (120, 160, 255)), image, glow)
     random.seed(7)
-    noise = Image.effect_noise((SIZE, SIZE), 22).convert("RGB")
-    image = Image.blend(image, ImageChops.overlay(image, noise), 0.25)
+    noise = Image.effect_noise((SIZE, SIZE), 14).convert("RGB")
+    image = Image.blend(image, ImageChops.overlay(image, noise), 0.12)
+    # Barrido de luz en diagonal y viñeta suave en los bordes: acabado de cartel de televisión.
+    sweep = Image.new("L", (SIZE, SIZE), 0)
+    ImageDraw.Draw(sweep).polygon([(700, 0), (1500, 0), (300, SIZE), (-500, SIZE)], fill=34)
+    sweep = sweep.filter(ImageFilter.GaussianBlur(120))
+    image = Image.composite(Image.new("RGB", (SIZE, SIZE), WHITE), image, sweep)
+    vignette = Image.new("L", (SIZE, SIZE), 255)
+    ImageDraw.Draw(vignette).ellipse((-500, -500, SIZE + 500, SIZE + 500), fill=0)
+    vignette = vignette.filter(ImageFilter.GaussianBlur(300)).point(lambda v: v * 0.55)
+    image = Image.composite(Image.new("RGB", (SIZE, SIZE), (0, 0, 0)), image, vignette)
     return image
+
+
+def gold_text(image, xy, text, fnt, anchor="mm"):
+    """Texto dorado con degradado metálico, filo claro y sombra profunda."""
+    mask = Image.new("L", image.size, 0)
+    ImageDraw.Draw(mask).text(xy, text, font=fnt, fill=255, anchor=anchor)
+    box = mask.getbbox()
+    shadow = mask.filter(ImageFilter.GaussianBlur(45)).point(lambda v: v * 0.75)
+    image.paste(Image.new("RGB", image.size, (0, 0, 0)), (28, 46), shadow)
+    top, bottom = box[1], box[3]
+    ramp = Image.linear_gradient("L").resize((1, bottom - top)).resize((image.width, bottom - top))
+    stops = [(0.0, (255, 241, 190)), (0.45, (246, 202, 82)), (0.55, (222, 168, 44)), (1.0, (255, 214, 110))]
+    def color(t):
+        for (a, ca), (b, cb) in zip(stops, stops[1:]):
+            if t <= b:
+                k = (t - a) / (b - a)
+                return tuple(int(ca[i] + (cb[i] - ca[i]) * k) for i in range(3))
+        return stops[-1][1]
+    lut = [color(v / 255) for v in range(256)]
+    gradient = Image.merge("RGB", [ramp.point([c[i] for c in lut]) for i in range(3)])
+    fill = Image.new("RGB", image.size, (0, 0, 0))
+    fill.paste(gradient, (0, top))
+    # Filo fino más oscuro alrededor de las cifras para que recorten sobre el fondo.
+    edge = mask.filter(ImageFilter.MaxFilter(9))
+    image.paste(Image.new("RGB", image.size, (120, 80, 10)), (0, 0), edge)
+    image.paste(fill, (0, 0), mask)
+    # Brillo en la mitad superior de las cifras.
+    gloss = Image.new("L", image.size, 0)
+    ImageDraw.Draw(gloss).rectangle((0, top, image.width, top + (bottom - top) * 0.42), fill=60)
+    image.paste(Image.new("RGB", image.size, WHITE), (0, 0), ImageChops.multiply(gloss, mask))
+
+
+def frame(image):
+    """Marco fino dorado, como las tarjetas de las retransmisiones."""
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((60, 60, SIZE - 60, SIZE - 60), outline=(200, 160, 60), width=8)
 
 
 def shadowed_text(image, xy, text, fnt, fill, anchor="la", shadow=40):
@@ -121,7 +166,7 @@ def render(home, score, away, competition, kicker_date):
     if home:
         shadowed_text(image, (margin, 640), short_name(home), fit(short_name(home), "BlackItalic", 560, width), WHITE)
         big = score.replace("-", "–") if score else "VS"
-        shadowed_text(image, (SIZE / 2, 1660), big, fit(big, "BlackItalic", 1080, width), YELLOW, anchor="mm", shadow=60)
+        gold_text(image, (SIZE / 2, 1660), big, fit(big, "BlackItalic", 1080, width))
         shadowed_text(image, (SIZE - margin, 2560), short_name(away), fit(short_name(away), "BlackItalic", 560, width), WHITE, anchor="rd")
     # Abajo: la marca y el resultado para el Barça.
     draw = ImageDraw.Draw(image)
@@ -131,4 +176,6 @@ def render(home, score, away, competition, kicker_date):
         fnt = font("Bold", 120)
         w = draw.textlength(result, font=fnt) + 160
         tag(image, SIZE - margin - w - 40, SIZE - 330, result, fnt, YELLOW if result == "VICTORIA" else WHITE, NAVY)
-    return image
+    frame(image)
+    # Nitidez final, para que se vea limpia también en pantallas grandes.
+    return image.filter(ImageFilter.UnsharpMask(radius=2, percent=80, threshold=2))

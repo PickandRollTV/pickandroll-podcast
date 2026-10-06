@@ -78,14 +78,14 @@ def add_covers(episodes, docs_dir, base_url, title_of):
     made = 0
     for episode in episodes:
         title = title_of(episode)
-        key = hashlib.sha1(f"v3|{title}".encode()).hexdigest()[:8]
+        key = hashlib.sha1(f"v4|{title}".encode()).hexdigest()[:8]
         if episode.get("cover_key") == key:
             continue
         slug = re.sub(r"[^a-z0-9]+", "-", episode["guid"].lower()).strip("-")
         published = datetime.datetime.fromisoformat(episode["published"].replace("Z", "+00:00"))
         # El nombre cambia con el diseño: así Spotify no se queda con la imagen vieja.
         name = f"{slug}-{key}.jpg"
-        render(title, published).save(folder / name, quality=88, optimize=True)
+        render(title, published).save(folder / name, quality=94, optimize=True, subsampling=0)
         for old in folder.glob(f"{slug}*.jpg"):
             if old.name != name:
                 old.unlink()
