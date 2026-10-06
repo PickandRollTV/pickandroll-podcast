@@ -31,12 +31,7 @@ def rival_words(match):
     return [w for w in re.findall(r"[a-z]+", _plain(rival)) if w not in STOP and len(w) > 2]
 
 
-def find_score(match, start):
-    """Devuelve "100-94" (local-visitante) o None si aún no hay crónica."""
-    words = rival_words(match)
-    if not words:
-        return None
-    query = " ".join(["Barça"] + words[-1:] + ["baloncesto"])
+def _search(query, start, words):
     url = "https://news.google.com/rss/search?" + urllib.parse.urlencode(
         {"q": query, "hl": "es", "gl": "ES", "ceid": "ES:es"})
     request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -51,4 +46,21 @@ def find_score(match, start):
         found = SCORE.match(title)
         if found and any(w in _plain(title) for w in words + ["barca", "barcelona"]):
             votes[f"{int(found.group(1))}-{int(found.group(2))}"] += 1
+    return votes
+
+
+def find_score(match, start):
+    """Devuelve "100-94" (local-visitante) o None si aún no hay crónica."""
+    words = rival_words(match)
+    if not words:
+        return None
+    day = start.strftime("%Y-%m-%d")
+    after = (start - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+    before = (start + datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+    votes = collections.Counter()
+    # Varias búsquedas, de la más precisa a la más amplia, limitadas a los días del partido.
+    for terms in (" ".join(words), words[-1], words[0]):
+        votes += _search(f"{terms} Barça after:{after} before:{before}", start, words)
+        if votes:
+            break
     return votes.most_common(1)[0][0] if votes else None
