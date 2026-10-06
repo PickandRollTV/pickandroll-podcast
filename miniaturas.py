@@ -53,41 +53,61 @@ def split_match(title):
     return home, (None if score == "vs" else score), away, rest
 
 
+def short_name(team):
+    """En pequeño cuenta cada letra: "Valencia Basket" -> "VALENCIA", "Dubai Basketball" -> "DUBAI"."""
+    name = re.sub(r"\s+(basket|basketball|badalona)$", "", team.strip(), flags=re.I)
+    return name.upper()
+
+
+def _height(draw, text, font):
+    left, top, right, bottom = draw.textbbox((0, 0), text, font=font)
+    return bottom - top
+
+
 def render(title, published):
+    """Pensada para verse en pequeño: Spotify la enseña a unos 120 píxeles en la lista."""
     home, score, away, rest = split_match(title)
     image = Image.new("RGB", (SIZE, SIZE), BLUE)
     draw = ImageDraw.Draw(image)
-    # Franja inferior oscura con la competición y la fecha.
-    draw.rectangle((0, 2380, SIZE, SIZE), fill=NAVY)
-    draw.rectangle((0, 2360, SIZE, 2380), fill=YELLOW)
+    width = SIZE - 240
 
-    logo = Image.open(LOGO).convert("RGBA").resize((900, 900), Image.LANCZOS)
-    image.paste(logo, ((SIZE - 900) // 2, 130), logo)
+    # Franja inferior con la competición, en el azul oscuro y el amarillo del logo.
+    band = 2430
+    draw.rectangle((0, band, SIZE, SIZE), fill=NAVY)
+    draw.rectangle((0, band - 30, SIZE, band), fill=YELLOW)
+    # Solo la competición: un subtítulo largo no se leería en pequeño.
+    bottom = rest.split(" | ")[-1].upper() if home and rest else ""
+    bottom = bottom or f"{published.day} {MONTHS[published.month - 1]} {published.year}"
+    font = _fit(draw, bottom, "ExtraBold", 260, width)
+    _center(draw, band + (SIZE - band - _height(draw, bottom, font)) / 2, bottom, font, WHITE)
 
-    width = SIZE - 300
+    logo = Image.open(LOGO).convert("RGBA").resize((640, 640), Image.LANCZOS)
+    image.paste(logo, ((SIZE - 640) // 2, 70), logo)
+
     if home:
-        y = 1130
-        y = _center(draw, y, home.upper(), _fit(draw, home.upper(), "ExtraBold", 260, width), WHITE) + 70
         middle = score.replace("-", " - ") if score else "VS"
-        y = _center(draw, y, middle, _font("ExtraBold", 400 if score else 230), YELLOW) + 70
-        _center(draw, y, away.upper(), _fit(draw, away.upper(), "ExtraBold", 260, width), WHITE)
+        lines = [
+            (short_name(home), _fit(draw, short_name(home), "ExtraBold", 470, width), WHITE),
+            (middle, _fit(draw, middle, "ExtraBold", 1000 if score else 600, width), YELLOW),
+            (short_name(away), _fit(draw, short_name(away), "ExtraBold", 470, width), WHITE),
+        ]
     else:
-        lines, line = [], ""
-        for word in title.split():
-            if line and draw.textlength(f"{line} {word}", font=_font("ExtraBold", 220)) > width:
-                lines.append(line)
+        words, lines, line = title.upper().split(), [], ""
+        font = _font("ExtraBold", 300)
+        for word in words:
+            if line and draw.textlength(f"{line} {word}", font=font) > width:
+                lines.append((line, font, WHITE))
                 line = word
             else:
                 line = f"{line} {word}".strip()
-        y = 1150
-        for text in (lines + [line])[:4]:
-            y = _center(draw, y, text, _font("ExtraBold", 220), WHITE) + 50
+        lines = (lines + [(line, font, WHITE)])[:4]
 
-    date = f"{published.day} {MONTHS[published.month - 1]} {published.year}"
-    bottom = " · ".join(p for p in rest.split(" | ") if p).upper() if home else ""
-    if bottom:
-        _center(draw, 2470, bottom, _fit(draw, bottom, "Bold", 150, width), WHITE)
-    _center(draw, 2720, date, _font("SemiBold", 130), YELLOW)
+    # Centrado vertical en el hueco entre el logo y la franja.
+    gap = 70
+    total = sum(_height(draw, text, font) for text, font, _ in lines) + gap * (len(lines) - 1)
+    y = 740 + (band - 60 - 740 - total) / 2
+    for text, font, color in lines:
+        y = _center(draw, y, text, font, color) + gap
     return image
 
 
@@ -100,7 +120,7 @@ def add_covers(episodes, docs_dir, base_url, title_of):
     made = 0
     for episode in episodes:
         title = title_of(episode)
-        key = hashlib.sha1(f"v1|{title}".encode()).hexdigest()[:8]
+        key = hashlib.sha1(f"v2|{title}".encode()).hexdigest()[:8]
         if episode.get("cover_key") == key:
             continue
         slug = re.sub(r"[^a-z0-9]+", "-", episode["guid"].lower()).strip("-")
