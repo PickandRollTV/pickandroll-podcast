@@ -12,7 +12,7 @@ podcast **PickandRollTV** en Spotify (y en cualquier app que lea el RSS).
 3. Descarga solo el audio (MP3 mono a 96 kbps: unos 45 MB por hora de directo).
 4. Sube el MP3 como *release* de este repositorio y añade el episodio a `episodes.json`.
 5. Regenera `docs/feed.xml`, que GitHub Pages publica en
-   `https://pickandrolltv.github.io/pickandroll-podcast/feed.xml`.
+   `https://pickandrolltv.github.io/pickandroll-podcast/docs/feed.xml`.
 6. Spotify lee ese feed y muestra el episodio nuevo.
 
 Se usa Twitch como fuente aunque el directo salga también en YouTube y Kick: el
