@@ -26,7 +26,7 @@ import tempfile
 from feed import write_feed
 from intro import intro_offset
 from miniaturas import add_covers
-from presentacion import clean_title
+from presentacion import clean_title, episode_title
 from resultados import find_score
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -230,6 +230,7 @@ def main():
     fallback_seconds = int(config.get("countdown_seconds", 0))
     # La URL de la portada del programa indica dónde sirve GitHub Pages la carpeta docs/.
     covers_url = config["show"]["image"].rsplit("/", 1)[0]
+    title_of = lambda episode: episode_title(episode, config)  # noqa: E731
     failures = 0
     for vod in sorted(pending, key=lambda v: v["start"]):
         print(f"Publicando: {vod['title']} ({vod['id']})")
@@ -253,7 +254,7 @@ def main():
         episodes.append(episode)
         # Guardamos y publicamos tras cada episodio: así sale en Spotify sin esperar al resto
         # del lote, y no se vuelve a subir si algo falla después.
-        add_covers(episodes, FEED_FILE.parent, covers_url)
+        add_covers(episodes, FEED_FILE.parent, covers_url, title_of)
         save_json(EPISODES_FILE, episodes)
         write_feed(config, episodes, FEED_FILE)
         if os.environ.get("GITHUB_ACTIONS"):
@@ -265,7 +266,7 @@ def main():
     except subprocess.CalledProcessError as error:
         print(f"No se pudo recortar de nuevo: {error}", file=sys.stderr)
         trimmed = False
-    if trimmed | add_scores(episodes, now) | bool(add_covers(episodes, FEED_FILE.parent, covers_url)):
+    if trimmed | add_scores(episodes, now) | bool(add_covers(episodes, FEED_FILE.parent, covers_url, title_of)):
         save_json(EPISODES_FILE, episodes)
     write_feed(config, episodes, FEED_FILE)
     print(f"{len(pending) - failures} episodio(s) nuevo(s); {len(episodes)} en total")
