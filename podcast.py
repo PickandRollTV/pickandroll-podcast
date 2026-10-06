@@ -36,6 +36,9 @@ FEED_FILE = ROOT / "docs" / "feed.xml"
 STATUS_FILE = ROOT / "ultimos_videos.json"
 # Último error de descarga o subida, para poder revisarlo sin abrir los registros de GitHub.
 ERROR_FILE = ROOT / "ultimo_error.txt"
+# Qué hizo la última pasada con resultados y recortes, para revisarlo sin abrir los registros.
+LOG_FILE = ROOT / "ultima_pasada.txt"
+LOG = []
 
 # Mientras dura el directo el VOD va creciendo; damos por terminado el que lleva
 # este tiempo sin crecer.
@@ -197,8 +200,9 @@ def add_scores(episodes, now):
         try:
             score = find_score(clean_title(episode["title"]).split(" | ")[0], start)
         except Exception as error:  # Sin resultado el título sale igual, sin marcador.
-            print(f"No se pudo buscar el resultado de {episode['title']}: {error}")
+            LOG.append(f"Resultado de {episode['vod_id']}: error {error!r}")
             continue
+        LOG.append(f"Resultado de {episode['vod_id']}: {score}")
         if score:
             episode["resultado"] = score
             changed = True
@@ -269,12 +273,13 @@ def main():
     # El resultado suele publicarse un rato después del partido; se reintenta en cada pasada.
     try:
         trimmed = apply_manual_trims(episodes, config)
-    except subprocess.CalledProcessError as error:
-        print(f"No se pudo recortar de nuevo: {error}", file=sys.stderr)
+    except Exception as error:
+        LOG.append(f"No se pudo recortar a mano: {error!r} {getattr(error, 'stderr', '')}"[:2000])
         trimmed = False
     if trimmed | add_scores(episodes, now) | bool(add_covers(episodes, FEED_FILE.parent, covers_url, title_of)):
         save_json(EPISODES_FILE, episodes)
     write_feed(config, episodes, FEED_FILE)
+    LOG_FILE.write_text(f"{now.isoformat()}\n" + "\n".join(LOG) + "\n", encoding="utf-8")
     print(f"{len(pending) - failures} episodio(s) nuevo(s); {len(episodes)} en total")
     return 1 if failures else 0
 
