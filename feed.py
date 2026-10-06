@@ -3,6 +3,8 @@ import datetime
 import email.utils
 import xml.etree.ElementTree as ET
 
+from presentacion import clean_title, episode_description
+
 ITUNES = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 ATOM = "http://www.w3.org/2005/Atom"
 CONTENT = "http://purl.org/rss/1.0/modules/content/"
@@ -31,7 +33,13 @@ def write_feed(config, episodes, path):
     _sub(channel, "link", show["link"])
     _sub(channel, "language", show.get("language", "es"))
     _sub(channel, "description", show["description"])
+    _sub(channel, "copyright", f"© {datetime.date.today().year} {show['author']}")
+    image = _sub(channel, "image")
+    _sub(image, "url", show["image"])
+    _sub(image, "title", show["title"])
+    _sub(image, "link", show["link"])
     _sub(channel, f"{{{ATOM}}}link", href=config["feed_url"], rel="self", type="application/rss+xml")
+    _sub(channel, f"{{{ITUNES}}}title", show["title"])
     _sub(channel, f"{{{ITUNES}}}author", show["author"])
     _sub(channel, f"{{{ITUNES}}}summary", show["description"])
     _sub(channel, f"{{{ITUNES}}}image", href=show["image"])
@@ -45,13 +53,19 @@ def write_feed(config, episodes, path):
     if show.get("subcategory"):
         ET.SubElement(category, f"{{{ITUNES}}}category", {"text": show["subcategory"]})
 
+    # Numeramos por orden de publicación: el primer episodio es el 1.
+    numbers = {e["guid"]: n for n, e in enumerate(sorted(episodes, key=lambda e: e["published"]), 1)}
     for episode in sorted(episodes, key=lambda e: e["published"], reverse=True):
         item = _sub(channel, "item")
-        _sub(item, "title", episode["title"])
-        _sub(item, "description", episode["description"])
-        _sub(item, f"{{{CONTENT}}}encoded", episode["description"].replace("\n", "<br/>"))
-        if episode.get("link"):
-            _sub(item, "link", episode["link"])
+        title = clean_title(episode["title"])
+        description = episode_description(episode, config)
+        _sub(item, "title", title)
+        _sub(item, f"{{{ITUNES}}}title", title)
+        _sub(item, "description", description)
+        _sub(item, f"{{{CONTENT}}}encoded", description.replace("\n", "<br/>"))
+        link = config.get("twitch_url") if episode.get("source") == "twitch" else episode.get("link")
+        if link:
+            _sub(item, "link", link)
         # El guid no cambia nunca: así Spotify no duplica episodios al mover el feed.
         _sub(item, "guid", episode["guid"], isPermaLink="false")
         _sub(item, "pubDate", _rfc2822(episode["published"]))
@@ -59,8 +73,10 @@ def write_feed(config, episodes, path):
              type=episode.get("audio_type", "audio/mpeg"))
         if episode.get("duration"):
             _sub(item, f"{{{ITUNES}}}duration", episode["duration"])
-        if episode.get("image"):
-            _sub(item, f"{{{ITUNES}}}image", href=episode["image"])
+        # Todos con la portada del programa: las miniaturas de Twitch son apaisadas y
+        # Spotify las recorta, y las de Spotify for Creators dejarán de existir.
+        _sub(item, f"{{{ITUNES}}}image", href=show["image"])
+        _sub(item, f"{{{ITUNES}}}episode", numbers[episode["guid"]])
         _sub(item, f"{{{ITUNES}}}episodeType", "full")
         _sub(item, f"{{{ITUNES}}}explicit", "true" if show.get("explicit") else "false")
 

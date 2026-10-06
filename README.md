@@ -44,3 +44,10 @@ Solo se publican directos que empiecen después de `publish_streams_after` en
 ## Publicar un directo a mano
 
 *Actions → Publicar directos en el podcast → Run workflow* lo ejecuta en el momento.
+
+## Cómo se ve en Spotify
+
+`presentacion.py` deja los títulos con un formato fijo ("Equipo vs Equipo | Competición
+Jornada N"): quita emojis, "EN DIRECTO" y las mayúsculas. Todos los episodios usan la
+portada del programa. La descripción del programa y el texto que acompaña a cada directo
+están en `config.json` (`show.description` y `show.episode_blurb`).

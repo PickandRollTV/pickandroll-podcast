@@ -9,13 +9,15 @@
   "show": {
     "title": "PickandRollTV",
     "link": "https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw",
-    "description": "Los directos de PickandRollTV, ahora en formato podcast.",
+    "description": "Los partidos del Barça de baloncesto narrados en directo, en español y con pasión culé. PickandRollTV retransmite la Liga Endesa y la EuroLeague con análisis táctico, debate y post partido, y cada directo llega aquí en cuanto termina para que lo escuches cuando quieras. Bienvenidos a la magia del baloncesto.",
     "author": "PickandRollTV",
     "owner_email": "hola@pickandroll.tv",
     "image": "https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg",
     "language": "es",
     "category": "Sports",
     "subcategory": "Basketball",
-    "explicit": false
-  }
+    "explicit": false,
+    "episode_blurb": "Narración en directo y en español con PickandRollTV: el partido minuto a minuto, análisis táctico y el post partido con las claves del encuentro. Si te gusta, síguenos y valora el podcast en Spotify."
+  },
+  "twitch_url": "https://www.twitch.tv/pickandrolltv"
 }

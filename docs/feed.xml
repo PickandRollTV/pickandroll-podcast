@@ -4,10 +4,17 @@
     <title>PickandRollTV</title>
     <link>https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</link>
     <language>es</language>
-    <description>Los directos de PickandRollTV, ahora en formato podcast.</description>
+    <description>Los partidos del Barça de baloncesto narrados en directo, en español y con pasión culé. PickandRollTV retransmite la Liga Endesa y la EuroLeague con análisis táctico, debate y post partido, y cada directo llega aquí en cuanto termina para que lo escuches cuando quieras. Bienvenidos a la magia del baloncesto.</description>
+    <copyright>© 2026 PickandRollTV</copyright>
+    <image>
+      <url>https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg</url>
+      <title>PickandRollTV</title>
+      <link>https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</link>
+    </image>
     <atom:link href="https://pickandrolltv.github.io/pickandroll-podcast/docs/feed.xml" rel="self" type="application/rss+xml" />
+    <itunes:title>PickandRollTV</itunes:title>
     <itunes:author>PickandRollTV</itunes:author>
-    <itunes:summary>Los directos de PickandRollTV, ahora en formato podcast.</itunes:summary>
+    <itunes:summary>Los partidos del Barça de baloncesto narrados en directo, en español y con pasión culé. PickandRollTV retransmite la Liga Endesa y la EuroLeague con análisis táctico, debate y post partido, y cada directo llega aquí en cuanto termina para que lo escuches cuando quieras. Bienvenidos a la magia del baloncesto.</itunes:summary>
     <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
     <itunes:explicit>false</itunes:explicit>
     <itunes:type>episodic</itunes:type>
@@ -19,21 +26,23 @@
       <itunes:category text="Basketball" />
     </itunes:category>
     <item>
-      <title>🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2</title>
-      <description>Directo completo en Twitch: https://www.twitch.tv/videos/2891818597
-Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</description>
-      <content:encoded>Directo completo en Twitch: https://www.twitch.tv/videos/2891818597&lt;br/&gt;Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</content:encoded>
-      <link>https://www.twitch.tv/videos/2891818597</link>
+      <title>UCAM Murcia vs Barça Basket | Liga Endesa Jornada 2</title>
+      <itunes:title>UCAM Murcia vs Barça Basket | Liga Endesa Jornada 2</itunes:title>
+      <description>&lt;p&gt;&lt;strong&gt;UCAM Murcia vs Barça Basket | Liga Endesa Jornada 2&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Narración en directo y en español con PickandRollTV: el partido minuto a minuto, análisis táctico y el post partido con las claves del encuentro. Si te gusta, síguenos y valora el podcast en Spotify.&lt;/p&gt;&lt;p&gt;Síguenos en directo:&lt;br/&gt;YouTube: &lt;a href="https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw"&gt;https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw&lt;/a&gt;&lt;br/&gt;Twitch: &lt;a href="https://www.twitch.tv/pickandrolltv"&gt;https://www.twitch.tv/pickandrolltv&lt;/a&gt;&lt;/p&gt;</description>
+      <content:encoded>&lt;p&gt;&lt;strong&gt;UCAM Murcia vs Barça Basket | Liga Endesa Jornada 2&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Narración en directo y en español con PickandRollTV: el partido minuto a minuto, análisis táctico y el post partido con las claves del encuentro. Si te gusta, síguenos y valora el podcast en Spotify.&lt;/p&gt;&lt;p&gt;Síguenos en directo:&lt;br/&gt;YouTube: &lt;a href="https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw"&gt;https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw&lt;/a&gt;&lt;br/&gt;Twitch: &lt;a href="https://www.twitch.tv/pickandrolltv"&gt;https://www.twitch.tv/pickandrolltv&lt;/a&gt;&lt;/p&gt;</content:encoded>
+      <link>https://www.twitch.tv/pickandrolltv</link>
       <guid isPermaLink="false">twitch:2891818597</guid>
       <pubDate>Sun, 04 Oct 2026 16:17:07 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597.mp3" length="184642420" type="audio/mpeg" />
       <itunes:duration>15387</itunes:duration>
-      <itunes:image href="https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/1e2569de957f8c875fbb_pickandrolltv_317936944483_1791130620//thumb/thumb0-0x0.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>9</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>🔥 Barça 92-88 Estrella Roja | Octavos con 20 Victorias</title>
+      <title>Barça 92-88 Estrella Roja | Octavos con 20 Victorias</title>
+      <itunes:title>Barça 92-88 Estrella Roja | Octavos con 20 Victorias</itunes:title>
       <description>&lt;p&gt;Victoria de muchísimo valor del Barça ante Estrella Roja (92-88) en el Palau Blaugrana, en un partido de máxima tensión que se decidió en la prórroga. Los de Xavi Pascual suman su tercer triunfo consecutivo en Euroliga, alcanzan las 20 victorias y se colocan en la 8ª posición, con el average ganado ante el conjunto serbio.🏀 Un duelo durísimo, de alternativas constantes, donde el Barça supo resistir, defender con carácter y aparecer en el momento clave con jugadores como Clyburn, Satoransky, Vesely o Brizuela.✅ 🗣️ La Veu del Soci (QuimCam)Salimos del Palau para escuchar las reacciones en caliente de los aficionados tras el partido✅ 🎤 Rueda de prensa de Xavi PascualValoración del técnico tras una victoria clave✅ 🏀 Declaraciones de Darío BrizuelaProtagonista del partido hablando tras el triunfo✅ 📊 Análisis y tertulia Pick&amp;amp;Roll TVClaves del partido, rendimiento del equipo y situación en la clasificaciónEl Barça sigue en plena lucha por los puestos de playoff de la Euroliga, empatado a victorias con rivales directos como Zalgiris y Panathinaikos. Este triunfo puede ser decisivo en el tramo final de la temporada.💬 Déjanos tu opinión en comentarios&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;Victoria de muchísimo valor del Barça ante Estrella Roja (92-88) en el Palau Blaugrana, en un partido de máxima tensión que se decidió en la prórroga. Los de Xavi Pascual suman su tercer triunfo consecutivo en Euroliga, alcanzan las 20 victorias y se colocan en la 8ª posición, con el average ganado ante el conjunto serbio.🏀 Un duelo durísimo, de alternativas constantes, donde el Barça supo resistir, defender con carácter y aparecer en el momento clave con jugadores como Clyburn, Satoransky, Vesely o Brizuela.✅ 🗣️ La Veu del Soci (QuimCam)Salimos del Palau para escuchar las reacciones en caliente de los aficionados tras el partido✅ 🎤 Rueda de prensa de Xavi PascualValoración del técnico tras una victoria clave✅ 🏀 Declaraciones de Darío BrizuelaProtagonista del partido hablando tras el triunfo✅ 📊 Análisis y tertulia Pick&amp;amp;Roll TVClaves del partido, rendimiento del equipo y situación en la clasificaciónEl Barça sigue en plena lucha por los puestos de playoff de la Euroliga, empatado a victorias con rivales directos como Zalgiris y Panathinaikos. Este triunfo puede ser decisivo en el tramo final de la temporada.💬 Déjanos tu opinión en comentarios&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -42,12 +51,14 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Wed, 01 Apr 2026 11:25:37 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-008/episodio-008.mp3" length="280786232" type="audio/mpeg" />
       <itunes:duration>17549</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>8</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>🏀 BARÇA 78-71 ANADOLU EFES | EL BARÇA SIGUE EN LA LUCHA | ROUND 33 EUROLEAGUE</title>
+      <title>Barça 78-71 Anadolu Efes | El Barça Sigue en la Lucha | EuroLeague Jornada 33</title>
+      <itunes:title>Barça 78-71 Anadolu Efes | El Barça Sigue en la Lucha | EuroLeague Jornada 33</itunes:title>
       <description>&lt;p&gt;🏀 El Barça Basket logra una victoria vital ante el Anadolu Efes (78-71) para seguir muy vivo en la EuroLeague.&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;🏀 El Barça Basket logra una victoria vital ante el Anadolu Efes (78-71) para seguir muy vivo en la EuroLeague.&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -56,12 +67,14 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Wed, 25 Mar 2026 11:17:56 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-007/episodio-007.mp3" length="242743587" type="audio/mpeg" />
       <itunes:duration>15171</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>7</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>🏀 BARÇA 76 - 95 REAL MADRID | EL CLÁSICO | J23 LIGA ENDESA</title>
+      <title>Barça 76-95 Real Madrid | El Clásico | Liga Endesa Jornada 23</title>
+      <itunes:title>Barça 76-95 Real Madrid | El Clásico | Liga Endesa Jornada 23</itunes:title>
       <description>&lt;p&gt;🏀 El FC Barcelona Bàsquet sufre una dura derrota ante el Real Madrid Baloncesto (76-95) en el Clásico de Liga Endesa, en un partido marcado por la impotencia azulgrana tras el segundo cuarto. El Barça aguantó un cuarto, pero un parcial demoledor antes del descanso dejó un partido sin respuesta posible.En este vídeo de Pick&amp;amp;Roll TV analizamos todo lo ocurrido.🎤 Incluye las ruedas de prensa de Sergio Scariolo y Xavi PascualSobre el partido y las claves de la derrota: “El partido se ha decidido en el segundo cuarto; los otros tres los competimos. A la que nos hemos puesto por debajo en el marcador, no hemos sido capaces de responder.”“Hemos dejado de controlar la transición defensiva yendo al rebote cuando no tocaba. Nuestro juego en ataque, en el global, no es suficiente para competir contra el Real Madrid. Ha sido demasiado directo y desacertado.”“El acierto es fundamental en este juego y hoy nuestra efectividad ha sido muy baja. Nos venimos abajo muy fácilmente y, en definitiva, han jugado mejor que nosotros.”“Ha sido insuficiente el empuje de unos pocos. Han sido superiores hoy en todo. Así es imposible ganar.”“Llevamos una racha muy mala de acierto. Nos venimos abajo muy fácil. No estamos al nivel que nos gustaría estar.”Sobre el público y el ambiente: “Agradecer al público que ha venido al Palau y que ha intentado estirar al equipo. Lo más positivo del partido ha sido el público, ha estado a la altura. El público es libre de expresar lo que quiera.”Sobre la plantilla y el mercado: “No habrá fichajes, tiraremos con lo que tenemos. A partir de ahora no hablaré más del tema.”Sobre la baja de Laprovittola: “Por supuesto que lo echamos de menos, pero no nos podemos quedar ahí. Hay que encontrar la manera de competir sin él.”Perspectiva general y próximo partido:“No hay que mirar tanto al marcador, es una derrota de liga regular de ACB.”“Tenemos 48 horas para recuperarnos. Los partidos en casa de Efes y Estrella Roja son los más importantes del momento. Hay que pasar página.”Pascual se mostró muy decepcionado, especialmente con la falta de reacción mental y el bajón en ataque tras el parcial del segundo cuarto.👉 ¿Te preocupa este nivel del Barça de cara a lo que viene?&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;🏀 El FC Barcelona Bàsquet sufre una dura derrota ante el Real Madrid Baloncesto (76-95) en el Clásico de Liga Endesa, en un partido marcado por la impotencia azulgrana tras el segundo cuarto. El Barça aguantó un cuarto, pero un parcial demoledor antes del descanso dejó un partido sin respuesta posible.En este vídeo de Pick&amp;amp;Roll TV analizamos todo lo ocurrido.🎤 Incluye las ruedas de prensa de Sergio Scariolo y Xavi PascualSobre el partido y las claves de la derrota: “El partido se ha decidido en el segundo cuarto; los otros tres los competimos. A la que nos hemos puesto por debajo en el marcador, no hemos sido capaces de responder.”“Hemos dejado de controlar la transición defensiva yendo al rebote cuando no tocaba. Nuestro juego en ataque, en el global, no es suficiente para competir contra el Real Madrid. Ha sido demasiado directo y desacertado.”“El acierto es fundamental en este juego y hoy nuestra efectividad ha sido muy baja. Nos venimos abajo muy fácilmente y, en definitiva, han jugado mejor que nosotros.”“Ha sido insuficiente el empuje de unos pocos. Han sido superiores hoy en todo. Así es imposible ganar.”“Llevamos una racha muy mala de acierto. Nos venimos abajo muy fácil. No estamos al nivel que nos gustaría estar.”Sobre el público y el ambiente: “Agradecer al público que ha venido al Palau y que ha intentado estirar al equipo. Lo más positivo del partido ha sido el público, ha estado a la altura. El público es libre de expresar lo que quiera.”Sobre la plantilla y el mercado: “No habrá fichajes, tiraremos con lo que tenemos. A partir de ahora no hablaré más del tema.”Sobre la baja de Laprovittola: “Por supuesto que lo echamos de menos, pero no nos podemos quedar ahí. Hay que encontrar la manera de competir sin él.”Perspectiva general y próximo partido:“No hay que mirar tanto al marcador, es una derrota de liga regular de ACB.”“Tenemos 48 horas para recuperarnos. Los partidos en casa de Efes y Estrella Roja son los más importantes del momento. Hay que pasar página.”Pascual se mostró muy decepcionado, especialmente con la falta de reacción mental y el bajón en ataque tras el parcial del segundo cuarto.👉 ¿Te preocupa este nivel del Barça de cara a lo que viene?&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -70,12 +83,14 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Mon, 23 Mar 2026 10:09:16 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-006/episodio-006.mp3" length="212671842" type="audio/mpeg" />
       <itunes:duration>13291</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>6</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>🏀 VALENCIA BASKET 62-66 BARÇA | ROUND 32 EUROLEAGUE |</title>
+      <title>Valencia Basket 62-66 Barça | EuroLeague Jornada 32</title>
+      <itunes:title>Valencia Basket 62-66 Barça | EuroLeague Jornada 32</itunes:title>
       <description>&lt;p&gt;El Barça consigue una victoria de mérito ante el València Basket (62-66) en un partido muy exigente, marcado por la defensa, la baja anotación y la capacidad de sufrir del equipo azulgrana.En este vídeo de PickandrollTV analizamos el partido y te traemos también la rueda de prensa de Xavi Pascual tras el encuentro.🏀 Joel Parra, clave en la victoria, liderando la reacción en el último cuarto🏀 Gran trabajo defensivo del Barça, controlando el ritmo del partido🏀 Ataque irregular, pero efectivo en los momentos decisivos🏀 Aportaciones de Vesely y Clyburn en el tramo final🎙️ Análisis de Xavi Pascual en rueda de prensa, valorando el esfuerzo del equipo y la importancia de la victoriaEl Barça rompe su mala racha en una pista complicada y lo hace desde la defensa, el rebote y el carácter competitivo.📊 Resultado final: València Basket 62 – 66 Barça&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;El Barça consigue una victoria de mérito ante el València Basket (62-66) en un partido muy exigente, marcado por la defensa, la baja anotación y la capacidad de sufrir del equipo azulgrana.En este vídeo de PickandrollTV analizamos el partido y te traemos también la rueda de prensa de Xavi Pascual tras el encuentro.🏀 Joel Parra, clave en la victoria, liderando la reacción en el último cuarto🏀 Gran trabajo defensivo del Barça, controlando el ritmo del partido🏀 Ataque irregular, pero efectivo en los momentos decisivos🏀 Aportaciones de Vesely y Clyburn en el tramo final🎙️ Análisis de Xavi Pascual en rueda de prensa, valorando el esfuerzo del equipo y la importancia de la victoriaEl Barça rompe su mala racha en una pista complicada y lo hace desde la defensa, el rebote y el carácter competitivo.📊 Resultado final: València Basket 62 – 66 Barça&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -84,12 +99,14 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Fri, 20 Mar 2026 11:44:06 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-005/episodio-005.mp3" length="178582255" type="audio/mpeg" />
       <itunes:duration>11161</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>5</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>🔴 JOVENTUT BADALONA vs BARÇA | EN DIRECTO 🏀 | JORNADA 22 LIGA ENDESA</title>
+      <title>Joventut Badalona vs Barça | Liga Endesa Jornada 22</title>
+      <itunes:title>Joventut Badalona vs Barça | Liga Endesa Jornada 22</itunes:title>
       <description>&lt;p&gt;El Barça cae en el derbi ante Joventut (84-72) en un partido donde el conjunto blaugrana volvió a mostrar serios problemas en su juego colectivo. La Penya, con más convicción y solidez, acabó imponiéndose en Badalona ante un Barça que nunca encontró ritmo.En este Postpartido de PickandrollTV analizamos las claves de la derrota:🏀 Debilidad en el juego interior, con el Barça sufriendo para controlar la pintura ante la presencia de los interiores verdinegros.🏀 Ataque poco fluido, con demasiadas acciones individuales y dificultades para generar ventajas en estático.🏀 Segunda unidad con papel residual, sin impacto real en el desarrollo del partido.🏀 El buen partido colectivo de Joventut, con Ricky Rubio y Ante Tomic liderando el juego ofensivo de la Penya.Rueda de prensa de Xavi PascualEl equipo blaugrana se mantuvo cerca durante tres cuartos, pero el último cuarto terminó de romper el partido, con los errores ofensivos del Barça y el empuje del Olímpic de Badalona como factor decisivo.📊 Resultado final: Joventut 84 – 72 BarçaAhora te toca a ti, ¿Crees que el Barça ha tocado fondo? 💬 Te leemos en comentarios.#BarçaBasket #Joventut #ACB #Baloncesto #PickandrollTV #Derbi #Barça&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;El Barça cae en el derbi ante Joventut (84-72) en un partido donde el conjunto blaugrana volvió a mostrar serios problemas en su juego colectivo. La Penya, con más convicción y solidez, acabó imponiéndose en Badalona ante un Barça que nunca encontró ritmo.En este Postpartido de PickandrollTV analizamos las claves de la derrota:🏀 Debilidad en el juego interior, con el Barça sufriendo para controlar la pintura ante la presencia de los interiores verdinegros.🏀 Ataque poco fluido, con demasiadas acciones individuales y dificultades para generar ventajas en estático.🏀 Segunda unidad con papel residual, sin impacto real en el desarrollo del partido.🏀 El buen partido colectivo de Joventut, con Ricky Rubio y Ante Tomic liderando el juego ofensivo de la Penya.Rueda de prensa de Xavi PascualEl equipo blaugrana se mantuvo cerca durante tres cuartos, pero el último cuarto terminó de romper el partido, con los errores ofensivos del Barça y el empuje del Olímpic de Badalona como factor decisivo.📊 Resultado final: Joventut 84 – 72 BarçaAhora te toca a ti, ¿Crees que el Barça ha tocado fondo? 💬 Te leemos en comentarios.#BarçaBasket #Joventut #ACB #Baloncesto #PickandrollTV #Derbi #Barça&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -98,12 +115,14 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Thu, 19 Mar 2026 11:17:26 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-004/episodio-004.mp3" length="174568175" type="audio/mpeg" />
       <itunes:duration>10910</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>4</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>Barça Basket vs Hapoel Tel Aviv EN DIRECTO 🔴 | Round 31 Euroleague | Narración en DIRECTO</title>
+      <title>Barça Basket vs Hapoel Tel Aviv | EuroLeague Jornada 31</title>
+      <itunes:title>Barça Basket vs Hapoel Tel Aviv | EuroLeague Jornada 31</itunes:title>
       <description>&lt;p&gt;El FC Barcelona Bàsquet cayó en el Palau por 75-80 ante el Hapoel Tel Aviv en la jornada 31 de la EuroLeague, en una derrota que confirma el mal momento del equipo azulgrana. El Barça suma cuatro derrotas consecutivas en Euroliga y entra en caída libre justo cuando afronta un calendario de máxima exigencia que complica seriamente sus opciones de playoff.&lt;/p&gt;&lt;p&gt;El Barça comenzó bien el partido (26-19 en el primer cuarto), pero el encuentro cambió en el segundo periodo cuando Hapoel elevó su intensidad defensiva y comenzó a dominar el ritmo del juego. Desde ese momento el equipo israelí fue más sólido y castigó los problemas ofensivos del conjunto azulgrana.&lt;/p&gt;&lt;p&gt;Los jugadores de Hapoel, liderados por Daniel Oturu y Elijah Bryant, marcaron diferencias en los momentos decisivos, mientras que el Barça no encontró continuidad en ataque ni soluciones colectivas para frenar el partido.&lt;/p&gt;&lt;p&gt;El equipo además sigue condicionado por la lesión de larga duración de Nicolás Laprovittola, una baja clave en la dirección de juego. A ello se suma la preocupación por la situación física de Tornike Shengelia, que podría perderse los próximos compromisos en un tramo de temporada especialmente delicado.&lt;/p&gt;&lt;p&gt;En sala de prensa, el técnico azulgrana, Xavi Pascual, reconoció que el partido se escapó especialmente al inicio del segundo cuarto y lamentó las oportunidades desaprovechadas. Por su parte, el entrenador del Hapoel, Dimitris Itoudis, destacó la solidez de su equipo y la capacidad de competir en un escenario complicado como el Palau.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;El FC Barcelona Bàsquet cayó en el Palau por 75-80 ante el Hapoel Tel Aviv en la jornada 31 de la EuroLeague, en una derrota que confirma el mal momento del equipo azulgrana. El Barça suma cuatro derrotas consecutivas en Euroliga y entra en caída libre justo cuando afronta un calendario de máxima exigencia que complica seriamente sus opciones de playoff.&lt;/p&gt;&lt;p&gt;El Barça comenzó bien el partido (26-19 en el primer cuarto), pero el encuentro cambió en el segundo periodo cuando Hapoel elevó su intensidad defensiva y comenzó a dominar el ritmo del juego. Desde ese momento el equipo israelí fue más sólido y castigó los problemas ofensivos del conjunto azulgrana.&lt;/p&gt;&lt;p&gt;Los jugadores de Hapoel, liderados por Daniel Oturu y Elijah Bryant, marcaron diferencias en los momentos decisivos, mientras que el Barça no encontró continuidad en ataque ni soluciones colectivas para frenar el partido.&lt;/p&gt;&lt;p&gt;El equipo además sigue condicionado por la lesión de larga duración de Nicolás Laprovittola, una baja clave en la dirección de juego. A ello se suma la preocupación por la situación física de Tornike Shengelia, que podría perderse los próximos compromisos en un tramo de temporada especialmente delicado.&lt;/p&gt;&lt;p&gt;En sala de prensa, el técnico azulgrana, Xavi Pascual, reconoció que el partido se escapó especialmente al inicio del segundo cuarto y lamentó las oportunidades desaprovechadas. Por su parte, el entrenador del Hapoel, Dimitris Itoudis, destacó la solidez de su equipo y la capacidad de competir en un escenario complicado como el Palau.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -112,12 +131,14 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Thu, 19 Mar 2026 11:12:41 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-003/episodio-003.mp3" length="272771447" type="audio/mpeg" />
       <itunes:duration>17048</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>3</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>Río Breogan vs Barça EN DIRECTO 🔴 | Liga Endesa Jornada 21 | Narración en DIRECTO</title>
+      <title>Río Breogan vs Barça | Liga Endesa Jornada 21</title>
+      <itunes:title>Río Breogan vs Barça | Liga Endesa Jornada 21</itunes:title>
       <description>&lt;p&gt;&lt;strong&gt;Barça arrasa a Breogán (78-109) | Narración y análisis PickAndRoll TV&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Victoria contundente del &lt;strong&gt;FC Barcelona Bàsquet&lt;/strong&gt; ante &lt;strong&gt;CB Breogán&lt;/strong&gt; en la &lt;strong&gt;Liga ACB&lt;/strong&gt;: 78-109 en un partido dominado de principio a fin. En este episodio de PickAndRoll TV vivimos la narración del encuentro y analizamos las claves tácticas del triunfo: gran inicio azulgrana, defensa sólida y un ataque muy efectivo desde el perímetro.&lt;/p&gt;&lt;p&gt;Destacamos el partidazo de Cale (24 puntos), el impacto ofensivo de Clyburn y la aportación de Shengelia y Parra en un Barça muy coral que llegó a tener +40 en el marcador. También comentamos la rotación final con minutos para los jóvenes y cómo esta victoria ayuda a recuperar sensaciones tras los últimos partidos.&lt;/p&gt;&lt;p&gt;Análisis, debate y lectura del juego para fans del Barça y amantes del baloncesto europeo.&lt;br&gt;🏀 PickAndRoll TV – Narración y análisis del Barça Basket.&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Barça arrasa a Breogán (78-109) | Narración y análisis PickAndRoll TV&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Victoria contundente del &lt;strong&gt;FC Barcelona Bàsquet&lt;/strong&gt; ante &lt;strong&gt;CB Breogán&lt;/strong&gt; en la &lt;strong&gt;Liga ACB&lt;/strong&gt;: 78-109 en un partido dominado de principio a fin. En este episodio de PickAndRoll TV vivimos la narración del encuentro y analizamos las claves tácticas del triunfo: gran inicio azulgrana, defensa sólida y un ataque muy efectivo desde el perímetro.&lt;/p&gt;&lt;p&gt;Destacamos el partidazo de Cale (24 puntos), el impacto ofensivo de Clyburn y la aportación de Shengelia y Parra en un Barça muy coral que llegó a tener +40 en el marcador. También comentamos la rotación final con minutos para los jóvenes y cómo esta victoria ayuda a recuperar sensaciones tras los últimos partidos.&lt;/p&gt;&lt;p&gt;Análisis, debate y lectura del juego para fans del Barça y amantes del baloncesto europeo.&lt;br&gt;🏀 PickAndRoll TV – Narración y análisis del Barça Basket.&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -126,12 +147,14 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Mon, 09 Mar 2026 10:53:56 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-002/episodio-002.mp3" length="156889337" type="audio/mpeg" />
       <itunes:duration>9805</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>2</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
     <item>
-      <title>Emporio Armani Milan vs Barça EN DIRECTO 🔴 | EuroLeague Jornada 30 | Narración en Español</title>
+      <title>Emporio Armani Milan vs Barça | EuroLeague Jornada 30</title>
+      <itunes:title>Emporio Armani Milan vs Barça | EuroLeague Jornada 30</itunes:title>
       <description>&lt;p&gt;&lt;strong&gt;Emporio Armani Milan vs Barça 🔴 | EuroLeague Jornada 30&lt;/strong&gt;&lt;br&gt;¡Barça Basket en acción! Narración en español con análisis táctico, claves del partido y debate. Ideal para fans del Barça y amantes del baloncesto europeo que quieren vivir cada minuto como si estuvieran en la pista.&lt;/p&gt;
 </description>
       <content:encoded>&lt;p&gt;&lt;strong&gt;Emporio Armani Milan vs Barça 🔴 | EuroLeague Jornada 30&lt;/strong&gt;&lt;br&gt;¡Barça Basket en acción! Narración en español con análisis táctico, claves del partido y debate. Ideal para fans del Barça y amantes del baloncesto europeo que quieren vivir cada minuto como si estuvieran en la pista.&lt;/p&gt;&lt;br/&gt;</content:encoded>
@@ -140,7 +163,8 @@ Canal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw</desc
       <pubDate>Fri, 06 Mar 2026 11:28:35 +0000</pubDate>
       <enclosure url="https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-001/episodio-001.mp3" length="234124851" type="audio/mpeg" />
       <itunes:duration>14632</itunes:duration>
-      <itunes:image href="https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/45509390/45509390-1772793985474-48dcb8c0ab502.jpg" />
+      <itunes:image href="https://pickandrolltv.github.io/pickandroll-podcast/docs/cover.jpg" />
+      <itunes:episode>1</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
