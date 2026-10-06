@@ -1,0 +1,21 @@
+name: Comprobar el feed
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set +e
+          {
+            for u in https://pickandrolltv.github.io/pickandroll-podcast/feed.xml \
+                     https://raw.githubusercontent.com/PickandRollTV/pickandroll-podcast/main/docs/feed.xml; do
+              echo "$u -> $(curl -s -o /tmp/f -w '%{http_code} %{content_type}' "$u") items=$(grep -c '<item>' /tmp/f)"
+            done
+            u=$(grep -o 'https://github.com/[^"]*twitch-[^"]*\.mp3' docs/feed.xml | head -1)
+            echo "audio $u -> $(curl -sIL -o /dev/null -w '%{http_code} %{content_type} %{size_download}' "$u")"
+          } > estado_feed.txt
+          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
+          git add estado_feed.txt; git commit -m "Comprobar el feed"; git pull --rebase origin main; git push
