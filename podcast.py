@@ -118,11 +118,14 @@ def trim_start(audio_path, seconds):
 def upload_audio(tag, title, audio_path):
     """Sube el MP3 como release de GitHub y devuelve su URL pública de descarga."""
     repo = os.environ["GITHUB_REPOSITORY"]
-    subprocess.run(
-        ["gh", "release", "create", tag, str(audio_path), "--repo", repo,
-         "--title", title, "--notes", "Audio del episodio del podcast."],
-        check=True, capture_output=True, text=True,
-    )
+    exists = subprocess.run(["gh", "release", "view", tag, "--repo", repo], capture_output=True).returncode == 0
+    if exists:
+        # Un reintento tras un fallo a medias: sustituimos el audio que ya había.
+        cmd = ["gh", "release", "upload", tag, str(audio_path), "--repo", repo, "--clobber"]
+    else:
+        cmd = ["gh", "release", "create", tag, str(audio_path), "--repo", repo,
+               "--title", title, "--notes", "Audio del episodio del podcast."]
+    subprocess.run(cmd, check=True, capture_output=True, text=True)
     return f"https://github.com/{repo}/releases/download/{tag}/{audio_path.name}"
 
 
@@ -175,7 +178,8 @@ def main():
         try:
             with tempfile.TemporaryDirectory() as tmp:
                 audio = download_audio(vod, pathlib.Path(tmp))
-                skip = intro_offset(audio, fallback_seconds)
+                skip, trim_note = intro_offset(audio, fallback_seconds)
+                print(f"  {trim_note[:300]}")
                 audio = trim_start(audio, skip)
                 size = audio.stat().st_size
                 url = upload_audio(f"twitch-{vod['id']}", vod["title"], audio)
@@ -186,7 +190,9 @@ def main():
             ERROR_FILE.write_text(f"{vod['id']} {vod['title']}\n{error}\n{detail}\n", encoding="utf-8")
             failures += 1
             continue
-        episodes.append(episode_from_vod(vod, url, size, skip, config))
+        episode = episode_from_vod(vod, url, size, skip, config)
+        episode["recorte"] = trim_note[:3000]
+        episodes.append(episode)
         # Guardamos tras cada episodio para no volver a subir uno ya publicado si algo falla después.
         save_json(EPISODES_FILE, episodes)
         write_feed(config, episodes, FEED_FILE)

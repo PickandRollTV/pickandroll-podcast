@@ -62,14 +62,22 @@ def transcribe_start(audio_path, model_size="small"):
 
 
 def intro_offset(audio_path, fallback_seconds=0):
-    """Segundos a recortar del principio, o fallback_seconds si no se encuentra el saludo."""
+    """Devuelve (segundos a recortar, nota explicando por qué).
+
+    Si no se encuentra el saludo se recortan fallback_seconds; la nota guarda lo que
+    se oyó al principio para poder ajustar la búsqueda.
+    """
+    heard = []
+
+    def remember(segments):
+        for start, end, text in segments:
+            heard.append(f"{int(start // 60)}:{int(start % 60):02d} {text.strip()}")
+            yield start, end, text
+
     try:
-        found = find_greeting(transcribe_start(audio_path))
+        found = find_greeting(remember(transcribe_start(audio_path)))
     except Exception as error:  # Sin modelo o sin red: mejor publicar entero que no publicar.
-        print(f"  No se pudo buscar el saludo ({error}); uso {fallback_seconds} s")
-        return fallback_seconds
+        return fallback_seconds, f"No se pudo buscar el saludo: {error}"
     if found is None:
-        print(f"  No encontré el saludo en los primeros minutos; uso {fallback_seconds} s")
-        return fallback_seconds
-    print(f"  Saludo encontrado en {int(found // 60)}:{int(found % 60):02d}")
-    return max(found - LEAD_IN_SECONDS, 0)
+        return fallback_seconds, "No encontré el saludo. Oí: " + " | ".join(heard[:40])
+    return max(found - LEAD_IN_SECONDS, 0), f"Saludo en {int(found // 60)}:{int(found % 60):02d}: " + " | ".join(heard[-3:])
