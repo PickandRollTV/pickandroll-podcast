@@ -15,7 +15,7 @@ jobs:
             ID=$(yt-dlp --flat-playlist --print "%(id)s" "https://www.twitch.tv/pickandrolltv/videos?filter=archives&sort=time" 2>/dev/null | head -1)
             echo "--- primer VOD: $ID"
             yt-dlp --print "%(timestamp)s %(duration)s %(title)s" "https://www.twitch.tv/videos/${ID#v}" 2>&1 | tail -3
-            yt-dlp -f "audio_only/worst" --download-sections "*0-60" -o /tmp/t.%(ext)s "https://www.twitch.tv/videos/${ID#v}" 2>&1 | tail -3
+            yt-dlp -f "audio_only/worst" --download-sections "*0-60" -o "/tmp/t.%(ext)s" "https://www.twitch.tv/videos/${ID#v}" 2>&1 | tail -3
             ls -la /tmp/t.* 2>&1
           } > prueba_twitch.txt
           git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
