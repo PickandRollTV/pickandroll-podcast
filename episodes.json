@@ -102,5 +102,19 @@
     "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/import-008/episodio-008.mp3",
     "audio_bytes": 280786232,
     "audio_type": "audio/mpeg"
+  },
+  {
+    "guid": "twitch:2891818597",
+    "source": "twitch",
+    "vod_id": "2891818597",
+    "title": "🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2891818597\nCanal de YouTube: https://www.youtube.com/channel/UCtd3ON5tvcN-yjziQBy37Aw",
+    "published": "2026-10-04T16:17:07+00:00",
+    "duration": 15707,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/1e2569de957f8c875fbb_pickandrolltv_317936944483_1791130620//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2891818597",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597.mp3",
+    "audio_bytes": 188487796,
+    "audio_type": "audio/mpeg"
   }
 ]
