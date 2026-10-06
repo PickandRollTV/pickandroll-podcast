@@ -11,7 +11,7 @@ import re
 FIXED_WORDS = {
     "ucam": "UCAM", "acb": "ACB", "nba": "NBA", "fiba": "FIBA", "mvp": "MVP", "bc": "BC",
     "barça": "Barça", "barca": "Barça", "euroleague": "EuroLeague", "euroliga": "Euroliga",
-    "eurocup": "EuroCup", "efes": "Efes", "breogán": "Breogán", "v": "vs", "vs": "vs",
+    "eurocup": "EuroCup", "efes": "Efes", "breogán": "Breogán", "breogan": "Breogán", "v": "vs", "vs": "vs",
     "de": "de", "del": "del", "la": "la", "el": "el", "y": "y", "en": "en", "a": "a",
 }
 NOISE = [
@@ -29,7 +29,7 @@ def _fix_case(text):
     out = []
     for i, word in enumerate(words):
         key = word.lower()
-        if key in FIXED_WORDS and (shouting or key in ("v", "barca")):
+        if key in FIXED_WORDS and (shouting or key in ("v", "barca", "breogan")):
             fixed = FIXED_WORDS[key]
             out.append(fixed[0].upper() + fixed[1:] if i == 0 and fixed.islower() else fixed)
         elif shouting and word.isupper() and len(word) > 1:
@@ -40,6 +40,7 @@ def _fix_case(text):
 
 
 def _fix_part(part):
+    part = re.sub(r"\beuroleague\b", "EuroLeague", part, flags=re.I)
     part = re.sub(r"\bligaendesa\b", "Liga Endesa", part, flags=re.I)
     part = re.sub(r"\bliga endesa\b", "Liga Endesa", part, flags=re.I)
     part = re.sub(r"\b(round|jornada)\s*(\d+)\s*(euroleague|euroliga)\b", r"EuroLeague Jornada \2", part, flags=re.I)

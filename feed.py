@@ -73,9 +73,8 @@ def write_feed(config, episodes, path):
              type=episode.get("audio_type", "audio/mpeg"))
         if episode.get("duration"):
             _sub(item, f"{{{ITUNES}}}duration", episode["duration"])
-        # Todos con la portada del programa: las miniaturas de Twitch son apaisadas y
-        # Spotify las recorta, y las de Spotify for Creators dejarán de existir.
-        _sub(item, f"{{{ITUNES}}}image", href=show["image"])
+        # Miniatura cuadrada propia (miniaturas.py); si aún no la tiene, la portada del programa.
+        _sub(item, f"{{{ITUNES}}}image", href=episode.get("cover") or show["image"])
         _sub(item, f"{{{ITUNES}}}episode", numbers[episode["guid"]])
         _sub(item, f"{{{ITUNES}}}episodeType", "full")
         _sub(item, f"{{{ITUNES}}}explicit", "true" if show.get("explicit") else "false")

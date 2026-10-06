@@ -25,6 +25,7 @@ import tempfile
 
 from feed import write_feed
 from intro import intro_offset
+from miniaturas import add_covers
 
 ROOT = pathlib.Path(__file__).resolve().parent
 CONFIG_FILE = ROOT / "config.json"
@@ -206,6 +207,9 @@ def main():
         save_json(EPISODES_FILE, episodes)
         write_feed(config, episodes, FEED_FILE)
 
+    # La URL de la portada del programa indica dónde sirve GitHub Pages la carpeta docs/.
+    if add_covers(episodes, FEED_FILE.parent, config["show"]["image"].rsplit("/", 1)[0]):
+        save_json(EPISODES_FILE, episodes)
     write_feed(config, episodes, FEED_FILE)
     print(f"{len(pending) - failures} episodio(s) nuevo(s); {len(episodes)} en total")
     return 1 if failures else 0

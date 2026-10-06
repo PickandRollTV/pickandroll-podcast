@@ -4,7 +4,7 @@
   "youtube_channel_url": "https://www.youtube.com/@PickandRollTV",
   "min_stream_minutes": 20,
   "countdown_seconds": 0,
-  "publish_streams_after": "2026-10-04T00:00:00Z",
+  "publish_streams_after": "2026-09-01T00:00:00Z",
   "feed_url": "https://pickandrolltv.github.io/pickandroll-podcast/docs/feed.xml",
   "show": {
     "title": "PickandRollTV",
