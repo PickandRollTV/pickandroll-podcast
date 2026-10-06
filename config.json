@@ -1,0 +1,17 @@
+{
+  "youtube_channel_id": "UCxxxxxxxxxxxxxxxxxxxxxx",
+  "publish_streams_after": "2026-10-06T00:00:00Z",
+  "feed_url": "https://pickandrolltv.github.io/pickandroll-podcast/feed.xml",
+  "show": {
+    "title": "PickandRollTV",
+    "link": "https://www.youtube.com/@PickandRollTV",
+    "description": "Los directos de PickandRollTV, ahora en formato podcast.",
+    "author": "PickandRollTV",
+    "owner_email": "TU_EMAIL_AQUI",
+    "image": "https://pickandrolltv.github.io/pickandroll-podcast/cover.jpg",
+    "language": "es",
+    "category": "Sports",
+    "subcategory": "Basketball",
+    "explicit": false
+  }
+}
