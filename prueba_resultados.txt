@@ -1,0 +1,8 @@
+2026-10-04 UCAM Murcia vs Barça Basket ['ucam', 'murcia'] -> 100-94
+2026-10-02 Besiktas vs Barça Basket ['besiktas'] -> 82-95
+2026-10-02 Besiktas vs Barça Basket ['besiktas'] -> 82-95
+2026-09-29 Dubai Basketball vs Barça Basket ['dubai'] -> 94-87
+2026-09-26 Barça Basket vs Leyma Coruña ['leyma', 'coruna'] -> 119-101
+2026-09-24 Barça Basket vs Anadolu Efes ['anadolu', 'efes'] -> 89-82
+2026-09-20 Joventut Badalona vs Barça ['joventut', 'badalona'] -> None
+2026-09-19 Valencia Basket vs Barça ['valencia'] -> 86-87
