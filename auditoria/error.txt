@@ -1,1 +1,0 @@
-moderacion: PATCH /guilds/929099438989905960/auto-moderation/rules/1030554520465440818: 404 b'{"message": "404: Not Found", "code": 0}'
