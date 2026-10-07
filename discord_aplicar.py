@@ -23,7 +23,9 @@ Variables de entorno:
   MODO                "aplicar" para hacer los cambios; cualquier otra cosa solo los enseña
   ROLES               "si" para cambiar también los roles
   ACCION              "lista-mvp" para enviar al dueño del servidor, por mensaje privado de Discord,
-                      la lista de miembros con el rol MVP (no toca nada más)
+                      la lista de miembros con el rol MVP (no toca nada más);
+                      "quitar-mvp" para quitar el rol MVP a los números de esa lista indicados
+                      en NUMEROS (por ejemplo "4,5,12"), si la lista sigue teniendo TOTAL_MVP miembros
 """
 import json
 import os
@@ -127,8 +129,8 @@ def access_overwrites(access, roles, channel_type):
     return [overwrite(everyone, 0, VIEW | CONNECT)]  # oculto
 
 
-def send_mvp_list(api, guild, roles_list):
-    """Manda al dueño del servidor la lista de MVP por mensaje privado: no se guarda en el repositorio."""
+def mvp_members(api, roles_list):
+    """Miembros con el rol MVP, en el mismo orden numerado que la lista enviada al dueño."""
     mvp = next(r["id"] for r in roles_list if r["name"] == "MVP 🏆")
     members, after = [], "0"
     while True:
@@ -137,18 +139,48 @@ def send_mvp_list(api, guild, roles_list):
         if len(page) < 1000:
             break
         after = page[-1]["user"]["id"]
-    mvps = sorted((m.get("nick") or m["user"].get("global_name") or m["user"]["username"], m["user"]["username"], m["joined_at"][:10])
+    rows = sorted((m.get("nick") or m["user"].get("global_name") or m["user"]["username"], m["user"]["username"], m["joined_at"][:10], m["user"]["id"])
                   for m in members if mvp in m["roles"])
-    lines = [f"{i}. {shown} (@{user}), en el servidor desde {joined}" for i, (shown, user, joined) in enumerate(mvps, 1)]
+    return mvp, rows
+
+
+def dm_owner(api, guild, title, lines):
     dm = api.call("POST", "/users/@me/channels", {"recipient_id": guild["owner_id"]}, "Abrir mensaje privado con el dueño", force=True)
-    chunk = f"**Miembros con el rol MVP 🏆 ({len(mvps)})**"
+    chunk = title
     for line in lines:
         if len(chunk) + len(line) > 1900:
-            api.call("POST", f"/channels/{dm['id']}/messages", {"content": chunk}, "Enviar lista de MVP", force=True)
+            api.call("POST", f"/channels/{dm['id']}/messages", {"content": chunk}, "Mensaje privado al dueño", force=True)
             chunk = ""
         chunk += "\n" + line
-    api.call("POST", f"/channels/{dm['id']}/messages", {"content": chunk}, "Enviar lista de MVP", force=True)
+    api.call("POST", f"/channels/{dm['id']}/messages", {"content": chunk}, "Mensaje privado al dueño", force=True)
+
+
+def send_mvp_list(api, guild, roles_list):
+    """Manda al dueño del servidor la lista de MVP por mensaje privado: no se guarda en el repositorio."""
+    _, mvps = mvp_members(api, roles_list)
+    lines = [f"{i}. {shown} (@{user}), en el servidor desde {joined}" for i, (shown, user, joined, _) in enumerate(mvps, 1)]
+    dm_owner(api, guild, f"**Miembros con el rol MVP 🏆 ({len(mvps)})**", lines)
     print(f"Lista de {len(mvps)} MVP enviada al dueño por mensaje privado")
+    return 0
+
+
+def remove_mvp(api, guild, roles_list, numbers, expected_total):
+    """Quita el rol MVP a los números elegidos de la lista y avisa al dueño por privado de a quién."""
+    mvp, mvps = mvp_members(api, roles_list)
+    if expected_total and len(mvps) != expected_total:
+        print(f"La lista ha cambiado ({len(mvps)} MVP en vez de {expected_total}): no se quita nada")
+        return 1
+    chosen = sorted({int(n) for n in numbers.replace(" ", "").split(",") if n})
+    if not chosen or chosen[-1] > len(mvps) or chosen[0] < 1:
+        print(f"Números fuera de la lista de {len(mvps)}: {chosen}")
+        return 1
+    removed = []
+    for number in chosen:
+        shown, user, _, user_id = mvps[number - 1]
+        api.call("DELETE", f"/guilds/{GUILD}/members/{user_id}/roles/{mvp}", None, f"Quitar MVP al número {number}", force=True)
+        removed.append(f"{number}. {shown} (@{user})")
+    dm_owner(api, guild, f"**Rol MVP 🏆 retirado a {len(removed)} miembros**", removed)
+    print(f"Rol MVP retirado a {len(removed)} miembros")
     return 0
 
 
@@ -170,6 +202,8 @@ def main():
         (OUT_DIR / "antes-de-aplicar.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("ACCION", "").strip() == "lista-mvp":
         return send_mvp_list(api, guild, roles_list)
+    if os.environ.get("ACCION", "").strip() == "quitar-mvp":
+        return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
     existing = {c["id"]: c for c in channels}
     roles = {r["name"]: r["id"] for r in roles_list}
 

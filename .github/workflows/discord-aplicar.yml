@@ -4,10 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       accion:
-        description: "probar = solo enseña los cambios; aplicar = los hace; lista-mvp = te manda por privado la lista de MVP"
+        description: "probar = solo enseña los cambios; aplicar = los hace; lista-mvp = te manda por privado la lista de MVP; quitar-mvp = quita el rol MVP a los números indicados"
         type: choice
-        options: [probar, aplicar, lista-mvp]
+        options: [probar, aplicar, lista-mvp, quitar-mvp]
         default: probar
+      numeros:
+        description: "Para quitar-mvp: números de la lista de MVP separados por comas (por ejemplo 4,5,12)"
+        type: string
+        default: ""
+      total_mvp:
+        description: "Para quitar-mvp: cuántos MVP tenía la lista (si ha cambiado, no se quita nada)"
+        type: string
+        default: ""
       roles:
         description: "Cambiar también los roles (quitar moderación a MVP y crear Moderador)"
         type: boolean
@@ -35,6 +43,8 @@ jobs:
           MODO: ${{ inputs.accion }}
           ACCION: ${{ inputs.accion }}
           ROLES: ${{ inputs.roles && 'si' || 'no' }}
+          NUMEROS: ${{ inputs.numeros }}
+          TOTAL_MVP: ${{ inputs.total_mvp }}
         run: python discord_aplicar.py
       - name: Guardar el registro de cambios
         if: always()
