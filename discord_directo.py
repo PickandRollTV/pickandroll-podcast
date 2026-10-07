@@ -25,7 +25,7 @@ API = "https://discord.com/api/v10"
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 CHANNEL = CONFIG["twitch_channel"]
 GUILD = CONFIG["discord"]["guild_id"]
-ANNOUNCE_NAME = "📢-anuncios"
+ANNOUNCE_NAME = "anuncios"
 
 
 def get_text(url):
@@ -69,7 +69,7 @@ def main():
 
     if live and not state.get("en_directo"):
         channels = discord("GET", f"/guilds/{GUILD}/channels", token)
-        target = next((c for c in channels if c["name"] == ANNOUNCE_NAME), None)
+        target = next((c for c in channels if ANNOUNCE_NAME in c["name"] and c["type"] in (0, 5)), None)
         if not target:
             print(f"No encuentro el canal {ANNOUNCE_NAME}")
             return 1

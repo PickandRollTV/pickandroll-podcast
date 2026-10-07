@@ -50,27 +50,27 @@ MEMBER_BASICS = VIEW | SEND | REACT | HISTORY | CONNECT | SPEAK | THREADS | (1 <
 
 # Canales actuales (ids de la auditoría) y adónde van.
 CATEGORIES = {
-    "inicio": {"id": "929099438989905961", "name": "📌 Empieza aquí", "position": 0},
-    "pickandroll": {"id": "929099439426121728", "name": "🏀 PickandRoll", "position": 1},
-    "sub": {"name": "⭐ Zona Sub", "position": 2},
-    "staff": {"name": "🔒 Staff", "position": 8},
-    "archivo": {"name": "🗄️ Archivo", "position": 9},
+    "inicio": {"id": "929099438989905961", "name": "📌 𝗜𝗡𝗜𝗖𝗜𝗢", "position": 0},
+    "pickandroll": {"id": "929099439426121728", "name": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟", "position": 1},
+    "sub": {"name": "⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕", "position": 2},
+    "staff": {"name": "🔒 𝗦𝗧𝗔𝗙𝗙", "position": 8},
+    "archivo": {"name": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢", "position": 9},
 }
 CHANNELS = [
     # (id o None para crear, nombre, tipo, categoría, acceso, tema)
-    ("959459731578167427", "👋-bienvenida", 0, "inicio", "lectura", "Bienvenido a la comunidad de PickandRollTV. Empieza por #normas."),
-    ("929099438989905962", "📜-normas", 0, "inicio", "lectura", "Normas del servidor. Léelas antes de escribir."),
-    (None, "📢-anuncios", 5, "inicio", "lectura", "Directos, novedades y avisos de PickandRollTV."),
-    ("956699792086560768", "📰-noticias-web", 0, "inicio", "lectura", "Cada noticia nueva de pickandroll.tv, al momento."),
-    ("929099439426121729", "💬-general", 0, "pickandroll", "abierto", "Charla de Barça, Euroliga, ACB y NBA."),
-    (None, "🏟️-partidos", 15, "pickandroll", "abierto", "Un hilo por partido: previa, directo y postpartido."),
-    ("1252234382425718805", "🔄-mercado-y-plantilla", 0, "pickandroll", "abierto", "Fichajes, rumores y plantilla del Barça."),
-    ("929099439426121731", "💡-ideas-y-propuestas", 0, "pickandroll", "abierto", "¿Qué te gustaría ver en el canal? Propón contenido y mejoras."),
-    ("1252586051755573341", "❤️-apoya-el-canal", 0, "pickandroll", "lectura", "Web, donaciones, merchandising y patrocinadores de PickandRollTV."),
-    (None, "⭐-zona-sub", 0, "sub", "subs", "Canal exclusivo para suscriptores de Twitch."),
-    ("929099439426121730", "material-para-el-canal", 0, "staff", "staff", None),
-    ("982406567540441099", "bot-musica", 0, "staff", "staff", None),
-    ("1250872435880886324", "merchandising", 0, "staff", "staff", None),
+    ("959459731578167427", "👋┃bienvenida", 0, "inicio", "lectura", "Bienvenido a la comunidad de PickandRollTV. Empieza por #normas."),
+    ("929099438989905962", "📜┃normas", 0, "inicio", "lectura", "Normas del servidor. Léelas antes de escribir."),
+    (None, "📢┃anuncios", 5, "inicio", "lectura", "Directos, novedades y avisos de PickandRollTV."),
+    ("956699792086560768", "📰┃noticias-web", 0, "inicio", "lectura", "Cada noticia nueva de pickandroll.tv, al momento."),
+    ("929099439426121729", "💬┃general", 0, "pickandroll", "abierto", "Charla de Barça, Euroliga, ACB y NBA."),
+    (None, "🏟️┃partidos", 15, "pickandroll", "abierto", "Un hilo por partido: previa, directo y postpartido."),
+    ("1252234382425718805", "🔄┃mercado-y-plantilla", 0, "pickandroll", "abierto", "Fichajes, rumores y plantilla del Barça."),
+    ("929099439426121731", "💡┃ideas-y-propuestas", 0, "pickandroll", "abierto", "¿Qué te gustaría ver en el canal? Propón contenido y mejoras."),
+    ("1252586051755573341", "❤️┃apoya-el-canal", 0, "pickandroll", "lectura", "Web, donaciones, merchandising y patrocinadores de PickandRollTV."),
+    (None, "⭐┃zona-sub", 0, "sub", "subs", "Canal exclusivo para suscriptores de Twitch."),
+    ("929099439426121730", "🎬┃material-para-el-canal", 0, "staff", "staff", None),
+    ("982406567540441099", "🎵┃bot-musica", 0, "staff", "staff", None),
+    ("1250872435880886324", "👕┃merchandising", 0, "staff", "staff", None),
     ("1251187799017787413", "tertulia", 0, "archivo", "oculto", None),
     ("1248574516070846535", "propuestas-contenido", 0, "archivo", "oculto", None),
     ("929099438989905963", "plataformas", 0, "archivo", "oculto", None),
@@ -84,7 +84,29 @@ NOTIFY_ROLES = [
     ("📰 Noticias web", 0xA50044, "📰", "Aviso con cada noticia nueva de pickandroll.tv"),
     ("🏀 Partidos", 0xEDBB00, "🏀", "Aviso cuando se abre el hilo de cada partido"),
 ]
-DIRECT_CHANNEL = ("🔴-directo", "Chat para comentar el directo de PickandRollTV en Twitch mientras está en marcha.")
+DIRECT_CHANNEL = ("🔴┃directo", "Chat para comentar el directo de PickandRollTV en Twitch mientras está en marcha.")
+# Nombres anteriores → nombres con el estilo actual (acción "estetica").
+RENAMES = {
+    "📌 Empieza aquí": "📌 𝗜𝗡𝗜𝗖𝗜𝗢",
+    "🏀 PickandRoll": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
+    "⭐ Zona Sub": "⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕",
+    "🔒 Staff": "🔒 𝗦𝗧𝗔𝗙𝗙",
+    "🗄️ Archivo": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
+    "👋-bienvenida": "👋┃bienvenida",
+    "📜-normas": "📜┃normas",
+    "📢-anuncios": "📢┃anuncios",
+    "📰-noticias-web": "📰┃noticias-web",
+    "💬-general": "💬┃general",
+    "🔴-directo": "🔴┃directo",
+    "🏟️-partidos": "🏟️┃partidos",
+    "🔄-mercado-y-plantilla": "🔄┃mercado-y-plantilla",
+    "💡-ideas-y-propuestas": "💡┃ideas-y-propuestas",
+    "❤️-apoya-el-canal": "❤️┃apoya-el-canal",
+    "⭐-zona-sub": "⭐┃zona-sub",
+    "material-para-el-canal": "🎬┃material-para-el-canal",
+    "bot-musica": "🎵┃bot-musica",
+    "merchandising": "👕┃merchandising",
+}
 FORUM_TAGS = ["Euroliga", "Liga Endesa", "Copa del Rey", "Supercopa", "Amistoso"]
 
 
@@ -219,7 +241,7 @@ def setup_notifications(api, channels, roles_list):
     by_name = {c["name"]: c for c in channels}
     direct = by_name.get(DIRECT_CHANNEL[0])
     if not direct:
-        general = by_name.get("💬-general")
+        general = by_name.get("💬┃general")
         direct = api.call("POST", f"/guilds/{GUILD}/channels", {
             "name": DIRECT_CHANNEL[0], "type": 0, "topic": DIRECT_CHANNEL[1],
             "parent_id": general["parent_id"] if general else CATEGORIES["pickandroll"]["id"],
@@ -228,8 +250,8 @@ def setup_notifications(api, channels, roles_list):
         }, f"Crear {DIRECT_CHANNEL[0]} (🏀 PickandRoll, abierto)")
         by_name[DIRECT_CHANNEL[0]] = direct
 
-    defaults = ["👋-bienvenida", "📜-normas", "📢-anuncios", "📰-noticias-web", "💬-general", DIRECT_CHANNEL[0],
-                "🏟️-partidos", "🔄-mercado-y-plantilla", "💡-ideas-y-propuestas", "❤️-apoya-el-canal"]
+    defaults = ["👋┃bienvenida", "📜┃normas", "📢┃anuncios", "📰┃noticias-web", "💬┃general", DIRECT_CHANNEL[0],
+                "🏟️┃partidos", "🔄┃mercado-y-plantilla", "💡┃ideas-y-propuestas", "❤️┃apoya-el-canal"]
     default_ids = [by_name[n]["id"] for n in defaults if n in by_name]
     missing = [n for n in defaults if n not in by_name]
     if missing:
@@ -262,13 +284,25 @@ def setup_notifications(api, channels, roles_list):
     return 0
 
 
+def restyle(api, channels):
+    """Pone a categorías y canales el estilo con emote, separador ┃ y negrita. La voz no se toca."""
+    for channel in channels:
+        new = RENAMES.get(channel["name"])
+        if new and channel["type"] != 2:
+            api.call("PATCH", f"/channels/{channel['id']}", {"name": new}, f"{channel['name']} → {new}")
+    header = "# Estética aplicada\n\n" if api.apply else "# Estética que se aplicaría (prueba)\n\n"
+    (OUT_DIR / "estetica.md").write_text(header + "\n".join(api.log) + "\n", encoding="utf-8")
+    print(f"{len(api.log)} cambios {'aplicados' if api.apply else 'previstos'}")
+    return 0
+
+
 def main():
     token = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
     if not token:
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
     action = os.environ.get("ACCION", "").strip()
-    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action == "avisos"
+    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica")
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
 
@@ -276,13 +310,15 @@ def main():
     channels = api.call("GET", f"/guilds/{GUILD}/channels")
     roles_list = api.call("GET", f"/guilds/{GUILD}/roles")
     OUT_DIR.mkdir(exist_ok=True)
-    if apply and action != "avisos":
+    if apply and action not in ("avisos", "estetica"):
         snapshot = {"servidor": guild, "canales": channels, "roles": roles_list}
         (OUT_DIR / "antes-de-aplicar.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("ACCION", "").strip() == "lista-mvp":
         return send_mvp_list(api, guild, roles_list)
     if os.environ.get("ACCION", "").strip() == "quitar-mvp":
         return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
+    if action == "estetica":
+        return restyle(api, channels)
     if action == "avisos":
         return setup_notifications(api, channels, roles_list)
     existing = {c["id"]: c for c in channels}
@@ -332,7 +368,7 @@ def main():
     for position, (channel_id, name, kind, category, access, topic) in enumerate(CHANNELS):
         body = {"name": name, "parent_id": CATEGORIES[category]["id"], "position": position,
                 "permission_overwrites": access_overwrites(access, roles, kind)}
-        if name == "bot-musica" and roles.get("Nekotina"):
+        if name == "🎵┃bot-musica" and roles.get("Nekotina"):
             body["permission_overwrites"].append(overwrite(roles["Nekotina"], VIEW | SEND | HISTORY))
         if topic and kind in (0, 5, 15):
             body["topic"] = topic
@@ -354,10 +390,10 @@ def main():
         "enabled": True,
         "description": "Baloncesto en español: Barça, Euroliga, ACB y NBA.",
         "welcome_channels": [
-            {"channel_id": new_ids["📜-normas"], "description": "Lee las normas", "emoji_name": "📜"},
-            {"channel_id": new_ids["💬-general"], "description": "Habla de baloncesto", "emoji_name": "💬"},
-            {"channel_id": new_ids["📰-noticias-web"], "description": "Las noticias de la web", "emoji_name": "📰"},
-            {"channel_id": new_ids["🏟️-partidos"], "description": "Comenta cada partido", "emoji_name": "🏟️"},
+            {"channel_id": new_ids["📜┃normas"], "description": "Lee las normas", "emoji_name": "📜"},
+            {"channel_id": new_ids["💬┃general"], "description": "Habla de baloncesto", "emoji_name": "💬"},
+            {"channel_id": new_ids["📰┃noticias-web"], "description": "Las noticias de la web", "emoji_name": "📰"},
+            {"channel_id": new_ids["🏟️┃partidos"], "description": "Comenta cada partido", "emoji_name": "🏟️"},
         ],
     }, "Pantalla de bienvenida con 4 canales")
 
