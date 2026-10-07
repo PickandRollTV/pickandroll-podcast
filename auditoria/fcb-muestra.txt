@@ -61,19 +61,27 @@ data-*:
  data-time=
  data-type=
  data-widget=
-Alrededor de Zalgiris:
-list__fixture-competition--generic">
+Bloque Zalgiris:
+<li class="fixture-result-list__fixture fixture-result-list__fixture--generic"
+         data-fixture-id="40"
+         data-comp-season-id="30553"
+         data-home-team="6216"
+         data-away-team="6397"
+         data-fixture-date="2026-octubre" >
+        <div class="fixture-result-list__fixture-date-container">
+            <div class="fixture-result-list__fixture-date">            vie 09 oct
+</div>
+    <div class="fixture-info__time"
+        data-time="20:30"
+        data-date="2026-10-09"
+        >
+        20:30
+    </div>
+        </div>
+    <div class="fixture-result-list__fixture-competition fixture-result-list__fixture-competition--generic">
         <span class="visually-hidden">6.201</span>
-
-		<img class="u-hide-desktop fixture-result-list__comp-logo" alt="6.201" onerror="this.style.display='none'"
-			alt="label.competition.name.6201"
-			src="https://fcbarcelona-static-files.s3.amazonaws.com/competitions/basketball-competitions-125/6201.png;" 
-			srcset="https://fcbarcelona-static-files.s3.amazonaws.com/competitions/basketball-competitions-125/6201.png, https://fcbarcelona-static-files.s3.amazonaws.com/competitions/basketball-competitions-125/6201@x2.png 2x" />
-
-		<img class="u-show-desktop fixture-result-list__comp-logo" alt="6.201" onerror="this.style.display='none'"
-			alt="label.competition.name.6201"
-			src="https://fcbarcelona-static-files.s3.amazonaws.com/competitions/basketball-competitions-95/6201.png;" 
-			srcset="https://fcbarcelona-static-files.s3.amazonaws.com/competitions/basketball-competitions-95/6201.png, https://fcbarcelona-static-files.s3.amazonaws.com/competitions/basketball-competitions-95/6201@x2.png 2x" />
+		<img/>
+		<img/>
     </div>
     <div class="fixture-result-list__stage-container">
         <div class="fixture-result-list__stage"></div>
@@ -86,14 +94,10 @@ list__fixture-competition--generic">
         </div>
         <div class="fixture-info__badge fixture-info__badge--home">
             <span class="badge badge--above-mobile" >
-                <img class="badge-image badge-image--default-opacity badge-image--40" alt="Barça"
-                    onerror="this.onerror=null;this.src='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png';this.srcset='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png'"
-                    src="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6216.png;"  srcset="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6216.png, //resources.fcbarcelona.pulselive.com/badges/bas/40/t6216@x2.png 2x" />
+                <img/>
             </span>
             <span class="badge badge--mobile" >
-                <img class="badge-image badge-image--default-opacity badge-image--30" alt="Barça"
-                    onerror="this.onerror=null;this.src='//resources.fcbarcelona.pulselive.com/badges/club/30/default@x2.png';this.srcset='//resources.fcbarcelona.pulselive.com/badges/club/30/default@x2.png'"
-                    src="//resources.fcbarcelona.pulselive.com/badges/bas/30/t6216.png;"  srcset="//resources.fcbarcelona.pulselive.com/badges/bas/30/t6216.png, //resources.fcbarcelona.pulselive.com/badges/bas/30/t6216@x2.png 2x" />
+                <img/>
             </span>
         </div>
     </div>
@@ -104,40 +108,52 @@ list__fixture-competition--generic">
         </div>
         <div class="fixture-info__badge fixture-info__badge--away">
             <span class="badge badge--above-mobile" >
-                <img class="badge-image badge-image--default-opacity badge-image--40" alt="Zalgiris Kaunas"
-                    onerror="this.onerror=null;this.src='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png';this.srcset='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png'"
-                    src="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6397.png;"  srcset="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6397.png, //resources.fcbarcelona.pulselive.com/badges/bas/40/t6397@x2.png 2x" />
+                <img/>
             </span>
             <span class="badge badge--mobile" >
-                <img class="badge-image badge-image--default-opacity badge-image--30" alt="Zalgiris Kaunas"
-                    onerror="this.onerror=null;this.src='//resources.fcbarcelona.pulselive.com/badges/club/30/default@x2.png';this.srcset='//resources.fcbarcelona.pulselive.com/badges/club/30/default@x2.png'"
-                    src="//resources.fcbarcelona.pulselive.com/badges/bas/30/t6397.png;"  srcset="//resources.fcbarcelona.pulselive.com/badges/bas/30/t6397.png, //resources.fcbarcelona.pulselive.com/badges/bas/30/t6397@x2.png 2x" />
+                <img/>
             </span>
         </div>
     </div>
     </div>
     </li>
-
-
-                    </span>
-
-
-
-                        <span class="js-fixture-row">
-
-
-    <li class="fixture-
-Alrededor de Valencia:
-info__badge fixture-info__badge--home">
+Bloque Valencia:
+<li class="fixture-result-list__fixture fixture-result-list__fixture--generic"
+         data-fixture-id="27"
+         data-comp-season-id="30562"
+         data-home-team="6216"
+         data-away-team="6206"
+         data-fixture-date="2026-octubre" >
+        <div class="fixture-result-list__fixture-date-container">
+            <div class="fixture-result-list__fixture-date">            dom 11 oct
+</div>
+    <div class="fixture-info__time"
+        data-time="19:00"
+        data-date="2026-10-11"
+        >
+        19:00
+    </div>
+        </div>
+    <div class="fixture-result-list__fixture-competition fixture-result-list__fixture-competition--generic">
+        <span class="visually-hidden">6.200</span>
+		<img/>
+		<img/>
+    </div>
+    <div class="fixture-result-list__stage-container">
+        <div class="fixture-result-list__stage"></div>
+            <div class="fixture-result-list__stage-location">Palau Blaugrana</div>
+    </div>
+    <div class="fixture-info">
+    <div class="fixture-info__team-container fixture-info__team-container--home">
+        <div class="fixture-info__name fixture-info__name--home">
+            Barça
+        </div>
+        <div class="fixture-info__badge fixture-info__badge--home">
             <span class="badge badge--above-mobile" >
-                <img class="badge-image badge-image--default-opacity badge-image--40" alt="Barça"
-                    onerror="this.onerror=null;this.src='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png';this.srcset='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png'"
-                    src="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6216.png;"  srcset="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6216.png, //resources.fcbarcelona.pulselive.com/badges/bas/40/t6216@x2.png 2x" />
+                <img/>
             </span>
             <span class="badge badge--mobile" >
-                <img class="badge-image badge-image--default-opacity badge-image--30" alt="Barça"
-                    onerror="this.onerror=null;this.src='//resources.fcbarcelona.pulselive.com/badges/club/30/default@x2.png';this.srcset='//resources.fcbarcelona.pulselive.com/badges/club/30/default@x2.png'"
-                    src="//resources.fcbarcelona.pulselive.com/badges/bas/30/t6216.png;"  srcset="//resources.fcbarcelona.pulselive.com/badges/bas/30/t6216.png, //resources.fcbarcelona.pulselive.com/badges/bas/30/t6216@x2.png 2x" />
+                <img/>
             </span>
         </div>
     </div>
@@ -148,9 +164,40 @@ info__badge fixture-info__badge--home">
         </div>
         <div class="fixture-info__badge fixture-info__badge--away">
             <span class="badge badge--above-mobile" >
-                <img class="badge-image badge-image--default-opacity badge-image--40" alt="Valencia Basket"
-                    onerror="this.onerror=null;this.src='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png';this.srcset='//resources.fcbarcelona.pulselive.com/badges/club/40/default@x2.png'"
-                    src="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6206.png;"  srcset="//resources.fcbarcelona.pulselive.com/badges/bas/40/t6206.png, //resources.fcbarcelona.pulselive.com/badges/bas/40/t6206@x2.png 2x" />
+                <img/>
             </span>
             <span class="badge badge--mobile" >
-                <img class="b
+                <img/>
+            </span>
+        </div>
+    </div>
+    </div>
+    </li>
+Competiciones:
+6200
+6201
+Atributos de partido:
+<li class="fixture-result-list__fixture fixture-result-list__fixture--generic"
+         data-fixture-id="40"
+         data-comp-season-id="30553"
+         data-home-team="6216"
+         data-away-team="6397"
+         data-fixture-date="2026-octubre" >
+<li class="fixture-result-list__fixture fixture-result-list__fixture--generic"
+         data-fixture-id="27"
+         data-comp-season-id="30562"
+         data-home-team="6216"
+         data-away-team="6206"
+         data-fixture-date="2026-octubre" >
+<li class="fixture-result-list__fixture fixture-result-list__fixture--generic"
+         data-fixture-id="45"
+         data-comp-season-id="30553"
+         data-home-team="6216"
+         data-away-team="6394"
+         data-fixture-date="2026-octubre" >
+<li class="fixture-result-list__fixture fixture-result-list__fixture--generic"
+         data-fixture-id="59"
+         data-comp-season-id="30553"
+         data-home-team="6216"
+         data-away-team="7400"
+         data-fixture-date="2026-octubre" >
