@@ -1,0 +1,55 @@
+{
+  "30553-40": {
+    "thread": "1557455721497497621",
+    "start": "2026-10-09T18:30:00+00:00",
+    "competition": "Euroliga",
+    "rival": [
+      "zalgiris"
+    ],
+    "news": [],
+    "final": false
+  },
+  "30562-27": {
+    "thread": "1557455723833720873",
+    "start": "2026-10-11T17:00:00+00:00",
+    "competition": "Liga Endesa",
+    "rival": [
+      "valencia"
+    ],
+    "news": [],
+    "final": false
+  },
+  "30553-45": {
+    "thread": "1557455725301866648",
+    "start": "2026-10-13T18:30:00+00:00",
+    "competition": "Euroliga",
+    "rival": [
+      "maccabi",
+      "rapyd"
+    ],
+    "news": [],
+    "final": false
+  },
+  "30553-59": {
+    "thread": "1557455727516188745",
+    "start": "2026-10-16T18:30:00+00:00",
+    "competition": "Euroliga",
+    "rival": [
+      "olympiacos"
+    ],
+    "news": [],
+    "final": false
+  },
+  "30562-36": {
+    "thread": "1557455733166178375",
+    "start": "2026-10-18T17:00:00+00:00",
+    "competition": "Liga Endesa",
+    "rival": [
+      "asisa",
+      "joventut"
+    ],
+    "news": [],
+    "final": false
+  },
+  "_dia_de_partit": []
+}
