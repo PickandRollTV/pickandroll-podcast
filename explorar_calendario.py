@@ -16,10 +16,15 @@ def main():
     parts += sorted(set(re.findall(r'<script[^>]+src="([^"]+)"', html)))[:40]
     parts += ["URLs con api/json/ics:"] + sorted(set(re.findall(r'https?://[^"\'\s<>]*(?:api|json|\.ics|calendar)[^"\'\s<>]*', html)))[:40]
     parts += ["data-*:"] + sorted(set(re.findall(r'\sdata-[a-z-]+=', html)))[:60]
-    index = html.find("Zalgiris")
-    parts += ["Alrededor de Zalgiris:", html[max(0, index - 3000): index + 1500] if index >= 0 else "(no aparece)"]
-    index = html.find("Valencia")
-    parts += ["Alrededor de Valencia:", html[max(0, index - 1500): index + 800] if index >= 0 else "(no aparece)"]
+    for name in ("Zalgiris", "Valencia"):
+        index = html.find(name)
+        start = html.rfind("<li", 0, index)
+        block = html[start:html.find("</li>", index) + 5]
+        block = re.sub(r"<img[^>]*>", "<img/>", block)
+        block = re.sub(r"\n\s*\n+", "\n", block)
+        parts += [f"Bloque {name}:", block]
+    parts += ["Competiciones:"] + sorted(set(re.findall(r'competition\.name\.(\d+)', html)))
+    parts += ["Atributos de partido:"] + re.findall(r'<[^>]*data-fixture-id[^>]*>', html)[:4]
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text("\n".join(parts) + "\n", encoding="utf-8")
     return 0
