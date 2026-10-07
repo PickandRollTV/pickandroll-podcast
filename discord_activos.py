@@ -108,9 +108,7 @@ def main():
         medals = ["🥇", "🥈", "🥉", "🏅", "🏅"]
         lines = "\n".join(f"{medals[i]} <@{user}> · {counts[user]} mensajes" for i, user in enumerate(top))
         discord("POST", f"/channels/{general['id']}/messages", token, {
-            "embeds": [{"title": f"{ROLE_NAME}: los que más han dado vida al servidor",
-                        "description": lines + "\n\n¡Gracias! Lleváis el rol durante todo el mes. El mes que viene, ¿quién se lo lleva?",
-                        "color": 0xFF7A00}],
+            "content": f"## {ROLE_NAME}: los que más han dado vida al servidor\n{lines}\n\n¡Gracias! Lleváis el rol durante todo el mes. El mes que viene, ¿quién se lo lleva?",
             "allowed_mentions": {"parse": []},
         })
     return 0
