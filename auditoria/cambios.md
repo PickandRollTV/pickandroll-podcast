@@ -1,0 +1,32 @@
+# Cambios que se aplicarían (prueba)
+
+- Servidor: descripción, notificaciones solo menciones, filtro explícito, Comunidad activada
+- Categoría Información → 📌 Empieza aquí
+- Categoría 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | → 🏀 PickandRoll
+- Crear categoría ⭐ Zona Sub
+- Crear categoría 🔒 Staff
+- Crear categoría 🗄️ Archivo
+- #🙋-𝐛𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐚-𝐩𝐢𝐜𝐤-𝐚𝐧𝐝-𝐫𝐨𝐥𝐥𝐞𝐫𝐬 → 👋-bienvenida (📌 Empieza aquí, lectura)
+- #✍-𝓻𝓮𝓰𝓵𝓪𝓼 → 📜-normas (📌 Empieza aquí, lectura)
+- Crear 📢-anuncios (📌 Empieza aquí, lectura)
+- #💻-noticias-web → 📰-noticias-web (📌 Empieza aquí, lectura)
+- #📺-𝐆𝐄𝐍𝐄𝐑𝐀𝐋 → 💬-general (🏀 PickandRoll, abierto)
+- Crear 🏟️-partidos (🏀 PickandRoll, abierto)
+- #🤝-𝐏𝐋𝐀𝐍𝐓𝐈𝐋𝐋𝐀-𝟐𝟒-𝟐𝟓 → 🔄-mercado-y-plantilla (🏀 PickandRoll, abierto)
+- #💡-𝓲𝓭𝓮𝓪𝓼-𝔂-𝓸𝓹𝓲𝓷𝓲𝓸𝓷𝓮𝓼 → 💡-ideas-y-propuestas (🏀 PickandRoll, abierto)
+- #🤝-𝓭𝓸𝓷𝓪𝓬𝓲𝓸𝓷𝓮𝓼 → ❤️-apoya-el-canal (🏀 PickandRoll, lectura)
+- Crear ⭐-zona-sub (⭐ Zona Sub, subs)
+- #📆-material-para-el-canal → material-para-el-canal (🔒 Staff, staff)
+- #bot-musica-only-mods → bot-musica (🔒 Staff, staff)
+- #🧢-𝓶𝓮𝓻𝓬𝓱𝓪𝓷𝓭𝓲𝓼𝓲𝓷𝓰 → merchandising (🔒 Staff, staff)
+- #🗣🏀-𝐓𝐄𝐑𝐓𝐔𝐋𝐈𝐀 → tertulia (🗄️ Archivo, oculto)
+- #🤪-𝐏𝐑𝐎𝐏𝐔𝐄𝐒𝐓𝐀𝐒-𝐂𝐎𝐍𝐓𝐄𝐍𝐈𝐃𝐎-𝐀𝐋𝐓𝐄𝐑𝐍𝐀𝐓𝐈𝐕𝐎 → propuestas-contenido (🗄️ Archivo, oculto)
+- #📱-𝓹𝓵𝓪𝓽𝓪𝓯𝓸𝓻𝓶𝓪𝓼 → plataformas (🗄️ Archivo, oculto)
+- #💪-𝓅𝒶𝓉𝓇𝑜𝒸𝒾𝓃𝒶𝒹𝑜𝓇𝑒𝓈 → patrocinadores (🗄️ Archivo, oculto)
+- #🎙 𝐁𝐀𝐍𝐐𝐔𝐈𝐋𝐋𝐎 → banquillo (🗄️ Archivo, oculto)
+- #⭐𝐈𝐍𝐕𝐈𝐓𝐀𝐃𝐎 → invitado (🗄️ Archivo, oculto)
+- Pantalla de bienvenida con 4 canales
+- AutoMod: Bloquear spam
+- AutoMod: Bloquear menciones masivas
+- AutoMod: Bloquear invitaciones a otros servidores
+- Invitación permanente a #bienvenida
