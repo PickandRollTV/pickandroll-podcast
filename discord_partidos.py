@@ -43,7 +43,9 @@ BADGE = "https://resources.fcbarcelona.pulselive.com/badges/bas/40/t{team}@x2.pn
 # Códigos de competición del calendario del club (los demás salen como "Partido").
 COMPETITIONS = {"6201": "Euroliga", "6200": "Liga Endesa"}
 MADRID = zoneinfo.ZoneInfo("Europe/Madrid")
-OPEN_BEFORE = datetime.timedelta(hours=30)
+# Con PARTIDOS_DIAS se abren de golpe los hilos de los próximos días (sin mencionar a nadie salvo en los inminentes).
+OPEN_BEFORE = datetime.timedelta(days=float(os.environ.get("PARTIDOS_DIAS") or 0)) or datetime.timedelta(hours=30)
+PING_BEFORE = datetime.timedelta(hours=30)
 GAME_LENGTH = datetime.timedelta(hours=2, minutes=15)
 NEWS_BEFORE, NEWS_AFTER = datetime.timedelta(days=2), datetime.timedelta(days=1)
 # Palabras que no sirven para reconocer al rival en un titular.
@@ -153,6 +155,7 @@ def main():
                     return 1
             tag = next((t["id"] for t in forum.get("available_tags", []) if t["name"] == game["competition"]), None)
             ts = int(start.timestamp())
+            ping = start - now <= PING_BEFORE
             web = with_utm(CONFIG["website_url"], "partidos")
             embed = {
                 "title": f"{game['home']} vs {game['away']}",
@@ -168,9 +171,11 @@ def main():
             body = {
                 "name": f"🏀 {game['home']} vs {game['away']} | {game['competition']}"[:100],
                 "message": {
-                    "content": (f"<@&{role_id}> " if role_id else "") + "🔥 **¡Día de partido!** Aquí comentamos la previa, el directo y el postpartido.",
+                    "content": ((f"<@&{role_id}> " if role_id and ping else "")
+                                + ("🔥 **¡Día de partido!**" if ping else "🗓️ **Próximo partido.**")
+                                + " Aquí comentamos la previa, el directo y el postpartido."),
                     "embeds": [embed],
-                    "allowed_mentions": {"roles": [role_id] if role_id else []},
+                    "allowed_mentions": {"roles": [role_id] if role_id and ping else []},
                 },
             }
             if tag:

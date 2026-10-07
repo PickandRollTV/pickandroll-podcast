@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       accion:
-        description: "probar = solo enseña los cambios; aplicar = los hace; lista-mvp = te manda por privado la lista de MVP; quitar-mvp = quita el rol MVP a los números indicados; avisos = crea los roles de avisos y el menú de entrada; estetica = pone emotes y negrita a canales y categorías; mensajes = publica o actualiza bienvenida, normas y apoyo; moderacion = quita la moderación a MVP y crea Moderador; web = da protagonismo a pickandroll.tv"
+        description: "probar = solo enseña los cambios; aplicar = los hace; lista-mvp = te manda por privado la lista de MVP; quitar-mvp = quita el rol MVP a los números indicados; avisos = crea los roles de avisos y el menú de entrada; estetica = pone emotes y negrita a canales y categorías; mensajes = publica o actualiza bienvenida, normas y apoyo; moderacion = quita la moderación a MVP y crea Moderador; web = da protagonismo a pickandroll.tv; partidos = abre ya los hilos de los próximos 14 días"
         type: choice
-        options: [probar, aplicar, lista-mvp, quitar-mvp, avisos, estetica, mensajes, moderacion, web]
+        options: [probar, aplicar, lista-mvp, quitar-mvp, avisos, estetica, mensajes, moderacion, web, partidos]
         default: probar
       numeros:
         description: "Para quitar-mvp: números de la lista de MVP separados por comas (por ejemplo 4,5,12)"
@@ -51,6 +51,7 @@ jobs:
         run: |
           git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
           git add auditoria
+          [ -f discord_partidos.json ] && git add discord_partidos.json
           git diff --cached --quiet && exit 0
           git commit -q -m "Reorganización del servidor de Discord (${{ inputs.accion }})"
           for i in 1 2 3; do git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0; sleep 5; done

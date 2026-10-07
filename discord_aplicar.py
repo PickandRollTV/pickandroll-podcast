@@ -477,6 +477,11 @@ def main():
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
     action = os.environ.get("ACCION", "").strip()
+    if action == "partidos":
+        # Abre ya los hilos de los partidos de los próximos 14 días.
+        os.environ.setdefault("PARTIDOS_DIAS", "14")
+        import discord_partidos
+        return discord_partidos.main()
     apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion", "web")
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
