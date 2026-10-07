@@ -346,7 +346,6 @@ def build_messages(by_name):
                             "eliges cuántos cafés y listo."),
             "color": 0xFFDD00, "thumbnail": {"url": logo},
             "fields": [
-                {"name": "🎯 A qué va tu apoyo", "value": "🎙️ Mejor equipo para los directos\n🚗 Viajes para cubrir partidos\n🚀 Proyectos nuevos en la web y el canal", "inline": False},
                 {"name": "👉 Apoya aquí", "value": f"**[buymeacoffee.com/pickandrolltv]({DONATIONS_URL})**", "inline": False},
             ],
             "footer": {"text": "Gracias por hacer posible PickandRollTV ❤️"},
@@ -356,7 +355,7 @@ def build_messages(by_name):
             "description": "PickandRollTV es un proyecto independiente. Así puedes ayudarnos a crecer:",
             "color": color, "thumbnail": {"url": logo},
             "fields": [
-                {"name": "☕ Invítanos a un café", "value": f"[buymeacoffee.com/pickandrolltv]({DONATIONS_URL}). Cada café nos ayuda a mejorar el equipo y a viajar a los partidos.", "inline": False},
+                {"name": "☕ Invítanos a un café", "value": f"[buymeacoffee.com/pickandrolltv]({DONATIONS_URL}). ¡Gracias por tu apoyo!", "inline": False},
                 {"name": "⭐ Suscríbete en Twitch", "value": f"[twitch.tv/{cfg['twitch_channel']}]({cfg['twitch_url']}). Los subs tenéis acceso a la ⭐ Zona Sub.", "inline": False},
                 {"name": "📰 Lee y comparte la web", "value": f"[pickandroll.tv]({web('apoya')}). Cada visita nos ayuda.", "inline": False},
                 {"name": "▶️ Síguenos en todas partes", "value": links, "inline": False},
