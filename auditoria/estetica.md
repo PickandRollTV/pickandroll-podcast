@@ -1,0 +1,21 @@
+# Estética aplicada
+
+- 📌 Empieza aquí → 📌 𝗜𝗡𝗜𝗖𝗜𝗢
+- 📜-normas → 📜┃normas
+- 🏀 PickandRoll → 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟
+- 💬-general → 💬┃general
+- material-para-el-canal → 🎬┃material-para-el-canal
+- 💡-ideas-y-propuestas → 💡┃ideas-y-propuestas
+- 📰-noticias-web → 📰┃noticias-web
+- 👋-bienvenida → 👋┃bienvenida
+- bot-musica → 🎵┃bot-musica
+- merchandising → 👕┃merchandising
+- 🔄-mercado-y-plantilla → 🔄┃mercado-y-plantilla
+- ❤️-apoya-el-canal → ❤️┃apoya-el-canal
+- ⭐ Zona Sub → ⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕
+- 🔒 Staff → 🔒 𝗦𝗧𝗔𝗙𝗙
+- 🗄️ Archivo → 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢
+- 📢-anuncios → 📢┃anuncios
+- 🏟️-partidos → 🏟️┃partidos
+- ⭐-zona-sub → ⭐┃zona-sub
+- 🔴-directo → 🔴┃directo
