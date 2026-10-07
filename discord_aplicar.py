@@ -368,8 +368,8 @@ def build_messages(by_name):
 
 def embed_to_text(embed):
     """Pasa una tarjeta a texto con formato de Discord, para que se vea aunque alguien tenga desactivadas las tarjetas."""
-    title = f"## [{embed['title']}](<{embed['url']}>)" if embed.get("url") else f"## {embed['title']}"
-    parts = [title]
+    # Los títulos van sin enlace: Discord no pinta enlaces dentro de un encabezado.
+    parts = [f"## {embed['title']}"]
     if embed.get("description"):
         parts.append(embed["description"])
     parts += [f"**{field['name']}**\n{field['value']}" for field in embed.get("fields", [])]

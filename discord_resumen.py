@@ -75,11 +75,11 @@ def main():
         return 1
     role_id = json.loads(ROLES_FILE.read_text(encoding="utf-8")).get("📰 Noticias web") if ROLES_FILE.exists() else None
     # Todo en texto (con <> para no generar una vista previa por enlace), y la imagen aparte.
-    text = re.sub(r"\]\((https?://[^)\s>]+)\)", r"](<\1>)", f"## [{embed['title']}]({site})\n{embed['description']}")
+    text = re.sub(r"\]\((https?://[^)\s>]+)\)", r"](<\1>)", f"## {embed['title']}\n{embed['description']}")
     content = (f"<@&{role_id}> " if role_id else "") + "🗞️ **El resumen de la semana ya está aquí.** ¿Te perdiste alguna?\n" + text
     while len(content) > 2000 and len(lines) > 1:
         lines.pop(-1)
-        text = re.sub(r"\]\((https?://[^)\s>]+)\)", r"](<\1>)", f"## [{embed['title']}]({site})\n" + "\n".join(lines)
+        text = re.sub(r"\]\((https?://[^)\s>]+)\)", r"](<\1>)", f"## {embed['title']}\n" + "\n".join(lines)
                       + f"\n\n**[👉 Todas las noticias en pickandroll.tv]({site})**")
         content = (f"<@&{role_id}> " if role_id else "") + "🗞️ **El resumen de la semana ya está aquí.** ¿Te perdiste alguna?\n" + text
     discord("POST", f"/channels/{target['id']}/messages", token, {
