@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Da el rol 🔥 Top del mes a los miembros que más han participado en los últimos 30 días.
+"""Da los roles del mes: 🔥 Top del mes y 🔮 Adivino del mes.
+
+🔥 Top del mes: a los miembros que más han participado en los últimos 30 días.
 
 Cuenta los mensajes de cada miembro en los canales de texto de la categoría PickandRoll
 (sin bots), da el rol a los TOP_N primeros, se lo quita a quien ya no está y lo anuncia
@@ -64,6 +66,65 @@ def count_messages(token, channel_id, since):
         after = max(batch, key=lambda m: int(m["id"]))["id"]
 
 
+def set_role(token, role_name, color, winners):
+    """Da el rol a los ganadores y se lo quita a los del mes anterior."""
+    roles = discord("GET", f"/guilds/{GUILD}/roles", token)
+    role = next((r for r in roles if r["name"] == role_name), None)
+    if not role:
+        role = discord("POST", f"/guilds/{GUILD}/roles", token, {"name": role_name, "color": color, "hoist": True, "permissions": "0"})
+    holders, after = [], "0"
+    while True:
+        members = discord("GET", f"/guilds/{GUILD}/members?limit=1000&after={after}", token)
+        if not members:
+            break
+        holders += [m["user"]["id"] for m in members if role["id"] in m["roles"]]
+        after = members[-1]["user"]["id"]
+        if len(members) < 1000:
+            break
+    for user in holders:
+        if user not in winners:
+            discord("DELETE", f"/guilds/{GUILD}/members/{user}/roles/{role['id']}", token)
+    for user in winners:
+        if user not in holders:
+            discord("PUT", f"/guilds/{GUILD}/members/{user}/roles/{role['id']}", token)
+
+
+def porra_ranking(token, general):
+    """🔮 Adivino del mes: los que más porras acertaron el mes pasado (discord_partidos.json)."""
+    state_file = ROOT / "discord_partidos.json"
+    if not state_file.exists():
+        return
+    today = datetime.date.today()
+    last_month = (today.replace(day=1) - datetime.timedelta(days=1)).strftime("%Y-%m")
+    points = collections.Counter()
+    for key, entry in json.loads(state_file.read_text(encoding="utf-8")).items():
+        if key.startswith("_") or not entry.get("porra_buena") or not entry["start"].startswith(last_month):
+            continue
+        after = None
+        while True:
+            page = discord("GET", f"/channels/{entry['thread']}/polls/{entry['porra']}/answers/{entry['porra_buena']}?limit=100"
+                           + (f"&after={after}" if after else ""), token)
+            batch = page.get("users", [])
+            points.update(u["id"] for u in batch if not u.get("bot"))
+            if len(batch) < 100:
+                break
+            after = batch[-1]["id"]
+    if not points:
+        print("Nadie acertó porras el mes pasado")
+        return
+    best = max(points.values())
+    winners = [user for user, score in points.items() if score == best]
+    set_role(token, "🔮 Adivino del mes", 0x8E44AD, winners)
+    top = sorted(points.items(), key=lambda item: -item[1])[:10]
+    medals = ["🥇", "🥈", "🥉"] + ["🏅"] * 7
+    if general:
+        discord("POST", f"/channels/{general['id']}/messages", token, {
+            "content": "## 🔮 Ranking de la porra del mes\n" + "\n".join(f"{medals[i]} <@{u}> · {n} acierto{'s' if n != 1 else ''}" for i, (u, n) in enumerate(top))
+                       + "\n\nEl rol 🔮 **Adivino del mes** es para el que más ha acertado. ¡Nueva porra en cada hilo de 🏟️ partidos!",
+            "allowed_mentions": {"parse": []},
+        })
+
+
 def main():
     token = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
     if not token:
@@ -82,37 +143,17 @@ def main():
     top = [user for user, _ in counts.most_common(TOP_N)]
     print(f"{len(counts)} miembros han escrito en {len(text)} canales; top {len(top)}")
 
-    roles = discord("GET", f"/guilds/{GUILD}/roles", token)
-    role = next((r for r in roles if r["name"] == ROLE_NAME), None)
-    if not role:
-        role = discord("POST", f"/guilds/{GUILD}/roles", token,
-                       {"name": ROLE_NAME, "color": 0xFF7A00, "hoist": True, "permissions": "0"})
-    holders, after = [], "0"
-    while True:
-        members = discord("GET", f"/guilds/{GUILD}/members?limit=1000&after={after}", token)
-        if not members:
-            break
-        holders += [m["user"]["id"] for m in members if role["id"] in m["roles"]]
-        after = members[-1]["user"]["id"]
-        if len(members) < 1000:
-            break
-    for user in holders:
-        if user not in top:
-            discord("DELETE", f"/guilds/{GUILD}/members/{user}/roles/{role['id']}", token)
-    for user in top:
-        if user not in holders:
-            discord("PUT", f"/guilds/{GUILD}/members/{user}/roles/{role['id']}", token)
+    set_role(token, ROLE_NAME, 0xFF7A00, top)
 
     general = next((c for c in text if "general" in c["name"]), None)
     if general and top:
         medals = ["🥇", "🥈", "🥉", "🏅", "🏅"]
         lines = "\n".join(f"{medals[i]} <@{user}> · {counts[user]} mensajes" for i, user in enumerate(top))
         discord("POST", f"/channels/{general['id']}/messages", token, {
-            "embeds": [{"title": f"{ROLE_NAME}: los que más han dado vida al servidor",
-                        "description": lines + "\n\n¡Gracias! Lleváis el rol durante todo el mes. El mes que viene, ¿quién se lo lleva?",
-                        "color": 0xFF7A00}],
+            "content": f"## {ROLE_NAME}: los que más han dado vida al servidor\n{lines}\n\n¡Gracias! Lleváis el rol durante todo el mes. El mes que viene, ¿quién se lo lleva?",
             "allowed_mentions": {"parse": []},
         })
+    porra_ranking(token, general)
     return 0
 
 

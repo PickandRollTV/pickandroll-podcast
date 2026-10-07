@@ -29,6 +29,7 @@ import urllib.request
 import zoneinfo
 
 from discord_web import with_utm
+from resultados import find_score
 
 ROOT = pathlib.Path(__file__).resolve().parent
 STATE_FILE = ROOT / "discord_partidos.json"
@@ -84,8 +85,8 @@ def club_fixtures():
     return fixtures
 
 
-def euroleague_score(start):
-    """Resultado del partido de Euroliga que empezó a esa hora, si ya ha terminado."""
+def euroleague_game(start):
+    """Partido de Euroliga que empieza a esa hora (o None)."""
     try:
         games = json.loads(get(EUROLEAGUE.format(year=season_year(start)))).get("data", [])
     except Exception as error:
@@ -93,9 +94,90 @@ def euroleague_score(start):
         return None
     for game in games:
         when = datetime.datetime.fromisoformat(game["utcDate"].replace("Z", "+00:00"))
-        if abs(when - start) < datetime.timedelta(hours=3) and game["played"]:
-            return f"{game['local']['club']['abbreviatedName']} **{game['local']['score']}-{game['road']['score']}** {game['road']['club']['abbreviatedName']}"
+        if abs(when - start) < datetime.timedelta(hours=3):
+            return game
     return None
+
+
+def final_score(entry, start):
+    """(puntos local, puntos visitante) del partido terminado, o None si aún no se sabe."""
+    if entry.get("competition") == "Euroliga":
+        game = euroleague_game(start)
+        if game and game["played"]:
+            return game["local"]["score"], game["road"]["score"]
+    if entry.get("home") and entry.get("away"):
+        try:
+            found = find_score(f"{entry['home']} vs {entry['away']}", start)
+        except Exception as error:
+            print(f"No he podido buscar el resultado: {error}")
+            found = None
+        if found:
+            local, road = found.split("-")
+            return int(local), int(road)
+    return None
+
+
+def player_name(raw):
+    """"KONE, ABDU" -> "Abdu Kone"."""
+    last, _, first = raw.partition(",")
+    return f"{first.strip()} {last.strip()}".strip().title()
+
+
+def mvp_candidates(entry, start):
+    """Hasta 10 jugadores del Barça para votar el MVP: los mejores por valoración del partido
+    (Euroliga) o, si no hay estadísticas, la plantilla de la Euroliga."""
+    names = []
+    game = euroleague_game(start) if entry.get("competition") == "Euroliga" else None
+    if game:
+        try:
+            stats = json.loads(get(f"https://api-live.euroleague.net/v3/competitions/E/seasons/E{season_year(start)}/games/{game['gameCode']}/stats"))
+            side = stats["local"] if game["local"]["club"]["code"] == "BAR" else stats["road"]
+            players = [(p.get("stats", {}).get("valuation") or 0, p.get("player", {}).get("person", {}).get("name", ""))
+                       for p in side.get("players", []) if (p.get("stats", {}).get("timePlayed") or 0)]
+            names = [player_name(n) for _, n in sorted(players, reverse=True) if n][:10]
+        except Exception as error:
+            print(f"Sin estadísticas del partido: {error}")
+    if not names:
+        try:
+            people = json.loads(get(f"https://api-live.euroleague.net/v2/competitions/E/seasons/E{season_year(start)}/clubs/BAR/people"))
+            names = [player_name(p["person"]["name"]) for p in sorted(people, key=lambda p: p.get("order") or 99)
+                     if p.get("type") == "J" and p.get("active", True)][:10]
+        except Exception as error:
+            print(f"Sin plantilla: {error}")
+    return names
+
+
+def poll(question, answers, hours):
+    return {"poll": {"question": {"text": question[:300]},
+                     "answers": [{"poll_media": {"text": text[:55], **({"emoji": {"name": emoji}} if emoji else {})}}
+                                 for text, emoji in answers],
+                     "duration": max(1, min(int(hours), 768)), "allow_multiselect": False}}
+
+
+def porra_answers(entry):
+    rival = entry["away"] if plain(entry["home"]).startswith("barca") else entry["home"]
+    return [("Gana el Barça por 10 o más", "🔥"), ("Gana el Barça por 1 a 9", "💙"),
+            (f"Gana {rival} por 1 a 9", "😬"), (f"Gana {rival} por 10 o más", "😱")]
+
+
+def porra_winner(entry, score):
+    """Índice (1-4) de la respuesta acertada de la porra."""
+    local, road = score
+    barca, rival = (local, road) if plain(entry["home"]).startswith("barca") else (road, local)
+    diff = barca - rival
+    return 1 if diff >= 10 else 2 if diff > 0 else 4 if diff <= -10 else 3
+
+
+def voters(token, channel, message, answer):
+    users, after = [], None
+    while True:
+        page = discord("GET", f"/channels/{channel}/polls/{message}/answers/{answer}?limit=100" + (f"&after={after}" if after else ""), token)
+        batch = page.get("users", [])
+        users += [u["id"] for u in batch if not u.get("bot")]
+        if len(batch) < 100:
+            return users
+        after = batch[-1]["id"]
+
 
 
 def discord(method, path, token, body=None):
@@ -172,6 +254,8 @@ def main():
         home = plain(game["home"]).startswith("barca")
         rival = game["away"] if home else game["home"]
         entry = state.get(key)
+        if entry:
+            entry.update(home=game["home"], away=game["away"])
 
         # 1. Abrir el hilo.
         if not entry and now <= start <= now + OPEN_BEFORE:
@@ -191,6 +275,7 @@ def main():
                 body["applied_tags"] = [tag]
             thread = discord("POST", f"/channels/{forum['id']}/threads", token, body)
             entry = state[key] = {"thread": thread["id"], "start": start.isoformat(), "competition": game["competition"],
+                                  "home": game["home"], "away": game["away"],
                                   "rival": rival_keywords(rival), "news": [], "final": False}
             print(f"Hilo abierto: {body['name']}")
     # Los partidos ya abiertos pueden haber desaparecido del calendario al jugarse: se siguen desde el estado.
@@ -214,20 +299,41 @@ def main():
                 entry["news"].append(news["link"])
                 print(f"Noticia enlazada: {news['title']}")
 
-        # 3. Final del partido.
-        if not entry["final"] and now >= start + GAME_LENGTH:
-            score = euroleague_score(start) if entry.get("competition") == "Euroliga" else None
-            if entry.get("competition") == "Euroliga" and not score and now < start + datetime.timedelta(hours=6):
-                continue  # la Euroliga aún no ha dado el resultado: se vuelve a mirar en la próxima pasada
-            web = with_utm(CONFIG["website_url"], "partidos")
-            discord("POST", f"/channels/{entry['thread']}/messages", token, {
-                "content": ((f"🏁 **Final:** {score}\n" if score else "🏁 **¡Final del partido!**\n")
-                            + f"¿Cómo lo habéis visto? 👇\n📰 La crónica y el análisis, en <{web}>"),
+        # 3. Porra: encuesta del resultado hasta la hora del partido.
+        if "porra" not in entry and entry.get("home") and now < start - datetime.timedelta(hours=1):
+            message = discord("POST", f"/channels/{entry['thread']}/messages", token, {
+                "content": "🔮 **Porra del partido.** ¿Cómo acaba? Se cierra al empezar el partido y los que aciertan suman para el ranking del mes 🏆",
+                **poll(f"🔮 {entry['home']} vs {entry['away']}: ¿cómo acaba?", porra_answers(entry), (start - now).total_seconds() // 3600),
             })
+            entry["porra"] = message["id"]
+            print(f"Porra abierta: {key}")
+
+        # 4. Final del partido: resultado, aciertos de la porra y votación del MVP.
+        if not entry["final"] and now >= start + GAME_LENGTH:
+            score = final_score(entry, start)
+            if not score and now < start + datetime.timedelta(hours=12):
+                continue  # aún no se sabe el resultado: se vuelve a mirar en la próxima pasada
+            web = with_utm(CONFIG["website_url"], "partidos")
+            lines = [f"🏁 **Final:** {entry.get('home', '')} **{score[0]}-{score[1]}** {entry.get('away', '')}" if score else "🏁 **¡Final del partido!**"]
+            if score and entry.get("porra"):
+                winner = porra_winner(entry, score)
+                hits = voters(token, entry["thread"], entry["porra"], winner)
+                # Solo se guarda la respuesta buena: el ranking del mes se recuenta en Discord (sin ids en el repositorio).
+                entry["porra_buena"] = winner
+                lines.append(f"🔮 **Porra:** {len(hits)} acertante{'s' if len(hits) != 1 else ''}"
+                             + (": " + " ".join(f"<@{u}>" for u in hits[:20]) if hits else ". ¡La próxima!"))
+            lines.append(f"📰 La crónica y el análisis, en <{web}>")
+            discord("POST", f"/channels/{entry['thread']}/messages", token, {"content": "\n".join(lines), "allowed_mentions": {"parse": []}})
+            names = mvp_candidates(entry, start)
+            if len(names) >= 2:
+                discord("POST", f"/channels/{entry['thread']}/messages", token, {
+                    "content": f"⭐ **MVP del partido.** ¿Quién ha sido el mejor del Barça? Votación abierta 24 horas.\n📰 Las notas de los jugadores, en <{web}>",
+                    **poll("⭐ ¿Quién ha sido el MVP del Barça?", [(n, None) for n in names], 24),
+                })
             entry["final"] = True
             print(f"Final publicado: {key}")
 
-    # 4. "DIA DE PARTIT" de la web: aviso destacado en #anuncios para los de 🏀 Partidos.
+    # 5. "DIA DE PARTIT" de la web: aviso destacado en #anuncios para los de 🏀 Partidos.
     announced = state.setdefault("_dia_de_partit", [])
     first_time = not announced and not any(not k.startswith("_") for k in state)
     for news in history:
