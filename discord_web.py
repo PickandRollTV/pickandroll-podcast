@@ -7,8 +7,8 @@ Flujo de cada ejecución:
      canal de Discord con un webhook: titular, entradilla, foto y enlace a la web.
   3. Apunta la noticia en discord_publicados.json para no repetirla.
 
-La primera vez solo apunta las noticias que ya hay, sin publicarlas, para no llenar
-el canal de golpe con noticias antiguas.
+La primera vez publica solo la noticia más reciente, como prueba, y apunta las demás
+sin publicarlas, para no llenar el canal de golpe con noticias antiguas.
 
 Variables de entorno:
   DISCORD_WEBHOOK     URL del webhook del canal de noticias (secreto del repositorio).
@@ -159,13 +159,12 @@ def main():
     published = [] if first_run else json.loads(STATE_FILE.read_text(encoding="utf-8"))
     seen = set(published)
     new = [news for news in items if news["guid"] not in seen]
-    if first_run:
-        print(f"Primera pasada: se apuntan {len(new)} noticias sin publicarlas")
-        published = [news["guid"] for news in new]
-        new = []
-
     # Las más antiguas primero, para que en Discord queden en orden.
     new.sort(key=lambda news: news["published"] or datetime.datetime.min.replace(tzinfo=datetime.timezone.utc))
+    if first_run:
+        print(f"Primera pasada: se publica la última noticia y se apuntan {len(new) - 1} sin publicarlas")
+        published = [news["guid"] for news in new[:-1]]
+        new = new[-1:]
     status = 0
     for news in new[-MAX_PER_RUN:]:
         try:

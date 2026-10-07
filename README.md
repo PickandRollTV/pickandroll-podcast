@@ -58,7 +58,7 @@ Cada 15 minutos `discord_web.py` lee el RSS de pickandroll.tv y publica cada not
 nueva en el canal de Discord (titular, entradilla, foto y enlace a la web con etiquetas
 UTM `utm_source=discord`, para medir en las estadísticas las visitas que llegan desde allí).
 Las noticias ya publicadas se apuntan en `discord_publicados.json`; la primera pasada
-solo apunta las que ya existen, sin publicarlas.
+publica solo la más reciente, como prueba, y apunta las demás sin publicarlas.
 
 Puesta en marcha:
 
