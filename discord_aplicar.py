@@ -84,6 +84,8 @@ NOTIFY_ROLES = [
     ("📰 Noticias web", 0xA50044, "📰", "Aviso con cada noticia nueva de pickandroll.tv"),
     ("🏀 Partidos", 0xEDBB00, "🏀", "Aviso cuando se abre el hilo de cada partido"),
 ]
+DONATIONS_URL = "https://buymeacoffee.com/pickandrolltv"
+DONATIONS_CHANNEL = ("☕┃donaciones", "Invítanos a un café en Buy Me a Coffee y ayuda a que PickandRollTV siga creciendo.")
 DIRECT_CHANNEL = ("🔴┃directo", "Chat para comentar el directo de PickandRollTV en Twitch mientras está en marcha.")
 # Nombres anteriores → nombres con el estilo actual (acción "estetica").
 RENAMES = {
@@ -330,11 +332,25 @@ def build_messages(by_name):
             ],
             "footer": {"text": "Al participar en el servidor aceptas estas normas y las de Discord"},
         }],
+        "☕┃donaciones": [{
+            "title": "☕ Invítanos a un café",
+            "url": DONATIONS_URL,
+            "description": ("El baloncesto es nuestra pasión, y PickandRollTV nació con la ilusión de compartirla con toda la comunidad.\n\n"
+                            "Si te gusta lo que hacemos, puedes apoyarnos con un café en **Buy Me a Coffee**. Sin cuentas ni suscripciones: "
+                            "eliges cuántos cafés y listo."),
+            "color": 0xFFDD00, "thumbnail": {"url": logo},
+            "fields": [
+                {"name": "🎯 A qué va tu apoyo", "value": "🎙️ Mejor equipo para los directos\n🚗 Viajes para cubrir partidos\n🚀 Proyectos nuevos en la web y el canal", "inline": False},
+                {"name": "👉 Apoya aquí", "value": f"**[buymeacoffee.com/pickandrolltv]({DONATIONS_URL})**", "inline": False},
+            ],
+            "footer": {"text": "Gracias por hacer posible PickandRollTV ❤️"},
+        }],
         "❤️┃apoya-el-canal": [{
             "title": "❤️ Apoya a PickandRollTV",
             "description": "PickandRollTV es un proyecto independiente. Así puedes ayudarnos a crecer:",
             "color": color, "thumbnail": {"url": logo},
             "fields": [
+                {"name": "☕ Invítanos a un café", "value": f"[buymeacoffee.com/pickandrolltv]({DONATIONS_URL}). Cada café nos ayuda a mejorar el equipo y a viajar a los partidos.", "inline": False},
                 {"name": "⭐ Suscríbete en Twitch", "value": f"[twitch.tv/{cfg['twitch_channel']}]({cfg['twitch_url']}). Los subs tenéis acceso a la ⭐ Zona Sub.", "inline": False},
                 {"name": "📰 Lee y comparte la web", "value": f"[pickandroll.tv]({cfg['website_url']}). Cada visita nos ayuda.", "inline": False},
                 {"name": "▶️ Síguenos en todas partes", "value": links, "inline": False},
@@ -344,9 +360,18 @@ def build_messages(by_name):
     }
 
 
-def post_messages(api, channels):
+def post_messages(api, channels, roles_list):
     """Publica (o actualiza, si ya están) los mensajes fijos del servidor."""
     by_name = {c["name"]: c for c in channels}
+    if DONATIONS_CHANNEL[0] not in by_name:
+        roles = {r["name"]: r["id"] for r in roles_list}
+        support = by_name.get("❤️┃apoya-el-canal")
+        by_name[DONATIONS_CHANNEL[0]] = api.call("POST", f"/guilds/{GUILD}/channels", {
+            "name": DONATIONS_CHANNEL[0], "type": 0, "topic": DONATIONS_CHANNEL[1],
+            "parent_id": support["parent_id"] if support else CATEGORIES["pickandroll"]["id"],
+            "position": (support or {}).get("position", 0) + 1,
+            "permission_overwrites": access_overwrites("lectura", roles, 0),
+        }, f"Crear {DONATIONS_CHANNEL[0]} (🏀 PickandRoll, lectura)")
     store = OUT_DIR / "mensajes.json"
     sent = json.loads(store.read_text(encoding="utf-8")) if store.exists() else {}
     for name, embeds in build_messages(by_name).items():
@@ -389,7 +414,7 @@ def main():
     if os.environ.get("ACCION", "").strip() == "quitar-mvp":
         return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
     if action == "mensajes":
-        return post_messages(api, channels)
+        return post_messages(api, channels, roles_list)
     if action == "estetica":
         return restyle(api, channels)
     if action == "avisos":
