@@ -296,13 +296,84 @@ def restyle(api, channels):
     return 0
 
 
+def build_messages(by_name):
+    """Mensajes fijos del servidor: bienvenida, normas y apoyo. Cada uno es una lista de embeds."""
+    cfg = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
+    ch = {name: f"<#{c['id']}>" for name, c in by_name.items()}
+    links = " · ".join(f"[{name}]({url})" for name, url in cfg["social_links"])
+    color, logo = 0xA50044, cfg["show"]["image"]
+    return {
+        "👋┃bienvenida": [{
+            "title": "🏀 Bienvenido a PickandRollTV",
+            "description": ("La comunidad del **Barça Basket**, la **Euroliga**, la **Liga Endesa** y la **NBA** en español.\n"
+                            "Directos de cada partido, postpartidos, noticias y tertulia con gente que vive el baloncesto."),
+            "color": color, "thumbnail": {"url": logo},
+            "fields": [
+                {"name": "📌 Para empezar", "value": f"1. Lee las {ch.get('📜┃normas', '#normas')}\n2. Elige tus avisos en <id:customize>\n3. Preséntate en {ch.get('💬┃general', '#general')}", "inline": False},
+                {"name": "💬 Dónde hablar", "value": f"{ch.get('💬┃general', '')} charla de baloncesto\n{ch.get('🏟️┃partidos', '')} un hilo por partido\n{ch.get('🔴┃directo', '')} durante los directos\n{ch.get('🔄┃mercado-y-plantilla', '')} fichajes y rumores", "inline": True},
+                {"name": "📣 Para estar al día", "value": f"{ch.get('📢┃anuncios', '')} directos y novedades\n{ch.get('📰┃noticias-web', '')} cada noticia de la web\n{ch.get('💡┃ideas-y-propuestas', '')} propón contenido", "inline": True},
+                {"name": "🔗 PickandRollTV", "value": links, "inline": False},
+            ],
+            "footer": {"text": "Bienvenidos a la magia del baloncesto"},
+        }],
+        "📜┃normas": [{
+            "title": "📜 Normas de la comunidad",
+            "description": "Para que esto siga siendo el mejor sitio para hablar de baloncesto:",
+            "color": color,
+            "fields": [
+                {"name": "1️⃣ Respeto ante todo", "value": "Debate lo que quieras, pero sin insultos, ataques personales ni discriminación de ningún tipo.", "inline": False},
+                {"name": "2️⃣ Cada tema en su canal", "value": f"Partidos en {ch.get('🏟️┃partidos', '#partidos')}, fichajes en {ch.get('🔄┃mercado-y-plantilla', '#mercado')} y el resto en {ch.get('💬┃general', '#general')}.", "inline": False},
+                {"name": "3️⃣ Nada de spam ni publicidad", "value": "Ni invitaciones a otros servidores, ni promoción sin permiso, ni menciones masivas. AutoMod las bloquea.", "inline": False},
+                {"name": "4️⃣ Cuidado con los spoilers", "value": "Si un partido acaba de terminar, usa ||spoiler|| en el resultado durante la primera hora.", "inline": False},
+                {"name": "5️⃣ Contenido apto para todos", "value": "Nada de contenido explícito, violento o ilegal.", "inline": False},
+                {"name": "6️⃣ Escucha al staff", "value": "Los moderadores pueden borrar mensajes, aislar o expulsar a quien no cumpla las normas.", "inline": False},
+            ],
+            "footer": {"text": "Al participar en el servidor aceptas estas normas y las de Discord"},
+        }],
+        "❤️┃apoya-el-canal": [{
+            "title": "❤️ Apoya a PickandRollTV",
+            "description": "PickandRollTV es un proyecto independiente. Así puedes ayudarnos a crecer:",
+            "color": color, "thumbnail": {"url": logo},
+            "fields": [
+                {"name": "⭐ Suscríbete en Twitch", "value": f"[twitch.tv/{cfg['twitch_channel']}]({cfg['twitch_url']}). Los subs tenéis acceso a la ⭐ Zona Sub.", "inline": False},
+                {"name": "📰 Lee y comparte la web", "value": f"[pickandroll.tv]({cfg['website_url']}). Cada visita nos ayuda.", "inline": False},
+                {"name": "▶️ Síguenos en todas partes", "value": links, "inline": False},
+                {"name": "📣 Invita a tus amigos", "value": "https://discord.gg/USweNvJ4tY", "inline": False},
+            ],
+        }],
+    }
+
+
+def post_messages(api, channels):
+    """Publica (o actualiza, si ya están) los mensajes fijos del servidor."""
+    by_name = {c["name"]: c for c in channels}
+    store = OUT_DIR / "mensajes.json"
+    sent = json.loads(store.read_text(encoding="utf-8")) if store.exists() else {}
+    for name, embeds in build_messages(by_name).items():
+        channel = by_name.get(name)
+        if not channel:
+            print(f"Aviso: no encuentro {name}")
+            continue
+        body = {"content": "", "embeds": embeds, "allowed_mentions": {"parse": []}}
+        old = sent.get(channel["id"])
+        if old:
+            api.call("PATCH", f"/channels/{channel['id']}/messages/{old}", body, f"Actualizar mensaje de {name}")
+        else:
+            created = api.call("POST", f"/channels/{channel['id']}/messages", body, f"Publicar mensaje en {name}")
+            sent[channel["id"]] = created["id"]
+    if api.apply:
+        store.write_text(json.dumps(sent, indent=2) + "\n", encoding="utf-8")
+    print(f"{len(api.log)} mensajes {'publicados' if api.apply else 'previstos'}")
+    return 0
+
+
 def main():
     token = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
     if not token:
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
     action = os.environ.get("ACCION", "").strip()
-    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica")
+    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes")
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
 
@@ -310,13 +381,15 @@ def main():
     channels = api.call("GET", f"/guilds/{GUILD}/channels")
     roles_list = api.call("GET", f"/guilds/{GUILD}/roles")
     OUT_DIR.mkdir(exist_ok=True)
-    if apply and action not in ("avisos", "estetica"):
+    if apply and action not in ("avisos", "estetica", "mensajes"):
         snapshot = {"servidor": guild, "canales": channels, "roles": roles_list}
         (OUT_DIR / "antes-de-aplicar.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("ACCION", "").strip() == "lista-mvp":
         return send_mvp_list(api, guild, roles_list)
     if os.environ.get("ACCION", "").strip() == "quitar-mvp":
         return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
+    if action == "mensajes":
+        return post_messages(api, channels)
     if action == "estetica":
         return restyle(api, channels)
     if action == "avisos":
