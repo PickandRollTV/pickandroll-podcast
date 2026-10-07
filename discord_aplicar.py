@@ -491,6 +491,18 @@ def main():
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
     action = os.environ.get("ACCION", "").strip()
+    if action == "quitar-porra":
+        # Borra las encuestas de porra de los hilos de partidos y las olvida.
+        state_file = ROOT / "discord_partidos.json"
+        state = json.loads(state_file.read_text(encoding="utf-8"))
+        api = Discord(token, True)
+        for key, entry in state.items():
+            if not key.startswith("_") and entry.get("porra"):
+                api.call("DELETE", f"/channels/{entry['thread']}/messages/{entry.pop('porra')}", note=f"Borrar porra {key}")
+                entry.pop("porra_buena", None)
+        state_file.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"{len(api.log)} porras borradas")
+        return 0
     if action == "partidos":
         # Abre ya los hilos de los partidos de los próximos 14 días.
         os.environ.setdefault("PARTIDOS_DIAS", "14")
