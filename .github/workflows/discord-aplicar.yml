@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       accion:
-        description: "probar = solo enseña los cambios; aplicar = los hace; lista-mvp = te manda por privado la lista de MVP; quitar-mvp = quita el rol MVP a los números indicados; avisos = crea los roles de avisos y el menú de entrada; estetica = pone emotes y negrita a canales y categorías; mensajes = publica o actualiza bienvenida, normas y apoyo; moderacion = quita la moderación a MVP y crea Moderador; web = da protagonismo a pickandroll.tv; partidos = abre ya los hilos de los próximos 14 días"
+        description: "probar = solo enseña los cambios; aplicar = los hace; lista-mvp = te manda por privado la lista de MVP; quitar-mvp = quita el rol MVP a los números indicados; avisos = crea los roles de avisos y el menú de entrada; estetica = pone emotes y negrita a canales y categorías; mensajes = publica o actualiza bienvenida, normas y apoyo; moderacion = quita la moderación a MVP y crea Moderador; web = da protagonismo a pickandroll.tv; partidos = abre ya los hilos de los próximos 14 días; repaso = ordena canales y categorías, completa los temas y revisa permisos"
         type: choice
-        options: [probar, aplicar, lista-mvp, quitar-mvp, avisos, estetica, mensajes, moderacion, web, partidos, quitar-porra]
+        options: [probar, aplicar, lista-mvp, quitar-mvp, avisos, estetica, mensajes, moderacion, web, partidos, quitar-porra, repaso]
         default: probar
       numeros:
         description: "Para quitar-mvp: números de la lista de MVP separados por comas (por ejemplo 4,5,12)"

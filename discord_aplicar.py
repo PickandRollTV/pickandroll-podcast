@@ -61,7 +61,7 @@ CATEGORIES = {
 }
 CHANNELS = [
     # (id o None para crear, nombre, tipo, categoría, acceso, tema)
-    ("959459731578167427", "👋┃bienvenida", 0, "inicio", "lectura", "Bienvenido a la comunidad de PickandRollTV. Empieza por #normas."),
+    ("959459731578167427", "👋┃bienvenida", 0, "inicio", "lectura", "Te damos la bienvenida a PickandRollTV. Empieza por <#929099438989905962>."),
     ("929099438989905962", "📜┃normas", 0, "inicio", "lectura", "Normas del servidor. Léelas antes de escribir."),
     (None, "📢┃anuncios", 5, "inicio", "lectura", "Directos, novedades y avisos de PickandRollTV."),
     ("956699792086560768", "📰┃noticias-web", 0, "inicio", "lectura", "Cada noticia nueva de pickandroll.tv, al momento."),
@@ -483,6 +483,53 @@ def boost_web(api, channels, roles_list):
     (OUT_DIR / "web.md").write_text(header + "\n".join(api.log) + "\n", encoding="utf-8")
     return 0
 
+# Repaso final: orden, temas y permisos (acción "repaso").
+CHANNEL_ORDER = ["📰┃noticias-web", "👋┃bienvenida", "📜┃normas", "📢┃anuncios",
+                 "💬┃general", "🏟️┃partidos", "🔴┃directo", "📱┃shorts", "🔄┃mercado-y-plantilla", "💡┃ideas-y-propuestas",
+                 "❤️┃apoya-el-canal", "☕┃donaciones", "⭐┃zona-sub",
+                 "🎬┃material-para-el-canal", "🎵┃bot-musica", "👕┃merchandising"]
+CATEGORY_ORDER = ["📌 𝗜𝗡𝗜𝗖𝗜𝗢", "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟", "🔊 𝗩𝗢𝗭", "⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕", "🔒 𝗦𝗧𝗔𝗙𝗙", "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢"]
+TOPICS = {
+    "👋┃bienvenida": "Te damos la bienvenida a PickandRollTV. Empieza por <#929099438989905962>. · 🌐 pickandroll.tv",
+    "☕┃donaciones": "Invítanos a un café en Buy Me a Coffee y ayuda a que PickandRollTV siga creciendo. · 🌐 pickandroll.tv",
+    "⭐┃zona-sub": "Canal exclusivo para suscriptores de Twitch. ¡Gracias por tu apoyo! · 🌐 pickandroll.tv",
+    "🎬┃material-para-el-canal": "Clips, imágenes y material para los directos y la web.",
+    "🎵┃bot-musica": "Comandos del bot de música.",
+    "👕┃merchandising": "Ideas y diseños del merchandising de PickandRollTV.",
+}
+MENTION_EVERYONE = 1 << 17
+
+
+def review(api, channels, roles_list):
+    """Deja el servidor fino: categorías y canales en orden, temas completos y sin menciones a @everyone."""
+    # Roles: solo el staff puede mencionar a @everyone.
+    for role in roles_list:
+        if not role.get("managed") and role["name"] not in ("Moderador",) and role["id"] != GUILD \
+                and int(role["permissions"]) & MENTION_EVERYONE and not int(role["permissions"]) & 8:
+            api.call("PATCH", f"/guilds/{GUILD}/roles/{role['id']}",
+                     {"permissions": str(int(role["permissions"]) & ~MENTION_EVERYONE)},
+                     f"Rol {role['name']}: sin permiso para mencionar a @everyone")
+    # La categoría de voz solo cambia de nombre; Parquet y Lounge no se tocan.
+    for channel in channels:
+        if channel["type"] == 4 and channel["name"] == "Canales de voz":
+            api.call("PATCH", f"/channels/{channel['id']}", {"name": "🔊 𝗩𝗢𝗭"}, "Canales de voz → 🔊 𝗩𝗢𝗭 (Parquet y Lounge sin tocar)")
+            channel["name"] = "🔊 𝗩𝗢𝗭"
+    by_name = {c["name"]: c for c in channels}
+    positions = [{"id": by_name[n]["id"], "position": i} for i, n in enumerate(CATEGORY_ORDER) if n in by_name]
+    positions += [{"id": by_name[n]["id"], "position": i} for i, n in enumerate(CHANNEL_ORDER) if n in by_name]
+    archived = [c for c in channels if c["type"] in (0, 5, 15) and c["name"] not in CHANNEL_ORDER]
+    positions += [{"id": c["id"], "position": len(CHANNEL_ORDER) + i}
+                  for i, c in enumerate(sorted(archived, key=lambda c: c["position"]))]
+    api.call("PATCH", f"/guilds/{GUILD}/channels", positions, "Ordenar categorías y canales de texto (sin tocar la voz)")
+    for name, topic in TOPICS.items():
+        channel = by_name.get(name)
+        if channel and (channel.get("topic") or "") != topic:
+            api.call("PATCH", f"/channels/{channel['id']}", {"topic": topic}, f"{name}: tema revisado")
+    header = "# Repaso aplicado\n\n" if api.apply else "# Repaso que se aplicaría (prueba)\n\n"
+    (OUT_DIR / "repaso.md").write_text(header + "\n".join(api.log) + "\n", encoding="utf-8")
+    print(f"{len(api.log)} cambios {'aplicados' if api.apply else 'previstos'}")
+    return 0
+
 
 def main():
     token = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
@@ -508,7 +555,7 @@ def main():
         os.environ.setdefault("PARTIDOS_REHACER", "1")
         import discord_partidos
         return discord_partidos.main()
-    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion", "web")
+    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion", "web", "repaso")
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
 
@@ -516,13 +563,15 @@ def main():
     channels = api.call("GET", f"/guilds/{GUILD}/channels")
     roles_list = api.call("GET", f"/guilds/{GUILD}/roles")
     OUT_DIR.mkdir(exist_ok=True)
-    if apply and action not in ("avisos", "estetica", "mensajes", "moderacion", "web"):
+    if apply and action not in ("avisos", "estetica", "mensajes", "moderacion", "web", "repaso"):
         snapshot = {"servidor": guild, "canales": channels, "roles": roles_list}
         (OUT_DIR / "antes-de-aplicar.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("ACCION", "").strip() == "lista-mvp":
         return send_mvp_list(api, guild, roles_list)
     if os.environ.get("ACCION", "").strip() == "quitar-mvp":
         return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
+    if action == "repaso":
+        return review(api, channels, roles_list)
     if action == "web":
         return boost_web(api, channels, roles_list)
     if action == "moderacion":
