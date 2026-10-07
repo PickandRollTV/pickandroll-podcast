@@ -441,6 +441,9 @@ def main():
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
     action = os.environ.get("ACCION", "").strip()
+    if action == "explorar-calendario":
+        import explorar_calendario
+        return explorar_calendario.main()
     apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion")
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
