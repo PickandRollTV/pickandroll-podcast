@@ -51,3 +51,22 @@ Solo se publican directos que empiecen después de `publish_streams_after` en
 Jornada N"): quita emojis, "EN DIRECTO" y las mayúsculas. Todos los episodios usan la
 portada del programa. La descripción del programa y el texto que acompaña a cada directo
 están en `config.json` (`show.description` y `show.episode_blurb`).
+
+## Noticias de la web en Discord
+
+Cada 15 minutos `discord_web.py` lee el RSS de pickandroll.tv y publica cada noticia
+nueva en el canal de Discord (titular, entradilla, foto y enlace a la web con etiquetas
+UTM `utm_source=discord`, para medir en las estadísticas las visitas que llegan desde allí).
+Las noticias ya publicadas se apuntan en `discord_publicados.json`; la primera pasada
+publica solo la más reciente, como prueba, y apunta las demás sin publicarlas.
+
+Puesta en marcha:
+
+1. En Discord, en el canal de noticias: *Editar canal → Integraciones → Webhooks →
+   Nuevo webhook → Copiar URL del webhook*.
+2. Aquí: *Settings → Secrets and variables → Actions → New repository secret*, con
+   nombre `DISCORD_WEBHOOK` y la URL copiada.
+3. Opcional: para avisar a un rol (por ejemplo "Noticias"), crea la variable
+   `DISCORD_ROLE_ID` en la pestaña *Variables* con el id del rol.
+
+El texto, el color y el nombre del bot se cambian en `config.json`, en el bloque `discord`.
