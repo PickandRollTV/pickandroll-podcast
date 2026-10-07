@@ -1,0 +1,1060 @@
+{
+  "fecha": "2026-10-07T13:11:51.046001+00:00",
+  "servidor": {
+    "nombre": "PickandRollTV",
+    "descripcion": null,
+    "miembros": 117,
+    "conectados": 10,
+    "funciones": [
+      "SOUNDBOARD",
+      "TIERLESS_BOOSTING_SYSTEM_MESSAGE",
+      "CHANNEL_ICON_EMOJIS_GENERATED"
+    ],
+    "verificacion": 2,
+    "filtro_contenido_explicito": 0,
+    "notificaciones_por_defecto": "todos los mensajes",
+    "nivel_mejoras": 0,
+    "mejoras": 0,
+    "canal_reglas": null,
+    "canal_sistema": "🙋-𝐛𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐚-𝐩𝐢𝐜𝐤-𝐚𝐧𝐝-𝐫𝐨𝐥𝐥𝐞𝐫𝐬",
+    "canal_afk": null,
+    "icono": true,
+    "banner": false,
+    "fondo_invitacion": false,
+    "url_personalizada": null
+  },
+  "roles": [
+    {
+      "nombre": "ROOKIE",
+      "color": "#3498db",
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": false,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar",
+        "mencionar_everyone"
+      ]
+    },
+    {
+      "nombre": "MVP 🏆",
+      "color": "#f1c40f",
+      "separado": true,
+      "mencionable": false,
+      "gestionado_por_bot": false,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar",
+        "gestionar_servidor",
+        "gestionar_canales",
+        "gestionar_roles",
+        "mencionar_everyone",
+        "gestionar_mensajes",
+        "expulsar",
+        "banear",
+        "aislar"
+      ]
+    },
+    {
+      "nombre": "MEE6",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": true,
+      "permisos": [
+        "ver",
+        "escribir",
+        "reaccionar",
+        "conectar",
+        "administrador",
+        "gestionar_canales",
+        "gestionar_roles",
+        "mencionar_everyone",
+        "gestionar_mensajes",
+        "expulsar",
+        "banear"
+      ]
+    },
+    {
+      "nombre": "Nekotina",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": true,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar",
+        "gestionar_servidor",
+        "gestionar_canales",
+        "mencionar_everyone",
+        "gestionar_mensajes",
+        "expulsar",
+        "banear"
+      ]
+    },
+    {
+      "nombre": "PICK'N'ROLLER",
+      "color": "#3498db",
+      "separado": true,
+      "mencionable": false,
+      "gestionado_por_bot": false,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar"
+      ]
+    },
+    {
+      "nombre": "Twitch Subscriber",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": true,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar"
+      ]
+    },
+    {
+      "nombre": "Twitch Subscriber: Tier 1",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": true,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar"
+      ]
+    },
+    {
+      "nombre": "Twitch Subscriber: Tier 2",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": true,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar"
+      ]
+    },
+    {
+      "nombre": "Twitch Subscriber: Tier 3",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": true,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar"
+      ]
+    },
+    {
+      "nombre": "PickandRollTV Bot.",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": true,
+      "permisos": [
+        "administrador"
+      ]
+    },
+    {
+      "nombre": "@everyone",
+      "color": null,
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": false,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar"
+      ]
+    }
+  ],
+  "canales": [
+    {
+      "id": "929099438989905961",
+      "nombre": "Información",
+      "tipo": "categoría",
+      "categoria": null,
+      "posicion": 0,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": null
+    },
+    {
+      "id": "929099439426121732",
+      "nombre": "Canales de voz",
+      "tipo": "categoría",
+      "categoria": null,
+      "posicion": 1,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": null
+    },
+    {
+      "id": "929099439426121728",
+      "nombre": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "tipo": "categoría",
+      "categoria": null,
+      "posicion": 2,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": null
+    },
+    {
+      "id": "959459731578167427",
+      "nombre": "🙋-𝐛𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐚-𝐩𝐢𝐜𝐤-𝐚𝐧𝐝-𝐫𝐨𝐥𝐥𝐞𝐫𝐬",
+      "tipo": "texto",
+      "categoria": null,
+      "posicion": 0,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": false,
+        "escribir_en_hilos": false,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [
+            "reaccionar"
+          ],
+          "deniega": [
+            "escribir",
+            "escribir_en_hilos"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2026-10-07T13:09:14.523000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 4,
+        "mensajes_30_dias": 4,
+        "mensajes_de_bots": 3,
+        "personas": 1,
+        "ultimo": "2026-10-07T13:09:14.523000+00:00"
+      }
+    },
+    {
+      "id": "1143993237170823288",
+      "nombre": "🍸 𝐏𝐢𝐜𝐤𝐚𝐧𝐝𝐑𝐨𝐥𝐥𝐓𝐕 𝐋𝐎𝐔𝐍𝐆𝐄",
+      "tipo": "voz",
+      "categoria": "Canales de voz",
+      "posicion": 0,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": false,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver",
+            "escribir",
+            "conectar"
+          ],
+          "deniega": [
+            "reaccionar",
+            "gestionar_canales",
+            "gestionar_roles",
+            "mencionar_everyone",
+            "gestionar_mensajes"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2026-02-06T23:09:52.484000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "929099438989905962",
+      "nombre": "✍-𝓻𝓮𝓰𝓵𝓪𝓼",
+      "tipo": "texto",
+      "categoria": "Información",
+      "posicion": 1,
+      "tema": "Sigue las indicaciones que os dejamos a continuación",
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": false,
+        "escribir_en_hilos": false,
+        "reaccionar": false,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver"
+          ],
+          "deniega": [
+            "escribir",
+            "escribir_en_hilos",
+            "reaccionar",
+            "gestionar_canales",
+            "gestionar_roles"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2024-06-12T09:54:12.023000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "958460303459377192",
+      "nombre": "🏀 𝐏𝐀𝐑𝐐𝐔𝐄𝐓🔵🔴",
+      "tipo": "voz",
+      "categoria": "Canales de voz",
+      "posicion": 1,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": false,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": false
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [
+            "ver",
+            "conectar",
+            "gestionar_canales"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [],
+          "deniega": [
+            "ver",
+            "conectar"
+          ]
+        },
+        {
+          "rol": "Nekotina",
+          "permite": [
+            "ver",
+            "conectar"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "miembro concreto",
+          "permite": [
+            "ver",
+            "conectar"
+          ],
+          "deniega": []
+        }
+      ],
+      "ultimo_mensaje": "2026-09-29T16:53:09.943000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 3,
+        "mensajes_30_dias": 3,
+        "mensajes_de_bots": 1,
+        "personas": 1,
+        "ultimo": "2026-09-29T16:53:09.943000+00:00"
+      }
+    },
+    {
+      "id": "929099439426121731",
+      "nombre": "💡-𝓲𝓭𝓮𝓪𝓼-𝔂-𝓸𝓹𝓲𝓷𝓲𝓸𝓷𝓮𝓼",
+      "tipo": "texto",
+      "categoria": "Información",
+      "posicion": 2,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": "2026-05-12T17:08:33.707000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "929099439426121734",
+      "nombre": "🎙 𝐁𝐀𝐍𝐐𝐔𝐈𝐋𝐋𝐎",
+      "tipo": "voz",
+      "categoria": "Canales de voz",
+      "posicion": 2,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": "2025-09-17T19:02:31.561000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "959257658425225267",
+      "nombre": "⭐𝐈𝐍𝐕𝐈𝐓𝐀𝐃𝐎",
+      "tipo": "voz",
+      "categoria": "Canales de voz",
+      "posicion": 3,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": false,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": false
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [],
+          "deniega": [
+            "ver",
+            "conectar"
+          ]
+        }
+      ],
+      "ultimo_mensaje": null,
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "1250163184107655229",
+      "nombre": "💪-𝓅𝒶𝓉𝓇𝑜𝒸𝒾𝓃𝒶𝒹𝑜𝓇𝑒𝓈",
+      "tipo": "texto",
+      "categoria": "Información",
+      "posicion": 3,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": false,
+        "escribir_en_hilos": false,
+        "reaccionar": false,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver"
+          ],
+          "deniega": [
+            "escribir",
+            "escribir_en_hilos",
+            "reaccionar",
+            "mencionar_everyone",
+            "gestionar_mensajes"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2024-06-12T09:35:14.188000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "929099438989905963",
+      "nombre": "📱-𝓹𝓵𝓪𝓽𝓪𝓯𝓸𝓻𝓶𝓪𝓼",
+      "tipo": "texto",
+      "categoria": "Información",
+      "posicion": 4,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": false,
+        "escribir_en_hilos": false,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver",
+            "reaccionar"
+          ],
+          "deniega": [
+            "escribir",
+            "escribir_en_hilos"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2024-06-18T11:22:36.309000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "1252586051755573341",
+      "nombre": "🤝-𝓭𝓸𝓷𝓪𝓬𝓲𝓸𝓷𝓮𝓼",
+      "tipo": "texto",
+      "categoria": "Información",
+      "posicion": 5,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver"
+          ],
+          "deniega": []
+        }
+      ],
+      "ultimo_mensaje": "2026-05-12T17:08:37.464000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "1250872435880886324",
+      "nombre": "🧢-𝓶𝓮𝓻𝓬𝓱𝓪𝓷𝓭𝓲𝓼𝓲𝓷𝓰",
+      "tipo": "texto",
+      "categoria": "Información",
+      "posicion": 6,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": false,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [
+            "ver"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [],
+          "deniega": [
+            "ver"
+          ]
+        }
+      ],
+      "ultimo_mensaje": null,
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "929099439426121729",
+      "nombre": "📺-𝐆𝐄𝐍𝐄𝐑𝐀𝐋",
+      "tipo": "texto",
+      "categoria": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "posicion": 7,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "Nekotina",
+          "permite": [],
+          "deniega": [
+            "ver",
+            "escribir",
+            "escribir_en_hilos",
+            "reaccionar",
+            "gestionar_canales",
+            "gestionar_roles",
+            "mencionar_everyone",
+            "gestionar_mensajes"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2026-10-02T11:07:23.183000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 1026,
+        "mensajes_30_dias": 103,
+        "mensajes_de_bots": 18,
+        "personas": 16,
+        "ultimo": "2026-10-02T11:07:23.183000+00:00"
+      }
+    },
+    {
+      "id": "1251187799017787413",
+      "nombre": "🗣🏀-𝐓𝐄𝐑𝐓𝐔𝐋𝐈𝐀",
+      "tipo": "texto",
+      "categoria": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "posicion": 8,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": "2026-07-28T13:50:51.394000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 5,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 4,
+        "ultimo": "2026-07-28T13:50:51.394000+00:00"
+      }
+    },
+    {
+      "id": "1252234382425718805",
+      "nombre": "🤝-𝐏𝐋𝐀𝐍𝐓𝐈𝐋𝐋𝐀-𝟐𝟒-𝟐𝟓",
+      "tipo": "texto",
+      "categoria": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "posicion": 9,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": "2026-05-08T00:47:21.661000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "956699792086560768",
+      "nombre": "💻-noticias-web",
+      "tipo": "texto",
+      "categoria": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "posicion": 10,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "Nekotina",
+          "permite": [],
+          "deniega": [
+            "ver",
+            "escribir",
+            "escribir_en_hilos",
+            "reaccionar",
+            "gestionar_canales",
+            "gestionar_roles",
+            "mencionar_everyone",
+            "gestionar_mensajes"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2026-10-07T12:47:36.351000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 1,
+        "mensajes_30_dias": 1,
+        "mensajes_de_bots": 1,
+        "personas": 0,
+        "ultimo": "2026-10-07T12:47:36.351000+00:00"
+      }
+    },
+    {
+      "id": "1248574516070846535",
+      "nombre": "🤪-𝐏𝐑𝐎𝐏𝐔𝐄𝐒𝐓𝐀𝐒-𝐂𝐎𝐍𝐓𝐄𝐍𝐈𝐃𝐎-𝐀𝐋𝐓𝐄𝐑𝐍𝐀𝐓𝐈𝐕𝐎",
+      "tipo": "texto",
+      "categoria": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "posicion": 14,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [],
+      "ultimo_mensaje": "2026-05-08T00:48:19.066000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "929099439426121730",
+      "nombre": "📆-material-para-el-canal",
+      "tipo": "texto",
+      "categoria": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "posicion": 15,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": false,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [
+            "ver"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [],
+          "deniega": [
+            "ver"
+          ]
+        },
+        {
+          "rol": "Nekotina",
+          "permite": [],
+          "deniega": [
+            "ver",
+            "escribir",
+            "escribir_en_hilos",
+            "reaccionar",
+            "gestionar_canales",
+            "gestionar_roles",
+            "mencionar_everyone",
+            "gestionar_mensajes"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2024-06-18T11:16:49.337000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "982406567540441099",
+      "nombre": "bot-musica-only-mods",
+      "tipo": "texto",
+      "categoria": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "posicion": 16,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": false,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [
+            "ver"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [],
+          "deniega": [
+            "ver"
+          ]
+        },
+        {
+          "rol": "Nekotina",
+          "permite": [
+            "ver"
+          ],
+          "deniega": []
+        }
+      ],
+      "ultimo_mensaje": "2022-11-03T21:22:31.306000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    }
+  ],
+  "miembros": {
+    "total": 117,
+    "bots": [
+      "MEE6",
+      "Nekotina",
+      "PickandRollTV Bot."
+    ],
+    "altas_por_mes": {
+      "2022-01": 1,
+      "2022-03": 4,
+      "2022-04": 36,
+      "2022-05": 9,
+      "2022-06": 2,
+      "2022-10": 1,
+      "2022-11": 1,
+      "2022-12": 1,
+      "2023-01": 3,
+      "2023-02": 1,
+      "2023-03": 2,
+      "2023-04": 3,
+      "2023-05": 2,
+      "2023-06": 2,
+      "2023-08": 4,
+      "2023-11": 1,
+      "2023-12": 1,
+      "2024-01": 3,
+      "2024-02": 5,
+      "2024-04": 6,
+      "2024-05": 7,
+      "2024-06": 2,
+      "2024-07": 1,
+      "2024-10": 1,
+      "2026-02": 8,
+      "2026-03": 1,
+      "2026-04": 5,
+      "2026-09": 1
+    },
+    "miembros_por_rol": {
+      "PICK'N'ROLLER": 88,
+      "MVP 🏆": 25,
+      "Twitch Subscriber": 17,
+      "Twitch Subscriber: Tier 1": 16,
+      "MEE6": 1,
+      "Nekotina": 1,
+      "Twitch Subscriber: Tier 3": 1,
+      "PickandRollTV Bot.": 1
+    },
+    "sin_ningun_rol": 10
+  },
+  "emojis": 0,
+  "stickers": 0,
+  "invitaciones": [
+    {
+      "canal": "📺-𝐆𝐄𝐍𝐄𝐑𝐀𝐋",
+      "usos": 0,
+      "max_usos": 0,
+      "caduca_en_segundos": 2592000,
+      "creada": "2026-09-24T20:37:43.916000+00:00"
+    },
+    {
+      "canal": "🏀 𝐏𝐀𝐑𝐐𝐔𝐄𝐓🔵🔴",
+      "usos": 0,
+      "max_usos": 0,
+      "caduca_en_segundos": 2592000,
+      "creada": "2026-09-19T21:25:40.389000+00:00"
+    },
+    {
+      "canal": "🏀 𝐏𝐀𝐑𝐐𝐔𝐄𝐓🔵🔴",
+      "usos": 0,
+      "max_usos": 0,
+      "caduca_en_segundos": 2592000,
+      "creada": "2026-10-04T19:23:32.882000+00:00"
+    },
+    {
+      "canal": "📺-𝐆𝐄𝐍𝐄𝐑𝐀𝐋",
+      "usos": 1,
+      "max_usos": 0,
+      "caduca_en_segundos": 2592000,
+      "creada": "2026-09-10T11:18:33.657000+00:00"
+    },
+    {
+      "canal": "🙋-𝐛𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐚-𝐩𝐢𝐜𝐤-𝐚𝐧𝐝-𝐫𝐨𝐥𝐥𝐞𝐫𝐬",
+      "usos": 0,
+      "max_usos": 0,
+      "caduca_en_segundos": 2592000,
+      "creada": "2026-10-07T08:40:39.518000+00:00"
+    },
+    {
+      "canal": "🎙 𝐁𝐀𝐍𝐐𝐔𝐈𝐋𝐋𝐎",
+      "usos": 0,
+      "max_usos": 0,
+      "caduca_en_segundos": 2592000,
+      "creada": "2026-10-02T17:53:53.437000+00:00"
+    }
+  ],
+  "webhooks": [
+    {
+      "nombre": "PickandRollTV",
+      "canal": "💻-noticias-web"
+    }
+  ],
+  "eventos": [],
+  "automod": [],
+  "bienvenida": null,
+  "onboarding": {
+    "guild_id": "929099438989905960",
+    "prompts": [],
+    "default_channel_ids": [],
+    "enabled": false,
+    "mode": 0,
+    "below_requirements": false,
+    "responses": [],
+    "onboarding_prompts_seen": {},
+    "onboarding_responses_seen": {}
+  }
+}
