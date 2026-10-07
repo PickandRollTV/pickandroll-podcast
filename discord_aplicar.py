@@ -25,7 +25,9 @@ Variables de entorno:
   ACCION              "lista-mvp" para enviar al dueño del servidor, por mensaje privado de Discord,
                       la lista de miembros con el rol MVP (no toca nada más);
                       "quitar-mvp" para quitar el rol MVP a los números de esa lista indicados
-                      en NUMEROS (por ejemplo "4,5,12"), si la lista sigue teniendo TOTAL_MVP miembros
+                      en NUMEROS (por ejemplo "4,5,12"), si la lista sigue teniendo TOTAL_MVP miembros;
+                      "avisos" para crear los roles de avisos (Directos, Noticias web, Partidos), el canal
+                      #directo y el menú de entrada (Onboarding) en el que cada miembro elige qué avisos quiere
 """
 import json
 import os
@@ -76,6 +78,13 @@ CHANNELS = [
     ("929099439426121734", "banquillo", 2, "archivo", "oculto", None),
     ("959257658425225267", "invitado", 2, "archivo", "oculto", None),
 ]
+# Roles de avisos que cada miembro elige al entrar (nombre, color, emoji, descripción).
+NOTIFY_ROLES = [
+    ("🔴 Directos", 0xE91916, "🔴", "Aviso cuando PickandRollTV empieza directo"),
+    ("📰 Noticias web", 0xA50044, "📰", "Aviso con cada noticia nueva de pickandroll.tv"),
+    ("🏀 Partidos", 0xEDBB00, "🏀", "Aviso cuando se abre el hilo de cada partido"),
+]
+DIRECT_CHANNEL = ("🔴-directo", "Chat para comentar el directo de PickandRollTV en Twitch mientras está en marcha.")
 FORUM_TAGS = ["Euroliga", "Liga Endesa", "Copa del Rey", "Supercopa", "Amistoso"]
 
 
@@ -197,12 +206,69 @@ def remove_mvp(api, guild, roles_list, numbers, expected_total):
     return 0
 
 
+def setup_notifications(api, channels, roles_list):
+    """Roles de avisos, canal #directo y menú de entrada (Onboarding)."""
+    roles = {r["name"]: r["id"] for r in roles_list}
+    for name, color, _, _ in NOTIFY_ROLES:
+        if name not in roles:
+            created = api.call("POST", f"/guilds/{GUILD}/roles",
+                               {"name": name, "color": color, "permissions": "0", "mentionable": False, "hoist": False},
+                               f"Crear rol de avisos {name} (sin permisos)")
+            roles[name] = created["id"]
+
+    by_name = {c["name"]: c for c in channels}
+    direct = by_name.get(DIRECT_CHANNEL[0])
+    if not direct:
+        general = by_name.get("💬-general")
+        direct = api.call("POST", f"/guilds/{GUILD}/channels", {
+            "name": DIRECT_CHANNEL[0], "type": 0, "topic": DIRECT_CHANNEL[1],
+            "parent_id": general["parent_id"] if general else CATEGORIES["pickandroll"]["id"],
+            "position": (general or {}).get("position", 0) + 1,
+            "permission_overwrites": [overwrite(GUILD, VIEW)],
+        }, f"Crear {DIRECT_CHANNEL[0]} (🏀 PickandRoll, abierto)")
+        by_name[DIRECT_CHANNEL[0]] = direct
+
+    defaults = ["👋-bienvenida", "📜-normas", "📢-anuncios", "📰-noticias-web", "💬-general", DIRECT_CHANNEL[0],
+                "🏟️-partidos", "🔄-mercado-y-plantilla", "💡-ideas-y-propuestas", "❤️-apoya-el-canal"]
+    default_ids = [by_name[n]["id"] for n in defaults if n in by_name]
+    missing = [n for n in defaults if n not in by_name]
+    if missing:
+        print("Aviso: no encuentro estos canales para el menú de entrada: " + ", ".join(missing))
+    # Discord pide ids con forma de snowflake para las preguntas y opciones nuevas.
+    base = (int(time.time() * 1000) - 1420070400000) << 22
+    api.call("PUT", f"/guilds/{GUILD}/onboarding", {
+        "enabled": True,
+        "mode": 0,
+        "default_channel_ids": default_ids,
+        "prompts": [{
+            "id": str(base),
+            "type": 0,
+            "title": "¿De qué quieres que te avisemos?",
+            "single_select": False,
+            "required": False,
+            "in_onboarding": True,
+            "options": [{"id": str(base + i + 1), "title": name, "description": desc, "emoji": {"name": emoji},
+                         "role_ids": [roles[name]], "channel_ids": []}
+                        for i, (name, _, emoji, desc) in enumerate(NOTIFY_ROLES)],
+        }],
+    }, "Menú de entrada: elegir avisos (Directos, Noticias web, Partidos) y canales por defecto")
+
+    if api.apply:
+        ids = {name: roles[name] for name, *_ in NOTIFY_ROLES}
+        (OUT_DIR / "roles-avisos.json").write_text(json.dumps(ids, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    header = "# Avisos aplicados\n\n" if api.apply else "# Avisos que se aplicarían (prueba)\n\n"
+    (OUT_DIR / "avisos.md").write_text(header + "\n".join(api.log) + "\n", encoding="utf-8")
+    print(f"{len(api.log)} cambios {'aplicados' if api.apply else 'previstos'}")
+    return 0
+
+
 def main():
     token = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
     if not token:
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
-    apply = os.environ.get("MODO", "").strip().lower() == "aplicar"
+    action = os.environ.get("ACCION", "").strip()
+    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action == "avisos"
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
 
@@ -210,13 +276,15 @@ def main():
     channels = api.call("GET", f"/guilds/{GUILD}/channels")
     roles_list = api.call("GET", f"/guilds/{GUILD}/roles")
     OUT_DIR.mkdir(exist_ok=True)
-    if apply:
+    if apply and action != "avisos":
         snapshot = {"servidor": guild, "canales": channels, "roles": roles_list}
         (OUT_DIR / "antes-de-aplicar.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("ACCION", "").strip() == "lista-mvp":
         return send_mvp_list(api, guild, roles_list)
     if os.environ.get("ACCION", "").strip() == "quitar-mvp":
         return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
+    if action == "avisos":
+        return setup_notifications(api, channels, roles_list)
     existing = {c["id"]: c for c in channels}
     roles = {r["name"]: r["id"] for r in roles_list}
 

@@ -155,6 +155,9 @@ def main():
         print("Falta el secreto DISCORD_WEBHOOK: no se publica nada")
         return 0
     role_id = os.environ.get("DISCORD_ROLE_ID", "").strip() or None
+    roles_file = ROOT / "auditoria" / "roles-avisos.json"
+    if not role_id and roles_file.exists():
+        role_id = json.loads(roles_file.read_text(encoding="utf-8")).get("📰 Noticias web")
     settings = json.loads(CONFIG_FILE.read_text(encoding="utf-8")).get("discord", {})
     items = parse_items(fetch(settings.get("feed_url", "https://pickandroll.tv/feed/")))
 
