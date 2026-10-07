@@ -32,6 +32,9 @@ import xml.etree.ElementTree as ET
 ROOT = pathlib.Path(__file__).resolve().parent
 CONFIG_FILE = ROOT / "config.json"
 STATE_FILE = ROOT / "discord_publicados.json"
+# Titular, enlace, fecha e imagen de lo publicado, para el resumen semanal (discord_resumen.py).
+HISTORY_FILE = ROOT / "discord_historial.json"
+MAX_HISTORY = 200
 USER_AGENT = "Mozilla/5.0 (compatible; PickandRollTV-Discord/1.0; +https://pickandroll.tv)"
 CONTENT_NS = "{http://purl.org/rss/1.0/modules/content/}encoded"
 MEDIA_NS = "{http://search.yahoo.com/mrss/}"
@@ -155,6 +158,9 @@ def main():
         print("Falta el secreto DISCORD_WEBHOOK: no se publica nada")
         return 0
     role_id = os.environ.get("DISCORD_ROLE_ID", "").strip() or None
+    roles_file = ROOT / "auditoria" / "roles-avisos.json"
+    if not role_id and roles_file.exists():
+        role_id = json.loads(roles_file.read_text(encoding="utf-8")).get("📰 Noticias web")
     settings = json.loads(CONFIG_FILE.read_text(encoding="utf-8")).get("discord", {})
     items = parse_items(fetch(settings.get("feed_url", "https://pickandroll.tv/feed/")))
 
@@ -168,21 +174,29 @@ def main():
         print(f"Primera pasada: se publica la última noticia y se apuntan {len(new) - 1} sin publicarlas")
         published = [news["guid"] for news in new[:-1]]
         new = new[-1:]
+    history = json.loads(HISTORY_FILE.read_text(encoding="utf-8")) if HISTORY_FILE.exists() else []
     status = 0
     for news in new[-MAX_PER_RUN:]:
         try:
-            post(webhook, build_message(news, settings, role_id))
+            message = build_message(news, settings, role_id)
+            post(webhook, message)
             print(f"Publicada: {news['title']}")
         except Exception as error:
             print(f"No se pudo publicar {news['link']}: {error}", file=sys.stderr)
             status = 1
             break
         published.append(news["guid"])
+        history.append({
+            "title": news["title"], "link": news["link"],
+            "date": (news["published"] or datetime.datetime.now(datetime.timezone.utc)).astimezone(datetime.timezone.utc).isoformat(),
+            "image": message["embeds"][0].get("image", {}).get("url"),
+        })
         time.sleep(2)
     # Las que se saltan por pasar del máximo se dan por vistas.
     published += [news["guid"] for news in new[:-MAX_PER_RUN]]
 
     STATE_FILE.write_text(json.dumps(published[-MAX_REMEMBERED:], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    HISTORY_FILE.write_text(json.dumps(history[-MAX_HISTORY:], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return status
 
 
