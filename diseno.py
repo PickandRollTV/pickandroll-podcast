@@ -166,7 +166,7 @@ def barca_result(home, score, away):
     return "VICTORIA" if won else "DERROTA"
 
 
-def character(image, bottom, height=1620, right=SIZE + 330):
+def character(image, bottom, height=2000, right=SIZE + 470):
     person = Image.open(PERSONAJE).convert("RGBA")
     person = person.resize((round(person.width * height / person.height), height), Image.LANCZOS)
     layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
@@ -188,18 +188,16 @@ def render(home, score, away, competition, kicker_date):
     width = SIZE - margin * 2
     band_top = 2430
 
-    # Arriba: la competición en la etiqueta roja y el logo a la derecha.
+    # Arriba: la competición en la etiqueta roja (el logo ya va en la camiseta del personaje).
     label = competition.upper()
     red_tag(image, margin, 300, label, fit(label, "ExtraBoldItalic", 120, 1650))
-    logo = Image.open(LOGO).convert("RGBA").resize((420, 420), Image.LANCZOS)
-    image.paste(logo, (SIZE - margin - 420 + 30, 230), logo)
 
     # A la derecha, el personaje de PickandRollTV girando el balón, saliendo de la franja de abajo.
     character(image, band_top)
 
     if home:
         big = score.replace("-", "–") if score else "VS"
-        column = 1300
+        column = 1180
         home_font = fit(short_name(home), "Black", 340, column)
         score_font = fit(big, "Black", 620, column)
         away_font = fit(short_name(away), "Black", 340, column)
