@@ -423,8 +423,12 @@ def setup_moderation(api, channels, roles_list):
     # AutoMod no bloquea a los moderadores.
     for rule in api.call("GET", f"/guilds/{GUILD}/auto-moderation/rules"):
         if mod["id"] not in rule.get("exempt_roles", []) and not str(mod["id"]).startswith("nuevo:"):
-            api.call("PATCH", f"/guilds/{GUILD}/auto-moderation/rules/{rule['id']}",
-                     {"exempt_roles": rule.get("exempt_roles", []) + [mod["id"]]}, f"AutoMod {rule['name']}: excluir a Moderador")
+            try:
+                api.call("PATCH", f"/guilds/{GUILD}/auto-moderation/rules/{rule['id']}",
+                         {"exempt_roles": rule.get("exempt_roles", []) + [mod["id"]]}, f"AutoMod {rule['name']}: excluir a Moderador")
+            except RuntimeError as error:
+                # Algunas reglas (las de Discord o de otros bots) no se dejan editar: no es grave.
+                api.log[-1] += f" (no se pudo: {str(error)[-60:]})"
     header = "# Moderación aplicada\n\n" if api.apply else "# Moderación que se aplicaría (prueba)\n\n"
     (OUT_DIR / "moderacion.md").write_text(header + "\n".join(api.log) + "\n", encoding="utf-8")
     print(f"{len(api.log)} cambios {'aplicados' if api.apply else 'previstos'}")
