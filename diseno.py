@@ -15,6 +15,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 ROOT = pathlib.Path(__file__).resolve().parent
 LOGO = ROOT / "portada" / "logo-redondo-pickandroll.webp"
 SPOTIFY = ROOT / "portada" / "spotify-icono.png"
+PERSONAJE = ROOT / "portada" / "personaje.png"
 FONTS = ROOT / "fonts"
 SIZE = 3000
 
@@ -165,6 +166,22 @@ def barca_result(home, score, away):
     return "VICTORIA" if won else "DERROTA"
 
 
+def character(image, bottom, height=1620, right=SIZE + 330):
+    person = Image.open(PERSONAJE).convert("RGBA")
+    person = person.resize((round(person.width * height / person.height), height), Image.LANCZOS)
+    layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
+    x, y = right - person.width, bottom - height
+    # Sombra suave detrás, para que se despegue del fondo.
+    shadow = Image.new("L", image.size, 0)
+    shadow.paste(person.getchannel("A"), (x + 30, y + 40))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(40)).point(lambda v: v * 0.55)
+    layer.paste(person, (x, y), person)
+    clip = ImageChops.multiply(card_mask(BORDER), Image.new("L", image.size, 255))
+    ImageDraw.Draw(clip).rectangle((0, bottom, SIZE, SIZE), fill=0)
+    image.paste(Image.new("RGB", image.size, (0, 6, 40)), (0, 0), ImageChops.multiply(shadow, clip))
+    image.paste(layer, (0, 0), ImageChops.multiply(layer.getchannel("A"), clip))
+
+
 def render(home, score, away, competition, kicker_date):
     image = background()
     margin = 300
@@ -177,20 +194,26 @@ def render(home, score, away, competition, kicker_date):
     logo = Image.open(LOGO).convert("RGBA").resize((420, 420), Image.LANCZOS)
     image.paste(logo, (SIZE - margin - 420 + 30, 230), logo)
 
+    # A la derecha, el personaje de PickandRollTV girando el balón, saliendo de la franja de abajo.
+    character(image, band_top)
+
     if home:
         big = score.replace("-", "–") if score else "VS"
-        home_font = fit(short_name(home), "Black", 470, width)
-        score_font = fit(big, "Black", 900, width)
-        away_font = fit(short_name(away), "Black", 470, width)
+        column = 1300
+        home_font = fit(short_name(home), "Black", 340, column)
+        score_font = fit(big, "Black", 620, column)
+        away_font = fit(short_name(away), "Black", 340, column)
         # Se colocan por la altura de las mayúsculas (sin contar la cedilla de BARÇA), con
-        # el mismo hueco entre el equipo de arriba y el marcador que entre el marcador y el de abajo.
-        gap = 150
-        home_base = 800 + cap_height(home_font)
+        # el mismo hueco entre el equipo de arriba y el marcador que entre el marcador y el de abajo,
+        # y el bloque centrado entre la etiqueta y la franja.
+        gap = 130
+        block = cap_height(home_font) + cap_height(score_font) + cap_height(away_font) + gap * 2
+        home_base = (560 + band_top - 110) / 2 - block / 2 + cap_height(home_font)
         score_base = home_base + gap + cap_height(score_font)
         away_base = score_base + gap + cap_height(away_font)
         shadowed_text(image, (margin, home_base), short_name(home), home_font, WHITE, anchor="ls", shadow=30)
-        shadowed_text(image, (SIZE / 2, score_base), big, score_font, YELLOW, anchor="ms", shadow=30)
-        shadowed_text(image, (SIZE - margin, away_base), short_name(away), away_font, WHITE, anchor="rs", shadow=30)
+        shadowed_text(image, (margin - 10, score_base), big, score_font, YELLOW, anchor="ls", shadow=30)
+        shadowed_text(image, (margin, away_base), short_name(away), away_font, WHITE, anchor="ls", shadow=30)
 
     # Abajo: la franja de la web con Spotify y la marca, y el resultado como el botón amarillo.
     band(image, band_top)
