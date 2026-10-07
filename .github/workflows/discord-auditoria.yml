@@ -1,0 +1,29 @@
+name: Analizar el servidor de Discord
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auditoria:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Leer canales, roles y actividad
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python discord_auditar.py
+      - name: Guardar la auditoría
+        run: |
+          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
+          git add auditoria
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Auditoría del servidor de Discord"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && exit 0; sleep 5; done
+          exit 1

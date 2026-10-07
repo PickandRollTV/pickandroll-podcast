@@ -70,3 +70,10 @@ Puesta en marcha:
    `DISCORD_ROLE_ID` en la pestaña *Variables* con el id del rol.
 
 El texto, el color y el nombre del bot se cambian en `config.json`, en el bloque `discord`.
+
+## Auditoría del servidor de Discord
+
+*Actions → Analizar el servidor de Discord → Run workflow* ejecuta `discord_auditar.py`
+con el bot del servidor (secreto `DISCORD_BOT_TOKEN`). Solo lee: canales, permisos,
+roles, bots, invitaciones y la actividad de los últimos 90 días en cifras (nunca el texto
+de los mensajes ni nombres de miembros). Guarda el resultado en `auditoria/`.
