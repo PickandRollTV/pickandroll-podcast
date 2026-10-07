@@ -12,12 +12,6 @@
     "duracion_min": 230
   },
   {
-    "id": "2889891389",
-    "titulo": "🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3",
-    "inicio": "2026-10-02T16:30:39+00:00",
-    "duracion_min": 5
-  },
-  {
     "id": "2887250903",
     "titulo": "🏀 DUBAI BASKETBALL v BARÇA BASKET | 🏆Euroleague Round 2",
     "inicio": "2026-09-29T15:30:30+00:00",
@@ -46,5 +40,11 @@
     "titulo": "🏀 VALENCIA BASKET v BARÇA | SEMIFINAL SUPERCOPA ENDESA 🏆",
     "inicio": "2026-09-19T17:31:24+00:00",
     "duracion_min": 294
+  },
+  {
+    "id": "2877581873",
+    "titulo": "🏀 SUPERCOPA ENDESA 🏆 | PREVIA DEL BARÇA con Sekulic, Umude y Joel Parra",
+    "inicio": "2026-09-18T17:32:46+00:00",
+    "duracion_min": 129
   }
 ]
