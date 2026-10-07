@@ -1,4 +1,4 @@
-name: Avisar en Discord de los directos de Twitch
+name: Avisar en Discord de los directos, el directo completo y los Shorts
 
 on:
   schedule:
@@ -25,13 +25,17 @@ jobs:
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: python discord_directo.py
-      - name: Guardar si estamos en directo
+      - name: Compartir el directo completo y los Shorts de YouTube
+        if: always()
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python discord_youtube.py
+      - name: Guardar el estado
         if: always()
         run: |
-          [ -f discord_directo.json ] || exit 0
           git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
-          git add discord_directo.json
+          for f in discord_directo.json discord_youtube.json; do [ -f "$f" ] && git add "$f"; done; true
           git diff --cached --quiet && exit 0
-          git commit -q -m "Estado del directo de Twitch"
+          git commit -q -m "Estado de directos y vídeos en Discord"
           for i in 1 2 3; do git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0; sleep 5; done
           exit 1

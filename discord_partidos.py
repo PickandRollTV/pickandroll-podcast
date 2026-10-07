@@ -116,6 +116,12 @@ def rival_keywords(name):
     return sorted(words - STOPWORDS) or [plain(name)]
 
 
+def is_matchday(news):
+    """Las entradas "DIA DE PARTIT" / "MATCHDAY" de la web (por el enlace o el titular)."""
+    title = plain(news["title"])
+    return "dia-de-partit" in news["link"] or "dia de partit" in title or "matchday" in title
+
+
 def season_year(now):
     return now.year if now.month >= 7 else now.year - 1
 
@@ -175,6 +181,8 @@ def main():
             print(f"Hilo abierto: {body['name']}")
     # Los partidos ya abiertos pueden haber desaparecido del calendario al jugarse: se siguen desde el estado.
     for key, entry in state.items():
+        if key.startswith("_"):
+            continue
         start = datetime.datetime.fromisoformat(entry["start"])
 
         # 2. Noticias de la web sobre el rival.
@@ -204,6 +212,31 @@ def main():
             })
             entry["final"] = True
             print(f"Final publicado: {key}")
+
+    # 4. "DIA DE PARTIT" de la web: aviso destacado en #anuncios para los de 🏀 Partidos.
+    announced = state.setdefault("_dia_de_partit", [])
+    first_time = not announced and not any(not k.startswith("_") for k in state)
+    for news in history:
+        if news["link"] in announced or not is_matchday(news):
+            continue
+        published = datetime.datetime.fromisoformat(news["date"])
+        if not first_time and now - published < datetime.timedelta(hours=18):
+            channels = discord("GET", f"/guilds/{GUILD}/channels", token)
+            target = next((c for c in channels if "anuncios" in c["name"] and c["type"] in (0, 5)), None)
+            thread = next((e["thread"] for k, e in state.items() if not k.startswith("_")
+                           and abs(datetime.datetime.fromisoformat(e["start"]) - published) < datetime.timedelta(hours=18)), None)
+            link = with_utm(news["link"], "dia-de-partit")
+            if target:
+                discord("POST", f"/channels/{target['id']}/messages", token, {
+                    "content": (f"<@&{role_id}> " if role_id else "") + f"🚨🏀 **{news['title']}**\n👉 Toda la previa en la web: <{link}>"
+                               + (f"\n💬 Coméntalo en <#{thread}>" if thread else ""),
+                    "embeds": [{"title": news["title"][:256], "url": link, "color": 0xA50044,
+                                **({"image": {"url": news["image"]}} if news.get("image") else {})}],
+                    "allowed_mentions": {"roles": [role_id] if role_id else []},
+                })
+                print(f"Dia de Partit anunciado: {news['title']}")
+        announced.append(news["link"])
+    state["_dia_de_partit"] = announced[-100:]
 
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return 0

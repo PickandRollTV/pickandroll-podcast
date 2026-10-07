@@ -9,6 +9,7 @@ repetir el aviso durante el mismo directo.
 Variables de entorno:
   DISCORD_BOT_TOKEN   token del bot (secreto del repositorio)
 """
+import datetime
 import json
 import os
 import pathlib
@@ -87,7 +88,11 @@ def main():
         print("Aviso publicado en #anuncios")
 
     if live != bool(state.get("en_directo")):
-        STATE.write_text(json.dumps({"en_directo": live}) + "\n", encoding="utf-8")
+        state["en_directo"] = live
+        if not live:
+            # discord_youtube.py usa esta hora para saber que el directo ya ha terminado.
+            state["ultimo_fin"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        STATE.write_text(json.dumps(state) + "\n", encoding="utf-8")
     return 0
 
 
