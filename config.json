@@ -56,5 +56,13 @@
   },
   "recortes_manuales": {
     "2878537661": 310
+  },
+  "discord": {
+    "feed_url": "https://pickandroll.tv/feed/",
+    "username": "PickandRollTV",
+    "avatar_url": "https://pickandrolltv.github.io/pickandroll-podcast/docs/portada-azul.jpg",
+    "intro": "🏀 **Nueva noticia en la web**",
+    "color": "#a50044",
+    "utm_campaign": "noticias"
   }
 }

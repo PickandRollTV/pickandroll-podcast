@@ -1,0 +1,38 @@
+name: Compartir noticias de la web en Discord
+
+on:
+  schedule:
+    - cron: "5,20,35,50 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discord
+  cancel-in-progress: false
+
+jobs:
+  discord:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Publicar en Discord las noticias nuevas
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_ROLE_ID: ${{ vars.DISCORD_ROLE_ID }}
+        run: python discord_web.py
+      - name: Guardar las noticias ya publicadas
+        if: always()
+        run: |
+          [ -f discord_publicados.json ] || exit 0
+          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
+          git add discord_publicados.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Noticias publicadas en Discord"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && exit 0; sleep 5; done
+          exit 1
