@@ -1,4 +1,4 @@
-# Cambios que se aplicarían (prueba)
+# Cambios aplicados
 
 - Servidor: descripción, notificaciones solo menciones, filtro explícito, Comunidad activada
 - Categoría Información → 📌 Empieza aquí
@@ -27,6 +27,5 @@
 - #⭐𝐈𝐍𝐕𝐈𝐓𝐀𝐃𝐎 → invitado (🗄️ Archivo, oculto)
 - Pantalla de bienvenida con 4 canales
 - AutoMod: Bloquear spam
-- AutoMod: Bloquear menciones masivas
 - AutoMod: Bloquear invitaciones a otros servidores
 - Invitación permanente a #bienvenida

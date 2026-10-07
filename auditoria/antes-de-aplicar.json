@@ -1,0 +1,1021 @@
+{
+  "servidor": {
+    "id": "929099438989905960",
+    "name": "PickandRollTV",
+    "icon": "8ae2f547665e9caf377266568a329156",
+    "description": null,
+    "home_header": null,
+    "splash": null,
+    "discovery_splash": null,
+    "features": [
+      "CHANNEL_ICON_EMOJIS_GENERATED",
+      "SOUNDBOARD",
+      "TIERLESS_BOOSTING_SYSTEM_MESSAGE"
+    ],
+    "banner": null,
+    "owner_id": "691043597788774461",
+    "application_id": null,
+    "region": "japan",
+    "afk_channel_id": null,
+    "afk_timeout": 300,
+    "system_channel_id": "959459731578167427",
+    "system_channel_flags": 12,
+    "widget_enabled": true,
+    "widget_channel_id": "958460303459377192",
+    "verification_level": 2,
+    "verification_role_id": null,
+    "roles": [
+      {
+        "id": "929099438989905960",
+        "name": "@everyone",
+        "description": null,
+        "permissions": "2222085186637377",
+        "position": 0,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": false,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "flags": 0
+      },
+      {
+        "id": "956697923649962045",
+        "name": "ROOKIE",
+        "description": null,
+        "permissions": "1071698660929",
+        "position": 5,
+        "color": 3447003,
+        "colors": {
+          "primary_color": 3447003,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": false,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "flags": 0
+      },
+      {
+        "id": "956698049277739080",
+        "name": "MVP 🏆",
+        "description": null,
+        "permissions": "10986391596791",
+        "position": 4,
+        "color": 15844367,
+        "colors": {
+          "primary_color": 15844367,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": true,
+        "managed": false,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "flags": 0
+      },
+      {
+        "id": "966102865921839126",
+        "name": "MEE6",
+        "description": null,
+        "permissions": "8798038649951",
+        "position": 3,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": true,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "tags": {
+          "bot_id": "159985870458322944"
+        },
+        "flags": 0
+      },
+      {
+        "id": "982405628486103063",
+        "name": "Nekotina",
+        "description": null,
+        "permissions": "9332560751734",
+        "position": 2,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": true,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "tags": {
+          "bot_id": "429457053791158281"
+        },
+        "flags": 0
+      },
+      {
+        "id": "1107101055742922774",
+        "name": "PICK'N'ROLLER",
+        "description": null,
+        "permissions": "962076134977",
+        "position": 1,
+        "color": 3447003,
+        "colors": {
+          "primary_color": 3447003,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": true,
+        "managed": false,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "flags": 0
+      },
+      {
+        "id": "1553218191902375956",
+        "name": "Twitch Subscriber",
+        "description": null,
+        "permissions": "2222085186637377",
+        "position": 1,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": true,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "tags": {
+          "integration_id": "1553218182007758879"
+        },
+        "flags": 0
+      },
+      {
+        "id": "1553218191902375957",
+        "name": "Twitch Subscriber: Tier 1",
+        "description": null,
+        "permissions": "2222085186637377",
+        "position": 1,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": true,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "tags": {
+          "integration_id": "1553218182007758879"
+        },
+        "flags": 0
+      },
+      {
+        "id": "1553218191902375958",
+        "name": "Twitch Subscriber: Tier 2",
+        "description": null,
+        "permissions": "2222085186637377",
+        "position": 1,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": true,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "tags": {
+          "integration_id": "1553218182007758879"
+        },
+        "flags": 0
+      },
+      {
+        "id": "1553218191902375959",
+        "name": "Twitch Subscriber: Tier 3",
+        "description": null,
+        "permissions": "2222085186637377",
+        "position": 1,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": true,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "tags": {
+          "integration_id": "1553218182007758879"
+        },
+        "flags": 0
+      },
+      {
+        "id": "1557379261436924005",
+        "name": "PickandRollTV Bot.",
+        "description": null,
+        "permissions": "8",
+        "position": 1,
+        "color": 0,
+        "colors": {
+          "primary_color": 0,
+          "secondary_color": null,
+          "tertiary_color": null
+        },
+        "hoist": false,
+        "managed": true,
+        "mentionable": false,
+        "icon": null,
+        "unicode_emoji": null,
+        "tags": {
+          "bot_id": "1557377874711805992"
+        },
+        "flags": 0
+      }
+    ],
+    "default_message_notifications": 0,
+    "mfa_level": 0,
+    "explicit_content_filter": 0,
+    "max_presences": null,
+    "max_members": 25000000,
+    "max_stage_video_channel_users": 50,
+    "max_video_channel_users": 25,
+    "vanity_url_code": null,
+    "premium_tier": 0,
+    "premium_subscription_count": 0,
+    "preferred_locale": "en-US",
+    "rules_channel_id": null,
+    "safety_alerts_channel_id": null,
+    "public_updates_channel_id": null,
+    "hub_type": null,
+    "premium_progress_bar_enabled": true,
+    "premium_progress_bar_enabled_user_updated_at": null,
+    "latest_onboarding_question_id": null,
+    "nsfw": false,
+    "nsfw_level": 0,
+    "owner_configured_content_level": 0,
+    "emojis": [],
+    "stickers": [],
+    "incidents_data": null,
+    "inventory_settings": null,
+    "official_message_color": null,
+    "theme": null,
+    "linked_game_organization": null,
+    "embed_enabled": true,
+    "embed_channel_id": "958460303459377192"
+  },
+  "canales": [
+    {
+      "id": "929099438989905961",
+      "type": 4,
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "Información",
+      "parent_id": null,
+      "position": 0,
+      "permission_overwrites": []
+    },
+    {
+      "id": "929099438989905962",
+      "type": 0,
+      "last_message_id": "1250387671742677054",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "✍-𝓻𝓮𝓰𝓵𝓪𝓼",
+      "parent_id": "929099438989905961",
+      "rate_limit_per_user": 0,
+      "topic": "Sigue las indicaciones que os dejamos a continuación",
+      "position": 1,
+      "permission_overwrites": [
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "1024",
+          "deny": "516201695313"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "📜"
+      },
+      "theme_color": null
+    },
+    {
+      "id": "929099438989905963",
+      "type": 0,
+      "last_message_id": "1252584246724395119",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "📱-𝓹𝓵𝓪𝓽𝓪𝓯𝓸𝓻𝓶𝓪𝓼",
+      "parent_id": "929099438989905961",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 4,
+      "permission_overwrites": [
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "1088",
+          "deny": "515396388864"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "📣"
+      },
+      "theme_color": null
+    },
+    {
+      "id": "929099439426121728",
+      "type": 4,
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 |",
+      "parent_id": null,
+      "position": 2,
+      "permission_overwrites": []
+    },
+    {
+      "id": "929099439426121729",
+      "type": 0,
+      "last_message_id": "1555536672437964853",
+      "flags": 0,
+      "last_pin_timestamp": "2024-06-07T09:47:07+00:00",
+      "guild_id": "929099438989905960",
+      "name": "📺-𝐆𝐄𝐍𝐄𝐑𝐀𝐋",
+      "parent_id": "929099439426121728",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 7,
+      "permission_overwrites": [
+        {
+          "id": "982405628486103063",
+          "type": 0,
+          "allow": "0",
+          "deny": "535529258065"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "🌐"
+      },
+      "theme_color": null
+    },
+    {
+      "id": "929099439426121730",
+      "type": 0,
+      "last_message_id": "1252582791418216499",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "📆-material-para-el-canal",
+      "parent_id": "929099439426121728",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 15,
+      "permission_overwrites": [
+        {
+          "id": "956698049277739080",
+          "type": 0,
+          "allow": "1024",
+          "deny": "0"
+        },
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "0",
+          "deny": "1024"
+        },
+        {
+          "id": "982405628486103063",
+          "type": 0,
+          "allow": "0",
+          "deny": "535529258065"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "🏀"
+      },
+      "theme_color": null
+    },
+    {
+      "id": "929099439426121731",
+      "type": 0,
+      "last_message_id": "1503806100422656201",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "💡-𝓲𝓭𝓮𝓪𝓼-𝔂-𝓸𝓹𝓲𝓷𝓲𝓸𝓷𝓮𝓼",
+      "parent_id": "929099438989905961",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 2,
+      "permission_overwrites": [],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "💡"
+      },
+      "theme_color": null
+    },
+    {
+      "id": "929099439426121732",
+      "type": 4,
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "Canales de voz",
+      "parent_id": null,
+      "position": 1,
+      "permission_overwrites": []
+    },
+    {
+      "id": "929099439426121734",
+      "type": 2,
+      "last_message_id": "1417948856313843783",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🎙 𝐁𝐀𝐍𝐐𝐔𝐈𝐋𝐋𝐎",
+      "parent_id": "929099439426121732",
+      "rate_limit_per_user": 0,
+      "bitrate": 64000,
+      "user_limit": 0,
+      "rtc_region": null,
+      "position": 2,
+      "permission_overwrites": [],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "🎙"
+      },
+      "theme_color": null,
+      "application_id": null,
+      "voice_background_display": null,
+      "voice_hangout": null
+    },
+    {
+      "id": "956699792086560768",
+      "type": 0,
+      "last_message_id": "1557398222547198043",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "💻-noticias-web",
+      "parent_id": "929099439426121728",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 10,
+      "permission_overwrites": [
+        {
+          "id": "982405628486103063",
+          "type": 0,
+          "allow": "0",
+          "deny": "535529258065"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "🔎"
+      },
+      "theme_color": null
+    },
+    {
+      "id": "958460303459377192",
+      "type": 2,
+      "last_message_id": "1554536527059750963",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🏀 𝐏𝐀𝐑𝐐𝐔𝐄𝐓🔵🔴",
+      "parent_id": "929099439426121732",
+      "rate_limit_per_user": 0,
+      "bitrate": 64000,
+      "user_limit": 0,
+      "rtc_region": "us-central",
+      "position": 1,
+      "permission_overwrites": [
+        {
+          "id": "956698049277739080",
+          "type": 0,
+          "allow": "3147280",
+          "deny": "0"
+        },
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "0",
+          "deny": "1049600"
+        },
+        {
+          "id": "982405628486103063",
+          "type": 0,
+          "allow": "1049600",
+          "deny": "0"
+        },
+        {
+          "id": "966009623385604116",
+          "type": 1,
+          "allow": "1049600",
+          "deny": "0"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "🏀"
+      },
+      "theme_color": null,
+      "application_id": null,
+      "voice_background_display": null,
+      "voice_hangout": null
+    },
+    {
+      "id": "959257658425225267",
+      "type": 2,
+      "last_message_id": null,
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "⭐𝐈𝐍𝐕𝐈𝐓𝐀𝐃𝐎",
+      "parent_id": "929099439426121732",
+      "rate_limit_per_user": 0,
+      "bitrate": 64000,
+      "user_limit": 0,
+      "rtc_region": null,
+      "position": 3,
+      "permission_overwrites": [
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "0",
+          "deny": "1049600"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "🎟️"
+      },
+      "theme_color": null,
+      "application_id": null,
+      "voice_background_display": null,
+      "voice_hangout": null
+    },
+    {
+      "id": "959459731578167427",
+      "type": 0,
+      "last_message_id": "1557379277748576366",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🙋-𝐛𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐚-𝐩𝐢𝐜𝐤-𝐚𝐧𝐝-𝐫𝐨𝐥𝐥𝐞𝐫𝐬",
+      "parent_id": null,
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 0,
+      "permission_overwrites": [
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "64",
+          "deny": "515396388864"
+        }
+      ],
+      "nsfw": false,
+      "icon_emoji": {
+        "id": null,
+        "name": "🏀"
+      },
+      "theme_color": null
+    },
+    {
+      "id": "982406567540441099",
+      "type": 0,
+      "last_message_id": "1037839216383623238",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "bot-musica-only-mods",
+      "parent_id": "929099439426121728",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 16,
+      "permission_overwrites": [
+        {
+          "id": "956698049277739080",
+          "type": 0,
+          "allow": "1024",
+          "deny": "0"
+        },
+        {
+          "id": "982405628486103063",
+          "type": 0,
+          "allow": "1024",
+          "deny": "0"
+        },
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "0",
+          "deny": "1024"
+        }
+      ],
+      "nsfw": false
+    },
+    {
+      "id": "1143993237170823288",
+      "type": 2,
+      "last_message_id": "1469470180571746430",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🍸 𝐏𝐢𝐜𝐤𝐚𝐧𝐝𝐑𝐨𝐥𝐥𝐓𝐕 𝐋𝐎𝐔𝐍𝐆𝐄",
+      "parent_id": "929099439426121732",
+      "rate_limit_per_user": 0,
+      "bitrate": 64000,
+      "user_limit": 0,
+      "rtc_region": null,
+      "video_quality_mode": 2,
+      "position": 0,
+      "permission_overwrites": [
+        {
+          "id": "956698049277739080",
+          "type": 0,
+          "allow": "35652096",
+          "deny": "0"
+        },
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "1117696",
+          "deny": "40272631624017"
+        }
+      ],
+      "nsfw": false,
+      "application_id": null
+    },
+    {
+      "id": "1248574516070846535",
+      "type": 0,
+      "last_message_id": "1502109862476251136",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🤪-𝐏𝐑𝐎𝐏𝐔𝐄𝐒𝐓𝐀𝐒-𝐂𝐎𝐍𝐓𝐄𝐍𝐈𝐃𝐎-𝐀𝐋𝐓𝐄𝐑𝐍𝐀𝐓𝐈𝐕𝐎",
+      "parent_id": "929099439426121728",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 14,
+      "permission_overwrites": [],
+      "nsfw": false
+    },
+    {
+      "id": "1250163184107655229",
+      "type": 0,
+      "last_message_id": "1250382899316785193",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "💪-𝓅𝒶𝓉𝓇𝑜𝒸𝒾𝓃𝒶𝒹𝑜𝓇𝑒𝓈",
+      "parent_id": "929099438989905961",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 3,
+      "permission_overwrites": [
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "1024",
+          "deny": "633851274065984"
+        }
+      ],
+      "nsfw": false
+    },
+    {
+      "id": "1250872435880886324",
+      "type": 0,
+      "last_message_id": null,
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🧢-𝓶𝓮𝓻𝓬𝓱𝓪𝓷𝓭𝓲𝓼𝓲𝓷𝓰",
+      "parent_id": "929099438989905961",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 6,
+      "permission_overwrites": [
+        {
+          "id": "956698049277739080",
+          "type": 0,
+          "allow": "1024",
+          "deny": "0"
+        },
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "0",
+          "deny": "1024"
+        }
+      ],
+      "nsfw": false
+    },
+    {
+      "id": "1251187799017787413",
+      "type": 0,
+      "last_message_id": "1531660211927122072",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🗣🏀-𝐓𝐄𝐑𝐓𝐔𝐋𝐈𝐀",
+      "parent_id": "929099439426121728",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 8,
+      "permission_overwrites": [],
+      "nsfw": false
+    },
+    {
+      "id": "1252234382425718805",
+      "type": 0,
+      "last_message_id": "1502109621702099044",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🤝-𝐏𝐋𝐀𝐍𝐓𝐈𝐋𝐋𝐀-𝟐𝟒-𝟐𝟓",
+      "parent_id": "929099439426121728",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 9,
+      "permission_overwrites": [],
+      "nsfw": false
+    },
+    {
+      "id": "1252586051755573341",
+      "type": 0,
+      "last_message_id": "1503806116180660346",
+      "flags": 0,
+      "guild_id": "929099438989905960",
+      "name": "🤝-𝓭𝓸𝓷𝓪𝓬𝓲𝓸𝓷𝓮𝓼",
+      "parent_id": "929099438989905961",
+      "rate_limit_per_user": 0,
+      "topic": null,
+      "position": 5,
+      "permission_overwrites": [
+        {
+          "id": "929099438989905960",
+          "type": 0,
+          "allow": "1024",
+          "deny": "0"
+        }
+      ],
+      "nsfw": false
+    }
+  ],
+  "roles": [
+    {
+      "id": "929099438989905960",
+      "name": "@everyone",
+      "description": null,
+      "permissions": "2222085186637377",
+      "position": 0,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": false,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "flags": 0
+    },
+    {
+      "id": "956697923649962045",
+      "name": "ROOKIE",
+      "description": null,
+      "permissions": "1071698660929",
+      "position": 5,
+      "color": 3447003,
+      "colors": {
+        "primary_color": 3447003,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": false,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "flags": 0
+    },
+    {
+      "id": "956698049277739080",
+      "name": "MVP 🏆",
+      "description": null,
+      "permissions": "10986391596791",
+      "position": 4,
+      "color": 15844367,
+      "colors": {
+        "primary_color": 15844367,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": true,
+      "managed": false,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "flags": 0
+    },
+    {
+      "id": "966102865921839126",
+      "name": "MEE6",
+      "description": null,
+      "permissions": "8798038649951",
+      "position": 3,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": true,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "tags": {
+        "bot_id": "159985870458322944"
+      },
+      "flags": 0
+    },
+    {
+      "id": "982405628486103063",
+      "name": "Nekotina",
+      "description": null,
+      "permissions": "9332560751734",
+      "position": 2,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": true,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "tags": {
+        "bot_id": "429457053791158281"
+      },
+      "flags": 0
+    },
+    {
+      "id": "1107101055742922774",
+      "name": "PICK'N'ROLLER",
+      "description": null,
+      "permissions": "962076134977",
+      "position": 1,
+      "color": 3447003,
+      "colors": {
+        "primary_color": 3447003,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": true,
+      "managed": false,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "flags": 0
+    },
+    {
+      "id": "1553218191902375956",
+      "name": "Twitch Subscriber",
+      "description": null,
+      "permissions": "2222085186637377",
+      "position": 1,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": true,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "tags": {
+        "integration_id": "1553218182007758879"
+      },
+      "flags": 0
+    },
+    {
+      "id": "1553218191902375957",
+      "name": "Twitch Subscriber: Tier 1",
+      "description": null,
+      "permissions": "2222085186637377",
+      "position": 1,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": true,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "tags": {
+        "integration_id": "1553218182007758879"
+      },
+      "flags": 0
+    },
+    {
+      "id": "1553218191902375958",
+      "name": "Twitch Subscriber: Tier 2",
+      "description": null,
+      "permissions": "2222085186637377",
+      "position": 1,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": true,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "tags": {
+        "integration_id": "1553218182007758879"
+      },
+      "flags": 0
+    },
+    {
+      "id": "1553218191902375959",
+      "name": "Twitch Subscriber: Tier 3",
+      "description": null,
+      "permissions": "2222085186637377",
+      "position": 1,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": true,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "tags": {
+        "integration_id": "1553218182007758879"
+      },
+      "flags": 0
+    },
+    {
+      "id": "1557379261436924005",
+      "name": "PickandRollTV Bot.",
+      "description": null,
+      "permissions": "8",
+      "position": 1,
+      "color": 0,
+      "colors": {
+        "primary_color": 0,
+        "secondary_color": null,
+        "tertiary_color": null
+      },
+      "hoist": false,
+      "managed": true,
+      "mentionable": false,
+      "icon": null,
+      "unicode_emoji": null,
+      "tags": {
+        "bot_id": "1557377874711805992"
+      },
+      "flags": 0
+    }
+  ]
+}
