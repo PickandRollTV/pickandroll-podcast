@@ -167,8 +167,20 @@ def send_mvp_list(api, guild, roles_list):
 def remove_mvp(api, guild, roles_list, numbers, expected_total):
     """Quita el rol MVP a los números elegidos de la lista y avisa al dueño por privado de a quién."""
     mvp, mvps = mvp_members(api, roles_list)
+    status = OUT_DIR / "quitar-mvp.txt"
+    OUT_DIR.mkdir(exist_ok=True)
+    me = api.call("GET", "/users/@me")["id"]
+    bot_roles = set(api.call("GET", f"/guilds/{GUILD}/members/{me}")["roles"])
+    position = {r["id"]: r["position"] for r in roles_list}
+    if max((position[r] for r in bot_roles), default=0) <= position[mvp]:
+        message = "El rol del bot está por debajo del rol MVP: hay que subirlo en Ajustes del servidor → Roles"
+        print(message)
+        status.write_text(message + "\n", encoding="utf-8")
+        return 1
     if expected_total and len(mvps) != expected_total:
-        print(f"La lista ha cambiado ({len(mvps)} MVP en vez de {expected_total}): no se quita nada")
+        message = f"La lista ha cambiado ({len(mvps)} MVP en vez de {expected_total}): no se quita nada"
+        print(message)
+        status.write_text(message + "\n", encoding="utf-8")
         return 1
     chosen = sorted({int(n) for n in numbers.replace(" ", "").split(",") if n})
     if not chosen or chosen[-1] > len(mvps) or chosen[0] < 1:
@@ -181,6 +193,7 @@ def remove_mvp(api, guild, roles_list, numbers, expected_total):
         removed.append(f"{number}. {shown} (@{user})")
     dm_owner(api, guild, f"**Rol MVP 🏆 retirado a {len(removed)} miembros**", removed)
     print(f"Rol MVP retirado a {len(removed)} miembros")
+    status.write_text(f"Rol MVP retirado a {len(removed)} miembros; quedan {len(mvps) - len(removed)}\n", encoding="utf-8")
     return 0
 
 
