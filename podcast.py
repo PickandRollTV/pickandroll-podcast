@@ -22,6 +22,7 @@ import pathlib
 import subprocess
 import sys
 import tempfile
+import time
 
 from feed import write_feed
 from intro import intro_offset
@@ -38,6 +39,8 @@ STATUS_FILE = ROOT / "ultimos_videos.json"
 ERROR_FILE = ROOT / "ultimo_error.txt"
 # Qué hizo la última pasada con resultados y recortes, para revisarlo sin abrir los registros.
 LOG_FILE = ROOT / "ultima_pasada.txt"
+# Pasadas seguidas en las que no se pudo leer Twitch.
+TWITCH_FAILS_FILE = ROOT / "twitch_fallos.txt"
 LOG = []
 
 # Mientras dura el directo el VOD va creciendo; damos por terminado el que lleva
@@ -45,6 +48,11 @@ LOG = []
 MIN_MINUTES_AFTER_END = 15
 # Cuántos VODs recientes se revisan en cada pasada.
 RECENT_VODS = 8
+# Twitch a veces falla un momento: se reintenta dentro de la pasada, y solo se marca la
+# ejecución como fallida (lo que manda un correo) si lleva este número de pasadas sin
+# poder leerse (8 pasadas = 2 horas).
+TWITCH_TRIES = 3
+TWITCH_FAILS_BEFORE_ALERT = 8
 
 
 def load_json(path, default):
@@ -217,13 +225,22 @@ def main():
     min_seconds = int(config.get("min_stream_minutes", 20)) * 60
     now = datetime.datetime.now(datetime.timezone.utc)
 
-    try:
-        vods = recent_vods(config["twitch_channel"])
-    except (RuntimeError, subprocess.CalledProcessError) as error:
-        detail = getattr(error, "stderr", "") or ""
-        ERROR_FILE.write_text(f"No se pudo leer Twitch: {error}\n{detail[-2000:]}\n", encoding="utf-8")
-        print(f"No se pudo leer Twitch: {error}", file=sys.stderr)
-        return 1
+    for attempt in range(TWITCH_TRIES):
+        try:
+            vods = recent_vods(config["twitch_channel"])
+            break
+        except (RuntimeError, subprocess.CalledProcessError) as error:
+            last_error = error
+            if attempt + 1 < TWITCH_TRIES:
+                time.sleep(30)
+    else:
+        fails = int(TWITCH_FAILS_FILE.read_text().strip() or 0) + 1 if TWITCH_FAILS_FILE.exists() else 1
+        TWITCH_FAILS_FILE.write_text(f"{fails}\n", encoding="utf-8")
+        detail = getattr(last_error, "stderr", "") or ""
+        ERROR_FILE.write_text(f"No se pudo leer Twitch: {last_error}\n{detail[-2000:]}\n", encoding="utf-8")
+        print(f"No se pudo leer Twitch ({fails} pasada(s) seguidas): {last_error}", file=sys.stderr)
+        return 1 if fails >= TWITCH_FAILS_BEFORE_ALERT else 0
+    TWITCH_FAILS_FILE.unlink(missing_ok=True)
     write_status(vods)
     pending = []
     for vod in vods:
