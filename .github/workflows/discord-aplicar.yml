@@ -53,5 +53,5 @@ jobs:
           git add auditoria
           git diff --cached --quiet && exit 0
           git commit -q -m "Reorganización del servidor de Discord (${{ inputs.accion }})"
-          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && exit 0; sleep 5; done
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0; sleep 5; done
           exit 1
