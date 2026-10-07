@@ -13,6 +13,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
 ROOT = pathlib.Path(__file__).resolve().parent
 LOGO = ROOT / "portada" / "logo-redondo-pickandroll.webp"
+SPOTIFY = ROOT / "portada" / "spotify-icono.png"
 FONTS = ROOT / "fonts"
 SIZE = 3000
 
@@ -185,6 +186,8 @@ def render(home, score, away, competition, kicker_date):
         gold_text(image, (SIZE / 2, score_base), big, score_font, anchor="ms")
         shadowed_text(image, (SIZE - margin, away_base), short_name(away), away_font, WHITE, anchor="rs")
     # Abajo: la marca y el resultado para el Barça.
+    spotify = Image.open(SPOTIFY).convert("RGBA").resize((190, 190), Image.LANCZOS)
+    image.paste(spotify, (margin, SIZE - 170 - 120 - 60 - 190), spotify)
     draw = ImageDraw.Draw(image)
     draw.text((margin, SIZE - 170), "PICKANDROLLTV  ·  PODCAST", font=font("SemiBold", 120), fill=WHITE, anchor="ld")
     result = barca_result(home or "", score, away or "")
