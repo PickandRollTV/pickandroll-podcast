@@ -1,0 +1,37 @@
+name: Hilos de partidos en Discord
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discord-partidos
+  cancel-in-progress: false
+
+jobs:
+  partidos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Abrir hilos, enlazar noticias y publicar resultados
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python discord_partidos.py
+      - name: Guardar el estado de los hilos
+        if: always()
+        run: |
+          [ -f discord_partidos.json ] || exit 0
+          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
+          git add discord_partidos.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Hilos de partidos en Discord"
+          for i in 1 2 3; do git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0; sleep 5; done
+          exit 1
