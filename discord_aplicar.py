@@ -392,13 +392,52 @@ def post_messages(api, channels, roles_list):
     return 0
 
 
+def setup_moderation(api, channels, roles_list):
+    """Quita a MVP los permisos de moderación y crea el rol Moderador con los mismos accesos de canal que MVP."""
+    roles = {r["name"]: r for r in roles_list}
+    mvp = roles.get("MVP 🏆")
+    if not mvp:
+        print("No encuentro el rol MVP 🏆")
+        return 1
+    if int(mvp["permissions"]) & MODERATION:
+        api.call("PATCH", f"/guilds/{GUILD}/roles/{mvp['id']}", {"permissions": str(int(mvp["permissions"]) & ~MODERATION)},
+                 "Rol MVP: quitar permisos de moderación (banear, expulsar, aislar, borrar mensajes, gestionar canales y roles)")
+    mod = roles.get("Moderador")
+    if not mod:
+        mod = api.call("POST", f"/guilds/{GUILD}/roles",
+                       {"name": "Moderador", "color": 0xA50044, "hoist": True,
+                        "permissions": str(MEMBER_BASICS | (1 << 13) | (1 << 40) | (1 << 1))},
+                       "Crear rol Moderador (gestionar mensajes, aislar y expulsar; sin banear)")
+    # Mismo acceso que MVP en los canales de texto (staff, solo lectura, zona sub). La voz no se toca.
+    voice_parents = {c["id"] for c in channels if c["type"] == 4 and any(
+        x["parent_id"] == c["id"] and x["type"] == 2 for x in channels if x.get("parent_id"))
+        and not any(x["parent_id"] == c["id"] and x["type"] != 2 for x in channels if x.get("parent_id"))}
+    for channel in channels:
+        if channel["type"] == 2 or channel["id"] in voice_parents:
+            continue
+        for ow in channel.get("permission_overwrites", []):
+            if ow["id"] == mvp["id"] and not any(o["id"] == mod["id"] for o in channel["permission_overwrites"]):
+                api.call("PUT", f"/channels/{channel['id']}/permissions/{mod['id']}",
+                         {"type": 0, "allow": ow["allow"], "deny": ow["deny"]},
+                         f"Moderador: mismo acceso que MVP en {channel['name']}")
+    # AutoMod no bloquea a los moderadores.
+    for rule in api.call("GET", f"/guilds/{GUILD}/auto-moderation/rules"):
+        if mod["id"] not in rule.get("exempt_roles", []) and not str(mod["id"]).startswith("nuevo:"):
+            api.call("PATCH", f"/guilds/{GUILD}/auto-moderation/rules/{rule['id']}",
+                     {"exempt_roles": rule.get("exempt_roles", []) + [mod["id"]]}, f"AutoMod {rule['name']}: excluir a Moderador")
+    header = "# Moderación aplicada\n\n" if api.apply else "# Moderación que se aplicaría (prueba)\n\n"
+    (OUT_DIR / "moderacion.md").write_text(header + "\n".join(api.log) + "\n", encoding="utf-8")
+    print(f"{len(api.log)} cambios {'aplicados' if api.apply else 'previstos'}")
+    return 0
+
+
 def main():
     token = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
     if not token:
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
     action = os.environ.get("ACCION", "").strip()
-    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes")
+    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion")
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
 
@@ -406,13 +445,15 @@ def main():
     channels = api.call("GET", f"/guilds/{GUILD}/channels")
     roles_list = api.call("GET", f"/guilds/{GUILD}/roles")
     OUT_DIR.mkdir(exist_ok=True)
-    if apply and action not in ("avisos", "estetica", "mensajes"):
+    if apply and action not in ("avisos", "estetica", "mensajes", "moderacion"):
         snapshot = {"servidor": guild, "canales": channels, "roles": roles_list}
         (OUT_DIR / "antes-de-aplicar.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("ACCION", "").strip() == "lista-mvp":
         return send_mvp_list(api, guild, roles_list)
     if os.environ.get("ACCION", "").strip() == "quitar-mvp":
         return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
+    if action == "moderacion":
+        return setup_moderation(api, channels, roles_list)
     if action == "mensajes":
         return post_messages(api, channels, roles_list)
     if action == "estetica":
