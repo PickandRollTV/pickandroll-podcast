@@ -1,4 +1,4 @@
-# Avisos aplicados
+# Web aplicada
 
 - 📰┃noticias-web: primer canal del servidor y tema nuevo
 - Servidor: descripción con pickandroll.tv delante
