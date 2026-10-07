@@ -37,6 +37,8 @@ import time
 import urllib.error
 import urllib.request
 
+from discord_web import with_utm
+
 ROOT = pathlib.Path(__file__).resolve().parent
 OUT_DIR = ROOT / "auditoria"
 API = os.environ.get("DISCORD_API", "https://discord.com/api/v10")
@@ -80,8 +82,8 @@ CHANNELS = [
 ]
 # Roles de avisos que cada miembro elige al entrar (nombre, color, emoji, descripción).
 NOTIFY_ROLES = [
+    ("📰 Noticias web", 0xA50044, "📰", "Aviso con cada noticia nueva de pickandroll.tv (recomendado)"),
     ("🔴 Directos", 0xE91916, "🔴", "Aviso cuando PickandRollTV empieza directo"),
-    ("📰 Noticias web", 0xA50044, "📰", "Aviso con cada noticia nueva de pickandroll.tv"),
     ("🏀 Partidos", 0xEDBB00, "🏀", "Aviso cuando se abre el hilo de cada partido"),
 ]
 DONATIONS_URL = "https://buymeacoffee.com/pickandrolltv"
@@ -304,13 +306,16 @@ def build_messages(by_name):
     ch = {name: f"<#{c['id']}>" for name, c in by_name.items()}
     links = " · ".join(f"[{name}]({url})" for name, url in cfg["social_links"])
     color, logo = 0xA50044, cfg["show"]["image"]
+    web = lambda campaign: with_utm(cfg["website_url"], campaign)
     return {
         "👋┃bienvenida": [{
             "title": "🏀 Bienvenido a PickandRollTV",
+            "url": web("bienvenida"),
             "description": ("La comunidad del **Barça Basket**, la **Euroliga**, la **Liga Endesa** y la **NBA** en español.\n"
                             "Directos de cada partido, postpartidos, noticias y tertulia con gente que vive el baloncesto."),
             "color": color, "thumbnail": {"url": logo},
             "fields": [
+                {"name": "🌐 Nuestra casa: pickandroll.tv", "value": f"Noticias, previas, crónicas y análisis del Barça cada día.\n**[👉 Entra en pickandroll.tv]({web('bienvenida')})**", "inline": False},
                 {"name": "📌 Para empezar", "value": f"1. Lee las {ch.get('📜┃normas', '#normas')}\n2. Elige tus avisos en <id:customize>\n3. Preséntate en {ch.get('💬┃general', '#general')}", "inline": False},
                 {"name": "💬 Dónde hablar", "value": f"{ch.get('💬┃general', '')} charla de baloncesto\n{ch.get('🏟️┃partidos', '')} un hilo por partido\n{ch.get('🔴┃directo', '')} durante los directos\n{ch.get('🔄┃mercado-y-plantilla', '')} fichajes y rumores", "inline": True},
                 {"name": "📣 Para estar al día", "value": f"{ch.get('📢┃anuncios', '')} directos y novedades\n{ch.get('📰┃noticias-web', '')} cada noticia de la web\n{ch.get('💡┃ideas-y-propuestas', '')} propón contenido", "inline": True},
@@ -352,7 +357,7 @@ def build_messages(by_name):
             "fields": [
                 {"name": "☕ Invítanos a un café", "value": f"[buymeacoffee.com/pickandrolltv]({DONATIONS_URL}). Cada café nos ayuda a mejorar el equipo y a viajar a los partidos.", "inline": False},
                 {"name": "⭐ Suscríbete en Twitch", "value": f"[twitch.tv/{cfg['twitch_channel']}]({cfg['twitch_url']}). Los subs tenéis acceso a la ⭐ Zona Sub.", "inline": False},
-                {"name": "📰 Lee y comparte la web", "value": f"[pickandroll.tv]({cfg['website_url']}). Cada visita nos ayuda.", "inline": False},
+                {"name": "📰 Lee y comparte la web", "value": f"[pickandroll.tv]({web('apoya')}). Cada visita nos ayuda.", "inline": False},
                 {"name": "▶️ Síguenos en todas partes", "value": links, "inline": False},
                 {"name": "📣 Invita a tus amigos", "value": "https://discord.gg/USweNvJ4tY", "inline": False},
             ],
@@ -435,13 +440,44 @@ def setup_moderation(api, channels, roles_list):
     return 0
 
 
+def boost_web(api, channels, roles_list):
+    """Da protagonismo a pickandroll.tv: noticias arriba del todo, descripción, bienvenida, temas y menú de entrada."""
+    by_name = {c["name"]: c for c in channels}
+    news = by_name.get("📰┃noticias-web")
+    if news:
+        api.call("PATCH", f"/channels/{news['id']}", {"position": 0, "topic": "🌐 Lo último de pickandroll.tv, al momento. Noticias, previas, crónicas y análisis del Barça."},
+                 "📰┃noticias-web: primer canal del servidor y tema nuevo")
+    api.call("PATCH", f"/guilds/{GUILD}", {
+        "description": "🌐 pickandroll.tv · La comunidad de PickandRollTV: Barça Basket, Euroliga, ACB y NBA. Noticias, directos y tertulia.",
+    }, "Servidor: descripción con pickandroll.tv delante")
+    welcome = [("📰┃noticias-web", "Lo último de pickandroll.tv", "📰"), ("📜┃normas", "Lee las normas", "📜"),
+               ("💬┃general", "Habla de baloncesto", "💬"), ("🏟️┃partidos", "Comenta cada partido", "🏟️")]
+    api.call("PATCH", f"/guilds/{GUILD}/welcome-screen", {
+        "enabled": True,
+        "description": "Baloncesto en español: Barça, Euroliga, ACB y NBA. Todas las noticias en pickandroll.tv",
+        "welcome_channels": [{"channel_id": by_name[n]["id"], "description": d, "emoji_name": e} for n, d, e in welcome if n in by_name],
+    }, "Pantalla de bienvenida: pickandroll.tv en primer lugar")
+    for channel in channels:
+        topic = channel.get("topic") or ""
+        public = not any(o["id"] == GUILD and int(o["deny"]) & VIEW for o in channel.get("permission_overwrites", []))
+        if channel["type"] in (0, 5, 15) and public and "pickandroll.tv" not in topic and channel["name"] in RENAMES.values():
+            api.call("PATCH", f"/channels/{channel['id']}", {"topic": (topic + " · " if topic else "") + "🌐 pickandroll.tv"},
+                     f"{channel['name']}: tema con pickandroll.tv")
+    log = list(api.log)
+    setup_notifications(api, channels, roles_list)  # vuelve a guardar el menú con 📰 Noticias web en primer lugar
+    api.log = log + api.log[len(log):]
+    header = "# Web aplicada\n\n" if api.apply else "# Web que se aplicaría (prueba)\n\n"
+    (OUT_DIR / "web.md").write_text(header + "\n".join(api.log) + "\n", encoding="utf-8")
+    return 0
+
+
 def main():
     token = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
     if not token:
         print("Falta el secreto DISCORD_BOT_TOKEN")
         return 1
     action = os.environ.get("ACCION", "").strip()
-    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion")
+    apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion", "web")
     change_roles = os.environ.get("ROLES", "").strip().lower() in ("si", "sí", "true", "1")
     api = Discord(token, apply)
 
@@ -449,13 +485,15 @@ def main():
     channels = api.call("GET", f"/guilds/{GUILD}/channels")
     roles_list = api.call("GET", f"/guilds/{GUILD}/roles")
     OUT_DIR.mkdir(exist_ok=True)
-    if apply and action not in ("avisos", "estetica", "mensajes", "moderacion"):
+    if apply and action not in ("avisos", "estetica", "mensajes", "moderacion", "web"):
         snapshot = {"servidor": guild, "canales": channels, "roles": roles_list}
         (OUT_DIR / "antes-de-aplicar.json").write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("ACCION", "").strip() == "lista-mvp":
         return send_mvp_list(api, guild, roles_list)
     if os.environ.get("ACCION", "").strip() == "quitar-mvp":
         return remove_mvp(api, guild, roles_list, os.environ.get("NUMEROS", ""), int(os.environ.get("TOTAL_MVP") or 0))
+    if action == "web":
+        return boost_web(api, channels, roles_list)
     if action == "moderacion":
         return setup_moderation(api, channels, roles_list)
     if action == "mensajes":

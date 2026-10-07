@@ -19,6 +19,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from discord_web import with_utm
+
 ROOT = pathlib.Path(__file__).resolve().parent
 STATE = ROOT / "discord_directo.json"
 ROLES_FILE = ROOT / "auditoria" / "roles-avisos.json"
@@ -76,8 +78,9 @@ def main():
             return 1
         role_id = json.loads(ROLES_FILE.read_text(encoding="utf-8")).get("🔴 Directos") if ROLES_FILE.exists() else None
         url = f"https://www.twitch.tv/{CHANNEL}"
+        web = with_utm(CONFIG["website_url"], "directo")
         discord("POST", f"/channels/{target['id']}/messages", token, {
-            "content": (f"<@&{role_id}> " if role_id else "") + f"🔴 **¡Estamos en directo!**\n### {title or 'PickandRollTV'}\n👉 Entra ya: <{url}>",
+            "content": (f"<@&{role_id}> " if role_id else "") + f"🔴 **¡Estamos en directo!**\n### {title or 'PickandRollTV'}\n👉 Entra ya: <{url}>\n📰 Previa y claves en <{web}>",
             "allowed_mentions": {"roles": [role_id] if role_id else []},
             "embeds": [{
                 "title": title or "PickandRollTV en directo", "url": url, "color": 0xE91916,

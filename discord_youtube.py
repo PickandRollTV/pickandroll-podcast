@@ -19,6 +19,8 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 
+from discord_web import with_utm
+
 ROOT = pathlib.Path(__file__).resolve().parent
 STATE_FILE = ROOT / "discord_youtube.json"
 LIVE_FILE = ROOT / "discord_directo.json"
@@ -106,7 +108,7 @@ def main():
                 continue
             if not first_run and now - video["published"] < datetime.timedelta(days=2):
                 target = channel(lambda c: "anuncios" in c["name"] and c["type"] in (0, 5))
-                message = {"content": f"📺 **¿Te lo perdiste?** El directo completo ya está en YouTube:\n### {video['title']}\n{url}"}
+                message = {"content": f"📺 **¿Te lo perdiste?** El directo completo ya está en YouTube:\n### {video['title']}\n{url}\n📰 La crónica y el análisis, en <{with_utm(CONFIG['website_url'], 'directo-completo')}>"}
                 if target:
                     discord("POST", f"/channels/{target['id']}/messages", token, message)
                 matches = json.loads(MATCHES_FILE.read_text(encoding="utf-8")) if MATCHES_FILE.exists() else {}
@@ -133,7 +135,7 @@ def main():
                     channels.append(target)
                 short = f"https://www.youtube.com/shorts/{video['id']}"
                 discord("POST", f"/channels/{target['id']}/messages", token,
-                        {"content": f"📱 **Nuevo Short:** {video['title']}\n{short}"})
+                        {"content": f"📱 **Nuevo Short:** {video['title']}\n{short}\n🌐 Toda la actualidad del Barça en <{with_utm(CONFIG['website_url'], 'shorts')}>"})
                 print(f"Short compartido: {video['title']}")
             state["shorts"].append(video["id"])
         state["vistos"].append(video["id"])
