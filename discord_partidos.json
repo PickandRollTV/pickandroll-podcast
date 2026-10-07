@@ -7,7 +7,10 @@
       "zalgiris"
     ],
     "news": [],
-    "final": false
+    "final": false,
+    "home": "Barça",
+    "away": "Zalgiris Kaunas",
+    "porra": "1557480964240711821"
   },
   "30562-27": {
     "thread": "1557455723833720873",
@@ -17,7 +20,10 @@
       "valencia"
     ],
     "news": [],
-    "final": false
+    "final": false,
+    "home": "Barça",
+    "away": "Valencia Basket",
+    "porra": "1557480967046701067"
   },
   "30553-45": {
     "thread": "1557455725301866648",
@@ -28,7 +34,10 @@
       "rapyd"
     ],
     "news": [],
-    "final": false
+    "final": false,
+    "home": "Barça",
+    "away": "Maccabi Rapyd Tel Aviv",
+    "porra": "1557480967914922038"
   },
   "30553-59": {
     "thread": "1557455727516188745",
@@ -38,7 +47,10 @@
       "olympiacos"
     ],
     "news": [],
-    "final": false
+    "final": false,
+    "home": "Barça",
+    "away": "Olympiacos Piraeus",
+    "porra": "1557480969064419429"
   },
   "30562-36": {
     "thread": "1557455733166178375",
@@ -49,7 +61,10 @@
       "joventut"
     ],
     "news": [],
-    "final": false
+    "final": false,
+    "home": "Asisa Joventut",
+    "away": "Barça",
+    "porra": "1557480970054140017"
   },
   "_dia_de_partit": []
 }
