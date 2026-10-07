@@ -32,6 +32,7 @@ Variables de entorno:
 import json
 import os
 import pathlib
+import re
 import sys
 import time
 import urllib.error
@@ -365,6 +366,19 @@ def build_messages(by_name):
     }
 
 
+def embed_to_text(embed):
+    """Pasa una tarjeta a texto con formato de Discord, para que se vea aunque alguien tenga desactivadas las tarjetas."""
+    title = f"## [{embed['title']}](<{embed['url']}>)" if embed.get("url") else f"## {embed['title']}"
+    parts = [title]
+    if embed.get("description"):
+        parts.append(embed["description"])
+    parts += [f"**{field['name']}**\n{field['value']}" for field in embed.get("fields", [])]
+    if embed.get("footer"):
+        parts.append(f"-# {embed['footer']['text']}")
+    # Los <> evitan que cada enlace añada su propia vista previa.
+    return re.sub(r"\]\((https?://[^)\s>]+)\)", r"](<\1>)", "\n\n".join(parts))
+
+
 def post_messages(api, channels, roles_list):
     """Publica (o actualiza, si ya están) los mensajes fijos del servidor."""
     by_name = {c["name"]: c for c in channels}
@@ -384,7 +398,7 @@ def post_messages(api, channels, roles_list):
         if not channel:
             print(f"Aviso: no encuentro {name}")
             continue
-        body = {"content": "", "embeds": embeds, "allowed_mentions": {"parse": []}}
+        body = {"content": "\n\n".join(embed_to_text(e) for e in embeds)[:2000], "embeds": [], "allowed_mentions": {"parse": []}}
         old = sent.get(channel["id"])
         if old:
             api.call("PATCH", f"/channels/{channel['id']}/messages/{old}", body, f"Actualizar mensaje de {name}")
@@ -480,6 +494,7 @@ def main():
     if action == "partidos":
         # Abre ya los hilos de los partidos de los próximos 14 días.
         os.environ.setdefault("PARTIDOS_DIAS", "14")
+        os.environ.setdefault("PARTIDOS_REHACER", "1")
         import discord_partidos
         return discord_partidos.main()
     apply = os.environ.get("MODO", "").strip().lower() == "aplicar" or action in ("avisos", "estetica", "mensajes", "moderacion", "web")

@@ -124,6 +124,26 @@ def is_matchday(news):
     return "dia-de-partit" in news["link"] or "dia de partit" in title or "matchday" in title
 
 
+def thread_message(game, ping, role_id):
+    """Primer mensaje del hilo, en texto (se ve aunque alguien tenga desactivadas las tarjetas)."""
+    ts = int(game["start"].timestamp())
+    web = with_utm(CONFIG["website_url"], "partidos")
+    lines = [
+        (f"<@&{role_id}> " if role_id and ping else "") + ("🔥 **¡Día de partido!**" if ping else "🗓️ **Próximo partido.**")
+        + " Aquí comentamos la previa, el directo y el postpartido.",
+        f"## {game['home']} vs {game['away']}",
+        f"🏆 **{game['competition']}**",
+        f"🕒 <t:{ts}:F> (<t:{ts}:R>)",
+    ]
+    if game["venue"]:
+        lines.append(f"🏟️ {game['venue']}")
+    lines += ["", f"📰 **[Previa, crónica y toda la actualidad en pickandroll.tv](<{web}>)**",
+              f"🔴 **[Lo vivimos en directo en Twitch](<{CONFIG['twitch_url']}>)**",
+              "-# Comenta el partido en este hilo · PickandRollTV"]
+    return {"content": "\n".join(lines), "embeds": [],
+            "allowed_mentions": {"roles": [role_id] if role_id and ping else []}}
+
+
 def season_year(now):
     return now.year if now.month >= 7 else now.year - 1
 
@@ -139,7 +159,15 @@ def main():
     role_id = json.loads(ROLES_FILE.read_text(encoding="utf-8")).get("🏀 Partidos") if ROLES_FILE.exists() else None
 
     forum = None
-    for game in club_fixtures():
+    fixtures = club_fixtures()
+    if os.environ.get("PARTIDOS_REHACER"):
+        # Reescribe el primer mensaje de los hilos ya abiertos con el formato actual.
+        for game in fixtures:
+            if game["key"] in state:
+                thread = state[game["key"]]["thread"]
+                discord("PATCH", f"/channels/{thread}/messages/{thread}", token, thread_message(game, False, None))
+                print(f"Hilo actualizado: {game['home']} vs {game['away']}")
+    for game in fixtures:
         start, key = game["start"], game["key"]
         home = plain(game["home"]).startswith("barca")
         rival = game["away"] if home else game["home"]
@@ -154,29 +182,10 @@ def main():
                     print("No encuentro el foro de partidos")
                     return 1
             tag = next((t["id"] for t in forum.get("available_tags", []) if t["name"] == game["competition"]), None)
-            ts = int(start.timestamp())
             ping = start - now <= PING_BEFORE
-            web = with_utm(CONFIG["website_url"], "partidos")
-            embed = {
-                "title": f"{game['home']} vs {game['away']}",
-                "description": (f"🏆 **{game['competition']}**\n"
-                                f"🕒 <t:{ts}:F> (<t:{ts}:R>)\n"
-                                + (f"🏟️ {game['venue']}\n" if game["venue"] else "")
-                                + f"\n📰 **[Previa, crónica y toda la actualidad en pickandroll.tv]({web})**\n"
-                                f"🔴 **[Lo vivimos en directo en Twitch]({CONFIG['twitch_url']})**"),
-                "color": 0xA50044,
-                "thumbnail": {"url": BADGE.format(team=game["away_id"] if home else game["home_id"])},
-                "footer": {"text": "Comenta el partido en este hilo · PickandRollTV"},
-            }
             body = {
                 "name": f"🏀 {game['home']} vs {game['away']} | {game['competition']}"[:100],
-                "message": {
-                    "content": ((f"<@&{role_id}> " if role_id and ping else "")
-                                + ("🔥 **¡Día de partido!**" if ping else "🗓️ **Próximo partido.**")
-                                + " Aquí comentamos la previa, el directo y el postpartido."),
-                    "embeds": [embed],
-                    "allowed_mentions": {"roles": [role_id] if role_id and ping else []},
-                },
+                "message": thread_message(game, ping, role_id),
             }
             if tag:
                 body["applied_tags"] = [tag]
