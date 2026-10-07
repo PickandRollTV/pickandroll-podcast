@@ -134,7 +134,8 @@
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:15: 4:21 2010 | 4:25 Som l'ultima pilota | 4:28 Som campio | 4:33 Som centenaris | 4:39 Un escut, un clam | 5:15 Buenas tardes y bienvenidos amigos amigas a Picanroll",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2877581873-4626a43f.jpg",
-    "cover_key": "4626a43f"
+    "cover_key": "4626a43f",
+    "resultado": "86-87"
   },
   {
     "guid": "twitch:2878537661",
