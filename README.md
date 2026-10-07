@@ -77,3 +77,16 @@ El texto, el color y el nombre del bot se cambian en `config.json`, en el bloque
 con el bot del servidor (secreto `DISCORD_BOT_TOKEN`). Solo lee: canales, permisos,
 roles, bots, invitaciones y la actividad de los últimos 90 días en cifras (nunca el texto
 de los mensajes ni nombres de miembros). Guarda el resultado en `auditoria/`.
+
+## Reorganizar el servidor de Discord
+
+*Actions → Reorganizar el servidor de Discord → Run workflow* ejecuta `discord_aplicar.py`:
+
+- `probar`: enseña los cambios en `auditoria/cambios.md` sin tocar nada.
+- `aplicar`: los hace. Antes guarda el estado completo en `auditoria/antes-de-aplicar.json`.
+  No borra canales: los que sobran pasan a la categoría oculta "Archivo". No toca la
+  categoría de voz ni Parquet. La invitación permanente queda en `auditoria/invitacion.txt`.
+- `lista-mvp`: manda al dueño del servidor, por mensaje privado de Discord, la lista de
+  miembros con el rol MVP (no se guarda en el repositorio).
+
+La casilla de roles quita al rol MVP los permisos de moderación y crea el rol Moderador.

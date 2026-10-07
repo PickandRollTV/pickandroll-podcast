@@ -120,7 +120,10 @@ def build_message(news, settings, role_id):
         embed["image"] = {"url": image}
     message = {
         "username": settings.get("username", "PickandRollTV"),
-        "content": (f"<@&{role_id}> " if role_id else "") + settings.get("intro", "🏀 **Nueva noticia en la web**"),
+        # El titular y el enlace van también en el texto, para quien tenga desactivadas las vistas previas.
+        # Los <> evitan que Discord añada una segunda vista previa del mismo enlace.
+        "content": (f"<@&{role_id}> " if role_id else "") + settings.get("intro", "🏀 **Nueva noticia en la web**")
+        + f"\n### {news['title']}\n👉 Lee la noticia completa: <{link}>",
         "embeds": [embed],
         "allowed_mentions": {"roles": [role_id] if role_id else []},
     }

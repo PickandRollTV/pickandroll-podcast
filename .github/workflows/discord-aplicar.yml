@@ -1,0 +1,47 @@
+name: Reorganizar el servidor de Discord
+
+on:
+  workflow_dispatch:
+    inputs:
+      accion:
+        description: "probar = solo enseña los cambios; aplicar = los hace; lista-mvp = te manda por privado la lista de MVP"
+        type: choice
+        options: [probar, aplicar, lista-mvp]
+        default: probar
+      roles:
+        description: "Cambiar también los roles (quitar moderación a MVP y crear Moderador)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discord-aplicar
+  cancel-in-progress: false
+
+jobs:
+  aplicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reorganizar
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          MODO: ${{ inputs.accion }}
+          ACCION: ${{ inputs.accion }}
+          ROLES: ${{ inputs.roles && 'si' || 'no' }}
+        run: python discord_aplicar.py
+      - name: Guardar el registro de cambios
+        if: always()
+        run: |
+          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
+          git add auditoria
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Reorganización del servidor de Discord (${{ inputs.accion }})"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q && exit 0; sleep 5; done
+          exit 1
