@@ -77,7 +77,9 @@ def with_score(title, score):
 
 
 def episode_title(episode, config):
-    score = config.get("resultados", {}).get(episode.get("vod_id", "")) or episode.get("resultado")
+    # Resultados puestos a mano en config.json, por id del directo o, en los importados, por guid.
+    manual = config.get("resultados", {})
+    score = manual.get(episode.get("vod_id", "")) or manual.get(episode["guid"]) or episode.get("resultado")
     return with_score(clean_title(episode["title"]), score)
 
 
