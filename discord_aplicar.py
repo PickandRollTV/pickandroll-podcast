@@ -566,4 +566,10 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except Exception as error:
+        # Los registros de GitHub no siempre se pueden leer: dejamos el error en el repositorio.
+        OUT_DIR.mkdir(exist_ok=True)
+        (OUT_DIR / "error.txt").write_text(f"{os.environ.get('ACCION', '')}: {error}\n", encoding="utf-8")
+        raise
