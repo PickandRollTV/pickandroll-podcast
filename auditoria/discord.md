@@ -1,41 +1,53 @@
 # Auditoría de PickandRollTV (2026-10-07)
 
-117 miembros, 10 conectados. Nivel de mejoras 0.
+117 miembros, 12 conectados. Nivel de mejoras 0.
 
 | Canal | Tipo | Categoría | Mensajes 90 días | Últimos 30 días | Personas | Último mensaje | @everyone ve/escribe |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Información | categoría |  |  |  |  |  | sí/sí |
+| 📌 𝗜𝗡𝗜𝗖𝗜𝗢 | categoría |  |  |  |  |  | sí/sí |
+| 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 | categoría |  |  |  |  |  | sí/sí |
 | Canales de voz | categoría |  |  |  |  |  | sí/sí |
-| 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | categoría |  |  |  |  |  | sí/sí |
-| 🙋-𝐛𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐚-𝐩𝐢𝐜𝐤-𝐚𝐧𝐝-𝐫𝐨𝐥𝐥𝐞𝐫𝐬 | texto |  | 4 | 4 | 1 | 2026-10-07 | sí/no |
+| ⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕 | categoría |  |  |  |  |  | no/sí |
+| 🔒 𝗦𝗧𝗔𝗙𝗙 | categoría |  |  |  |  |  | no/sí |
+| 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢 | categoría |  |  |  |  |  | no/sí |
+| 📰┃noticias-web | texto | 📌 𝗜𝗡𝗜𝗖𝗜𝗢 | 8 | 8 | 0 | 2026-10-07 | sí/no |
+| 👋┃bienvenida | texto | 📌 𝗜𝗡𝗜𝗖𝗜𝗢 | 5 | 5 | 1 | 2026-10-07 | sí/no |
 | 🍸 𝐏𝐢𝐜𝐤𝐚𝐧𝐝𝐑𝐨𝐥𝐥𝐓𝐕 𝐋𝐎𝐔𝐍𝐆𝐄 | voz | Canales de voz | 0 | 0 | 0 | 2026-02-06 | sí/sí |
-| ✍-𝓻𝓮𝓰𝓵𝓪𝓼 | texto | Información | 0 | 0 | 0 | 2024-06-12 | sí/no |
+| 📜┃normas | texto | 📌 𝗜𝗡𝗜𝗖𝗜𝗢 | 1 | 1 | 0 | 2026-10-07 | sí/no |
 | 🏀 𝐏𝐀𝐑𝐐𝐔𝐄𝐓🔵🔴 | voz | Canales de voz | 3 | 3 | 1 | 2026-09-29 | no/sí |
-| 💡-𝓲𝓭𝓮𝓪𝓼-𝔂-𝓸𝓹𝓲𝓷𝓲𝓸𝓷𝓮𝓼 | texto | Información | 0 | 0 | 0 | 2026-05-12 | sí/sí |
-| 🎙 𝐁𝐀𝐍𝐐𝐔𝐈𝐋𝐋𝐎 | voz | Canales de voz | 0 | 0 | 0 | 2025-09-17 | sí/sí |
-| ⭐𝐈𝐍𝐕𝐈𝐓𝐀𝐃𝐎 | voz | Canales de voz | 0 | 0 | 0 |  | no/sí |
-| 💪-𝓅𝒶𝓉𝓇𝑜𝒸𝒾𝓃𝒶𝒹𝑜𝓇𝑒𝓈 | texto | Información | 0 | 0 | 0 | 2024-06-12 | sí/no |
-| 📱-𝓹𝓵𝓪𝓽𝓪𝓯𝓸𝓻𝓶𝓪𝓼 | texto | Información | 0 | 0 | 0 | 2024-06-18 | sí/no |
-| 🤝-𝓭𝓸𝓷𝓪𝓬𝓲𝓸𝓷𝓮𝓼 | texto | Información | 0 | 0 | 0 | 2026-05-12 | sí/sí |
-| 🧢-𝓶𝓮𝓻𝓬𝓱𝓪𝓷𝓭𝓲𝓼𝓲𝓷𝓰 | texto | Información | 0 | 0 | 0 |  | no/sí |
-| 📺-𝐆𝐄𝐍𝐄𝐑𝐀𝐋 | texto | 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | 1026 | 103 | 16 | 2026-10-02 | sí/sí |
-| 🗣🏀-𝐓𝐄𝐑𝐓𝐔𝐋𝐈𝐀 | texto | 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | 5 | 0 | 4 | 2026-07-28 | sí/sí |
-| 🤝-𝐏𝐋𝐀𝐍𝐓𝐈𝐋𝐋𝐀-𝟐𝟒-𝟐𝟓 | texto | 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | 0 | 0 | 0 | 2026-05-08 | sí/sí |
-| 💻-noticias-web | texto | 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | 1 | 1 | 0 | 2026-10-07 | sí/sí |
-| 🤪-𝐏𝐑𝐎𝐏𝐔𝐄𝐒𝐓𝐀𝐒-𝐂𝐎𝐍𝐓𝐄𝐍𝐈𝐃𝐎-𝐀𝐋𝐓𝐄𝐑𝐍𝐀𝐓𝐈𝐕𝐎 | texto | 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | 0 | 0 | 0 | 2026-05-08 | sí/sí |
-| 📆-material-para-el-canal | texto | 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | 0 | 0 | 0 | 2024-06-18 | no/sí |
-| bot-musica-only-mods | texto | 👉🏼 | 𝐄𝐋𝐈𝐆𝐄 𝐓𝐔 𝐂𝐀𝐍𝐀𝐋 | | 0 | 0 | 0 | 2022-11-03 | no/sí |
+| 📢┃anuncios | anuncios | 📌 𝗜𝗡𝗜𝗖𝗜𝗢 | 0 | 0 | 0 |  | sí/no |
+| 💬┃general | texto | 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 | 1023 | 108 | 15 | 2026-10-07 | sí/sí |
+| 🏟️┃partidos | foro | 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 |  |  |  | 2026-10-07 | sí/sí |
+| 🔴┃directo | texto | 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 | 0 | 0 | 0 |  | sí/sí |
+| 🔄┃mercado-y-plantilla | texto | 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 | 0 | 0 | 0 | 2026-05-08 | sí/sí |
+| 💡┃ideas-y-propuestas | texto | 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 | 0 | 0 | 0 | 2026-05-12 | sí/sí |
+| ❤️┃apoya-el-canal | texto | 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 | 1 | 1 | 0 | 2026-10-07 | sí/no |
+| ⭐┃zona-sub | texto | ⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕 | 0 | 0 | 0 |  | no/sí |
+| ☕┃donaciones | texto | 🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟 | 1 | 1 | 0 | 2026-10-07 | sí/no |
+| 🎬┃material-para-el-canal | texto | 🔒 𝗦𝗧𝗔𝗙𝗙 | 2 | 2 | 0 | 2026-10-07 | no/sí |
+| 🎵┃bot-musica | texto | 🔒 𝗦𝗧𝗔𝗙𝗙 | 0 | 0 | 0 | 2022-11-03 | no/sí |
+| 👕┃merchandising | texto | 🔒 𝗦𝗧𝗔𝗙𝗙 | 0 | 0 | 0 |  | no/sí |
+| tertulia | texto | 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢 | 5 | 0 | 4 | 2026-07-28 | no/sí |
+| propuestas-contenido | texto | 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢 | 0 | 0 | 0 | 2026-05-08 | no/sí |
+| plataformas | texto | 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢 | 0 | 0 | 0 | 2024-06-18 | no/sí |
+| patrocinadores | texto | 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢 | 0 | 0 | 0 | 2024-06-12 | no/sí |
+| banquillo | voz | 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢 | 0 | 0 | 0 | 2025-09-17 | no/sí |
+| invitado | voz | 🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢 | 0 | 0 | 0 |  | no/sí |
 
 ## Roles
 
-- ROOKIE: ? miembros
-- MVP 🏆: 25 miembros
+- PickandRollTV Bot.: 1 miembros
+- MVP 🏆: 17 miembros
 - MEE6: 1 miembros
+- ROOKIE: ? miembros
 - Nekotina: 1 miembros
 - PICK'N'ROLLER: 88 miembros
 - Twitch Subscriber: 17 miembros
 - Twitch Subscriber: Tier 1: 16 miembros
 - Twitch Subscriber: Tier 2: ? miembros
 - Twitch Subscriber: Tier 3: 1 miembros
-- PickandRollTV Bot.: 1 miembros
+- 🔴 Directos: ? miembros
+- 📰 Noticias web: ? miembros
+- 🏀 Partidos: ? miembros
+- Moderador: ? miembros
 - @everyone: ? miembros
