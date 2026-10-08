@@ -168,7 +168,26 @@ def barca_result(home, score, away):
     return "VICTORIA" if won else "DERROTA"
 
 
-def character(image, bottom, height=2000, right=SIZE + 470):
+def wrap(text, style, size, width, max_lines=5):
+    """Parte el texto en líneas que caben en width, bajando la letra hasta que quepa."""
+    probe = ImageDraw.Draw(Image.new("L", (1, 1)))
+    while True:
+        fnt = font(style, size)
+        lines, line = [], ""
+        for word in text.split():
+            test = f"{line} {word}".strip()
+            if probe.textlength(test, font=fnt) <= width or not line:
+                line = test
+            else:
+                lines.append(line)
+                line = word
+        lines.append(line)
+        if (len(lines) <= max_lines and all(probe.textlength(l, font=fnt) <= width for l in lines)) or size <= 120:
+            return lines, fnt
+        size -= 10
+
+
+def character(image, bottom, height=1600, right=SIZE + 84):
     person = Image.open(PERSONAJE).convert("RGBA")
     person = person.resize((round(person.width * height / person.height), height), Image.LANCZOS)
     layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
@@ -191,11 +210,21 @@ def render(home, score, away, competition, kicker_date):
     band_top = 2430
 
     # Arriba: la competición en la etiqueta roja (el logo ya va en la camiseta del personaje).
-    label = competition.upper()
+    label, _, headline = competition.partition(" | ")
+    label = label.upper()
     red_tag(image, margin, 300, label, fit(label, "ExtraBoldItalic", 120, 1650))
 
     # A la derecha, el personaje de PickandRollTV girando el balón, saliendo de la franja de abajo.
     character(image, band_top)
+
+    if not home and headline:
+        # Programas sin partido (previas, especiales): el título en grande, en varias líneas.
+        lines = wrap(headline.upper(), "Black", 300, 1180)
+        fnt = lines[1]
+        line_h = cap_height(fnt) * 1.45
+        top = (560 + band_top - 110) / 2 - (line_h * (len(lines[0]) - 1) + cap_height(fnt)) / 2 + cap_height(fnt)
+        for i, line in enumerate(lines[0]):
+            shadowed_text(image, (margin, top + i * line_h), line, fnt, YELLOW if i == 0 else WHITE, anchor="ls", shadow=30)
 
     if home:
         big = score.replace("-", "–") if score else "VS"
