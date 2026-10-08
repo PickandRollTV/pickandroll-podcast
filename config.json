@@ -12,7 +12,7 @@
     "description": "¡Toda la actualidad del Barça Basket en un solo lugar! El podcast de PickandRollTV: directos de cada partido, postpartidos, ruedas de prensa y análisis del Barça Basket, la Euroliga y la Liga Endesa. Cada directo llega aquí en cuanto termina para que lo escuches cuando quieras. Noticias y crónicas en pickandroll.tv. Bienvenidos a la magia del baloncesto.",
     "author": "PickandRollTV",
     "owner_email": "hola@pickandroll.tv",
-    "image": "https://pickandrolltv.github.io/pickandroll-podcast/docs/portada-personaje.jpg",
+    "image": "https://pickandrolltv.github.io/pickandroll-podcast/docs/portada-personaje-v2.jpg",
     "language": "es",
     "category": "Sports",
     "subcategory": "Basketball",
@@ -58,6 +58,7 @@
     "1b4b77c4-b517-4017-abd9-be0650c516dd": "75-80",
     "ef840ddc-dc20-4e7a-bdd2-52cf903d33c0": "84-72"
   },
+  "miniaturas_apaisadas": ["twitch:2891818597"],
   "recortes_manuales": {
     "2878537661": 310
   },

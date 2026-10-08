@@ -59,8 +59,10 @@ def competition_label(rest):
     return re.sub(r"\s+(Jornada \d+)$", r" · \1", label)
 
 
-def render(title, published):
+def render(title, published, wide=False):
+    from functools import partial
     from diseno import render as draw_cover
+    draw_cover = partial(draw_cover, wide=wide)
 
     home, score, away, rest = split_match(title)
     if not home:
@@ -73,19 +75,23 @@ def add_covers(episodes, docs_dir, base_url, title_of):
     """Crea o rehace la miniatura de los episodios cuyo título ha cambiado. Devuelve cuántas."""
     import datetime
 
+    import json
+    # Episodios con miniatura apaisada (16:9) en lugar de cuadrada, por guid.
+    wide_ids = set(json.loads((ROOT / "config.json").read_text()).get("miniaturas_apaisadas", []))
     folder = docs_dir / "episodios"
     folder.mkdir(parents=True, exist_ok=True)
     made = 0
     for episode in episodes:
         title = title_of(episode)
-        key = hashlib.sha1(f"v9|{title}".encode()).hexdigest()[:8]
+        wide = episode["guid"] in wide_ids
+        key = hashlib.sha1(f"v13|{'16x9|' if wide else ''}{title}".encode()).hexdigest()[:8]
         if episode.get("cover_key") == key:
             continue
         slug = re.sub(r"[^a-z0-9]+", "-", episode["guid"].lower()).strip("-")
         published = datetime.datetime.fromisoformat(episode["published"].replace("Z", "+00:00"))
         # El nombre cambia con el diseño: así Spotify no se queda con la imagen vieja.
         name = f"{slug}-{key}.jpg"
-        render(title, published).save(folder / name, quality=94, optimize=True, subsampling=0)
+        render(title, published, wide).save(folder / name, quality=94, optimize=True, subsampling=0)
         for old in folder.glob(f"{slug}*.jpg"):
             if old.name != name:
                 old.unlink()
