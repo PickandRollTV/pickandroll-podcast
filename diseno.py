@@ -16,6 +16,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 LOGO = ROOT / "portada" / "logo-redondo-pickandroll.webp"
 SPOTIFY = ROOT / "portada" / "spotify-icono.png"
 PERSONAJE = ROOT / "portada" / "personaje.png"
+LOGO_H = ROOT / "portada" / "logo-horizontal.webp"
 FONTS = ROOT / "fonts"
 SIZE = 3000
 # Ancho y alto del lienzo de trabajo: cuadrado, o apaisado para la versión 16:9.
@@ -218,7 +219,18 @@ def render(home, score, away, competition, kicker_date, wide=False):
     # Arriba: la competición en la etiqueta roja (el logo ya va en la camiseta del personaje).
     label, _, headline = competition.partition(" | ")
     label = label.upper()
-    red_tag(image, margin, 300, label, fit(label, "ExtraBoldItalic", 120, 1650))
+    # Como la tarjeta de la web: arriba el logo horizontal y debajo la etiqueta roja.
+    logo = Image.open(LOGO_H).convert("RGBA")
+    logo = logo.crop(logo.getbbox())
+    lw = 1250 if wide else 980
+    logo = logo.resize((lw, round(logo.height * lw / logo.width)), Image.LANCZOS)
+    shadow = Image.new("L", image.size, 0)
+    shadow.paste(logo.getchannel("A"), (margin - 40 + 20, 200 + 28))
+    image.paste(Image.new("RGB", image.size, (0, 6, 40)), (0, 0), shadow.filter(ImageFilter.GaussianBlur(30)).point(lambda v: v * 0.6))
+    image.paste(logo, (margin - 40, 200), logo)
+    tag_top = 200 + logo.height + 70
+    _, tag_h = red_tag(image, margin, tag_top, label, fit(label, "ExtraBoldItalic", 110, 1400))
+    content_top = tag_top + tag_h
 
     # A la derecha, el personaje de PickandRollTV girando el balón, saliendo de la franja de abajo.
     character(image, band_top, *((2050, None) if wide else (1600, None)))
@@ -228,7 +240,7 @@ def render(home, score, away, competition, kicker_date, wide=False):
         lines = wrap(headline.upper(), "Black", 300, column)
         fnt = lines[1]
         line_h = cap_height(fnt) * 1.45
-        top = (560 + band_top - 110) / 2 - (line_h * (len(lines[0]) - 1) + cap_height(fnt)) / 2 + cap_height(fnt)
+        top = (content_top + band_top) / 2 - (line_h * (len(lines[0]) - 1) + cap_height(fnt)) / 2 + cap_height(fnt)
         for i, line in enumerate(lines[0]):
             shadowed_text(image, (margin, top + i * line_h), line, fnt, YELLOW if i == 0 else WHITE, anchor="ls", shadow=30)
 
@@ -242,7 +254,7 @@ def render(home, score, away, competition, kicker_date, wide=False):
         # y el bloque centrado entre la etiqueta y la franja.
         gap = 130
         block = cap_height(home_font) + cap_height(score_font) + cap_height(away_font) + gap * 2
-        home_base = (560 + band_top - 110) / 2 - block / 2 + cap_height(home_font)
+        home_base = (content_top + band_top) / 2 - block / 2 + cap_height(home_font)
         score_base = home_base + gap + cap_height(score_font)
         away_base = score_base + gap + cap_height(away_font)
         shadowed_text(image, (margin, home_base), short_name(home), home_font, WHITE, anchor="ls", shadow=30)
