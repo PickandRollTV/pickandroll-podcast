@@ -18,6 +18,8 @@ SPOTIFY = ROOT / "portada" / "spotify-icono.png"
 PERSONAJE = ROOT / "portada" / "personaje.png"
 FONTS = ROOT / "fonts"
 SIZE = 3000
+# Ancho y alto del lienzo de trabajo: cuadrado, o apaisado para la versión 16:9.
+W = H = SIZE
 
 # Colores tomados de la web.
 NIGHT = (3, 19, 83)          # Fondo de la página.
@@ -31,7 +33,6 @@ WHITE = (255, 255, 255)
 
 # La tarjeta ocupa toda la imagen: Spotify la enseña pequeña dentro de un hueco apaisado,
 # así que no se desperdicia ni un píxel en márgenes.
-CARD = (0, 0, SIZE, SIZE)
 RADIUS = 0
 BORDER = 22
 
@@ -64,23 +65,23 @@ def _ramp(stops, size, tilt):
 
 
 def card_mask(inset=0):
-    mask = Image.new("L", (SIZE, SIZE), 0)
-    x0, y0, x1, y1 = CARD
+    mask = Image.new("L", (W, H), 0)
+    x0, y0, x1, y1 = 0, 0, W, H
     ImageDraw.Draw(mask).rounded_rectangle(
         (x0 + inset, y0 + inset, x1 - inset, y1 - inset), max(RADIUS - inset, 0), fill=255)
     return mask
 
 
 def background():
-    image = Image.new("RGB", (SIZE, SIZE), NIGHT)
+    image = Image.new("RGB", (W, H), NIGHT)
     # Sombra de la tarjeta sobre el fondo.
     shadow = card_mask().filter(ImageFilter.GaussianBlur(60)).point(lambda v: v * 0.6)
     image.paste(Image.new("RGB", image.size, (0, 4, 30)), (0, 40), shadow)
     # Borde amarillo y, dentro, el degradado diagonal de la web.
     image.paste(Image.new("RGB", image.size, YELLOW), (0, 0), card_mask())
-    fill = _ramp([(0.0, CARD_BLUE), (0.45, CARD_NAVY), (1.0, CARD_PURPLE)], (SIZE, SIZE), 0.4)
+    fill = _ramp([(0.0, CARD_BLUE), (0.45, CARD_NAVY), (1.0, CARD_PURPLE)], (W, H), 0.4)
     # Resplandor morado a la derecha, como en la tarjeta de la web.
-    glow = Image.new("L", (SIZE, SIZE), 0)
+    glow = Image.new("L", (W, H), 0)
     ImageDraw.Draw(glow).ellipse((1900, 900, 3600, 2600), fill=90)
     glow = glow.filter(ImageFilter.GaussianBlur(350))
     fill = Image.composite(Image.new("RGB", image.size, (88, 40, 130)), fill, glow)
@@ -90,7 +91,7 @@ def background():
     fill.paste(logo, (1350, -250), logo)
     # Grano finísimo para que el degradado no haga bandas en pantallas grandes.
     random.seed(7)
-    noise = Image.effect_noise((SIZE, SIZE), 10).convert("RGB")
+    noise = Image.effect_noise((W, H), 10).convert("RGB")
     fill = Image.blend(fill, ImageChops.overlay(fill, noise), 0.08)
     image.paste(fill, (0, 0), card_mask(BORDER))
     return image
@@ -98,14 +99,14 @@ def background():
 
 def band(image, top):
     """Franja de abajo, como el aviso de la web: filo amarillo y degradado azul, noche y grana."""
-    x0, _, x1, y1 = CARD
-    stripe = _ramp([(0.0, CARD_BLUE), (0.5, CARD_NAVY), (1.0, GARNET)], (SIZE, SIZE), 0)
-    area = Image.new("L", (SIZE, SIZE), 0)
-    ImageDraw.Draw(area).rectangle((0, top, SIZE, SIZE), fill=255)
+    x0, _, x1, y1 = 0, 0, W, H
+    stripe = _ramp([(0.0, CARD_BLUE), (0.5, CARD_NAVY), (1.0, GARNET)], (W, H), 0)
+    area = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(area).rectangle((0, top, W, H), fill=255)
     inner = ImageChops.multiply(area, card_mask(BORDER))
     image.paste(stripe, (0, 0), inner)
-    line = Image.new("L", (SIZE, SIZE), 0)
-    ImageDraw.Draw(line).rectangle((0, top, SIZE, top + BORDER), fill=255)
+    line = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(line).rectangle((0, top, W, top + BORDER), fill=255)
     image.paste(Image.new("RGB", image.size, YELLOW), (0, 0), ImageChops.multiply(line, card_mask()))
 
 
@@ -187,7 +188,8 @@ def wrap(text, style, size, width, max_lines=5):
         size -= 10
 
 
-def character(image, bottom, height=1600, right=SIZE + 84):
+def character(image, bottom, height=1600, right=None):
+    right = W + 84 if right is None else right
     person = Image.open(PERSONAJE).convert("RGBA")
     person = person.resize((round(person.width * height / person.height), height), Image.LANCZOS)
     layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
@@ -198,12 +200,16 @@ def character(image, bottom, height=1600, right=SIZE + 84):
     shadow = shadow.filter(ImageFilter.GaussianBlur(40)).point(lambda v: v * 0.55)
     layer.paste(person, (x, y), person)
     clip = ImageChops.multiply(card_mask(BORDER), Image.new("L", image.size, 255))
-    ImageDraw.Draw(clip).rectangle((0, bottom, SIZE, SIZE), fill=0)
+    ImageDraw.Draw(clip).rectangle((0, bottom, W, H), fill=0)
     image.paste(Image.new("RGB", image.size, (0, 6, 40)), (0, 0), ImageChops.multiply(shadow, clip))
     image.paste(layer, (0, 0), ImageChops.multiply(layer.getchannel("A"), clip))
 
 
-def render(home, score, away, competition, kicker_date):
+def render(home, score, away, competition, kicker_date, wide=False):
+    # La versión apaisada (16:9) se dibuja con el mismo alto y más ancho, y se entrega a 3840x2160.
+    global W
+    W = round(SIZE * 16 / 9) if wide else SIZE
+    column = 2500 if wide else 1180
     image = background()
     margin = 300
     width = SIZE - margin * 2
@@ -215,11 +221,11 @@ def render(home, score, away, competition, kicker_date):
     red_tag(image, margin, 300, label, fit(label, "ExtraBoldItalic", 120, 1650))
 
     # A la derecha, el personaje de PickandRollTV girando el balón, saliendo de la franja de abajo.
-    character(image, band_top)
+    character(image, band_top, *((2050, None) if wide else (1600, None)))
 
     if not home and headline:
         # Programas sin partido (previas, especiales): el título en grande, en varias líneas.
-        lines = wrap(headline.upper(), "Black", 300, 1180)
+        lines = wrap(headline.upper(), "Black", 300, column)
         fnt = lines[1]
         line_h = cap_height(fnt) * 1.45
         top = (560 + band_top - 110) / 2 - (line_h * (len(lines[0]) - 1) + cap_height(fnt)) / 2 + cap_height(fnt)
@@ -228,10 +234,9 @@ def render(home, score, away, competition, kicker_date):
 
     if home:
         big = score.replace("-", "–") if score else "VS"
-        column = 1180
-        home_font = fit(short_name(home), "Black", 340, column)
-        score_font = fit(big, "Black", 620, column)
-        away_font = fit(short_name(away), "Black", 340, column)
+        home_font = fit(short_name(home), "Black", 470 if wide else 340, column)
+        score_font = fit(big, "Black", 900 if wide else 620, column)
+        away_font = fit(short_name(away), "Black", 470 if wide else 340, column)
         # Se colocan por la altura de las mayúsculas (sin contar la cedilla de BARÇA), con
         # el mismo hueco entre el equipo de arriba y el marcador que entre el marcador y el de abajo,
         # y el bloque centrado entre la etiqueta y la franja.
@@ -253,10 +258,13 @@ def render(home, score, away, competition, kicker_date):
     result = barca_result(home or "", score, away or "")
     if result:
         won = result == "VICTORIA"
-        pill(image, SIZE - margin + 40, band_top + 228, result, font("ExtraBold", 110),
+        pill(image, W - margin + 40, band_top + 228, result, font("ExtraBold", 110),
              YELLOW if won else WHITE, CARD_NAVY)
     # Se recorta el margen interior y se amplía todo, con el filo amarillo en el borde de la imagen.
     zoom = 110
-    image = image.crop((zoom, zoom, SIZE - zoom, SIZE - zoom)).resize((SIZE, SIZE), Image.LANCZOS)
-    ImageDraw.Draw(image).rectangle((0, 0, SIZE - 1, SIZE - 1), outline=YELLOW, width=BORDER + 6)
+    zx = round(zoom * W / H)
+    image = image.crop((zx, zoom, W - zx, H - zoom)).resize((W, H), Image.LANCZOS)
+    ImageDraw.Draw(image).rectangle((0, 0, W - 1, H - 1), outline=YELLOW, width=BORDER + 6)
+    if W != H:
+        image = image.resize((3840, 2160), Image.LANCZOS)
     return image.filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2))
