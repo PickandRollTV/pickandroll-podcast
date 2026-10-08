@@ -77,14 +77,15 @@ def add_covers(episodes, docs_dir, base_url, title_of):
 
     import json
     # Episodios con miniatura apaisada (16:9) en lugar de cuadrada, por guid.
-    wide_ids = set(json.loads((ROOT / "config.json").read_text()).get("miniaturas_apaisadas", []))
+    # "todas" = todos los episodios.
+    wide_ids = json.loads((ROOT / "config.json").read_text()).get("miniaturas_apaisadas", [])
     folder = docs_dir / "episodios"
     folder.mkdir(parents=True, exist_ok=True)
     made = 0
     for episode in episodes:
         title = title_of(episode)
-        wide = episode["guid"] in wide_ids
-        key = hashlib.sha1(f"v13|{'16x9|' if wide else ''}{title}".encode()).hexdigest()[:8]
+        wide = wide_ids == "todas" or episode["guid"] in wide_ids
+        key = hashlib.sha1(f"v14|{'16x9|' if wide else ''}{title}".encode()).hexdigest()[:8]
         if episode.get("cover_key") == key:
             continue
         slug = re.sub(r"[^a-z0-9]+", "-", episode["guid"].lower()).strip("-")
