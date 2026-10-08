@@ -1,0 +1,19 @@
+name: Descargar el logo horizontal de la web
+on: workflow_dispatch
+permissions:
+  contents: write
+concurrency: publicar
+jobs:
+  logo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p portada
+          curl -sSfL -A "Mozilla/5.0" -o portada/logo-horizontal.webp \
+            https://pickandroll.tv/wp-content/uploads/2026/10/pickandrolltv-logo-horizontal.webp
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add portada/logo-horizontal.webp
+          git commit -m "Logo horizontal de la web"
+          for i in 1 2 3; do git pull --rebase -X theirs && git push && break; sleep 5; done
