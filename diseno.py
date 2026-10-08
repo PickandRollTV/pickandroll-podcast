@@ -29,8 +29,10 @@ RED = (211, 18, 31)          # Etiqueta "NEWSLETTER DIARIA".
 YELLOW = (237, 189, 0)       # Borde, palabras destacadas y botón.
 WHITE = (255, 255, 255)
 
-CARD = (110, 110, SIZE - 110, SIZE - 110)
-RADIUS = 150
+# La tarjeta ocupa toda la imagen: Spotify la enseña pequeña dentro de un hueco apaisado,
+# así que no se desperdicia ni un píxel en márgenes.
+CARD = (0, 0, SIZE, SIZE)
+RADIUS = 0
 BORDER = 22
 
 
@@ -65,7 +67,7 @@ def card_mask(inset=0):
     mask = Image.new("L", (SIZE, SIZE), 0)
     x0, y0, x1, y1 = CARD
     ImageDraw.Draw(mask).rounded_rectangle(
-        (x0 + inset, y0 + inset, x1 - inset, y1 - inset), RADIUS - inset, fill=255)
+        (x0 + inset, y0 + inset, x1 - inset, y1 - inset), max(RADIUS - inset, 0), fill=255)
     return mask
 
 
@@ -224,4 +226,8 @@ def render(home, score, away, competition, kicker_date):
         won = result == "VICTORIA"
         pill(image, SIZE - margin + 40, band_top + 228, result, font("ExtraBold", 110),
              YELLOW if won else WHITE, CARD_NAVY)
+    # Se recorta el margen interior y se amplía todo, con el filo amarillo en el borde de la imagen.
+    zoom = 110
+    image = image.crop((zoom, zoom, SIZE - zoom, SIZE - zoom)).resize((SIZE, SIZE), Image.LANCZOS)
+    ImageDraw.Draw(image).rectangle((0, 0, SIZE - 1, SIZE - 1), outline=YELLOW, width=BORDER + 6)
     return image.filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2))
