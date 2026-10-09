@@ -1,5 +1,11 @@
 [
   {
+    "id": "2896169724",
+    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v ZALGIRIS | EuroLeague Round 4 2026-10-09 17:46",
+    "inicio": "2026-10-09T17:30:15+00:00",
+    "duracion_min": 15
+  },
+  {
     "id": "2891818597",
     "titulo": "🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2",
     "inicio": "2026-10-04T16:17:07+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🏀 VALENCIA BASKET v BARÇA | SEMIFINAL SUPERCOPA ENDESA 🏆",
     "inicio": "2026-09-19T17:31:24+00:00",
     "duracion_min": 294
-  },
-  {
-    "id": "2877581873",
-    "titulo": "🏀 SUPERCOPA ENDESA 🏆 | PREVIA DEL BARÇA con Sekulic, Umude y Joel Parra",
-    "inicio": "2026-09-18T17:32:46+00:00",
-    "duracion_min": 129
   }
 ]
