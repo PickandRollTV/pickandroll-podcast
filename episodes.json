@@ -262,5 +262,22 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2891818597-e4f215f3.jpg",
     "cover_key": "e4f215f3",
     "resultado": "100-94"
+  },
+  {
+    "guid": "twitch:2896169724",
+    "source": "twitch",
+    "vod_id": "2896169724",
+    "title": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v ZALGIRIS | EuroLeague Round 4",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2896169724\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-09T17:30:15+00:00",
+    "duration": 16316,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/8716ff0da5213ea3d341_pickandrolltv_317951565666_1791567010//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2896169724",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2896169724/v2896169724.mp3",
+    "audio_bytes": 195799540,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 3:25: 3:03 Somos el 2003, el 2010. | 3:07 Somos el último piloto. | 3:13 Somos campeones. | 3:16 Somos centenarios. | 3:20 Un escut, un clav. | 3:25 Buenas tardes amigos, amigas, bienvenidos a Pecan Roll,",
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2896169724-0919dc84.jpg",
+    "cover_key": "0919dc84"
   }
 ]
