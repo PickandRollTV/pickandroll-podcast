@@ -549,6 +549,20 @@ def main():
         state_file.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"{len(api.log)} porras borradas")
         return 0
+    if action == "aviso":
+        # Publica en #anuncios el texto de MENSAJE; {directos}, {partidos} y {noticias} mencionan a esos roles.
+        api = Discord(token, True)
+        ids = json.loads((OUT_DIR / "roles-avisos.json").read_text(encoding="utf-8"))
+        roles = {"directos": ids["🔴 Directos"], "partidos": ids["🏀 Partidos"], "noticias": ids["📰 Noticias web"]}
+        text = os.environ.get("MENSAJE", "").replace("\\n", "\n")
+        used = [rid for key, rid in roles.items() if "{" + key + "}" in text]
+        for key, rid in roles.items():
+            text = text.replace("{" + key + "}", f"<@&{rid}>")
+        channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "📢┃anuncios")
+        api.call("POST", f"/channels/{channel['id']}/messages",
+                 {"content": text[:2000], "allowed_mentions": {"parse": [], "roles": used}}, "Aviso en #anuncios")
+        print("Aviso publicado")
+        return 0
     if action == "partidos":
         # Abre ya los hilos de los partidos de los próximos 14 días.
         os.environ.setdefault("PARTIDOS_DIAS", "14")
