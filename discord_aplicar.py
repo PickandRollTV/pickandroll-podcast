@@ -83,7 +83,7 @@ CHANNELS = [
 ]
 # Roles de avisos que cada miembro elige al entrar (nombre, color, emoji, descripción).
 NOTIFY_ROLES = [
-    ("📰 Noticias web", 0xA50044, "📰", "Aviso con cada noticia nueva de pickandroll.tv (recomendado)"),
+    ("📰 Noticias web", 0xA50044, "📰", "Aviso con cada noticia del Barça en pickandroll.tv (recomendado)"),
     ("🔴 Directos", 0xE91916, "🔴", "Aviso cuando PickandRollTV empieza directo"),
     ("🏀 Partidos", 0xEDBB00, "🏀", "Aviso cuando se abre el hilo de cada partido"),
 ]
@@ -319,7 +319,7 @@ def build_messages(by_name):
                 {"name": "🌐 Nuestra casa: pickandroll.tv", "value": f"Noticias, previas, crónicas y análisis del Barça cada día.\n**[👉 Entra en pickandroll.tv]({web('bienvenida')})**", "inline": False},
                 {"name": "📌 Para empezar", "value": f"1. Lee las {ch.get('📜┃normas', '#normas')}\n2. Elige tus avisos en <id:customize>\n3. Preséntate en {ch.get('💬┃general', '#general')}", "inline": False},
                 {"name": "💬 Dónde hablar", "value": f"{ch.get('💬┃general', '')} charla de baloncesto\n{ch.get('🏟️┃partidos', '')} un hilo por partido\n{ch.get('🔴┃directo', '')} durante los directos\n{ch.get('🔄┃mercado-y-plantilla', '')} fichajes y rumores", "inline": True},
-                {"name": "📣 Para estar al día", "value": f"{ch.get('📢┃anuncios', '')} directos y novedades\n{ch.get('📰┃noticias-web', '')} cada noticia de la web\n{ch.get('💡┃ideas-y-propuestas', '')} propón contenido", "inline": True},
+                {"name": "📣 Para estar al día", "value": f"{ch.get('📢┃anuncios', '')} directos y novedades\n{ch.get('📰┃noticias-web', '')} las noticias del Barça de la web\n{ch.get('💡┃ideas-y-propuestas', '')} propón contenido", "inline": True},
                 {"name": "🔗 PickandRollTV", "value": links, "inline": False},
             ],
             "footer": {"text": "Bienvenidos a la magia del baloncesto"},
@@ -458,7 +458,7 @@ def boost_web(api, channels, roles_list):
     by_name = {c["name"]: c for c in channels}
     news = by_name.get("📰┃noticias-web")
     if news:
-        api.call("PATCH", f"/channels/{news['id']}", {"position": 0, "topic": "🌐 Lo último de pickandroll.tv, al momento. Noticias, previas, crónicas y análisis del Barça."},
+        api.call("PATCH", f"/channels/{news['id']}", {"position": 0, "topic": "🌐 Las noticias del Barça en pickandroll.tv, al momento: previas, crónicas y análisis."},
                  "📰┃noticias-web: primer canal del servidor y tema nuevo")
     api.call("PATCH", f"/guilds/{GUILD}", {
         "description": "🌐 pickandroll.tv · La comunidad de PickandRollTV: Barça Basket, Euroliga, ACB y NBA. Noticias, directos y tertulia.",
