@@ -563,6 +563,16 @@ def main():
                  {"content": text[:2000], "allowed_mentions": {"parse": [], "roles": used}}, "Aviso en #anuncios")
         print("Aviso publicado")
         return 0
+    if action == "ver-anuncios":
+        # Guarda los últimos mensajes del bot en #anuncios con su enlace (sin nombres de miembros).
+        api = Discord(token, True)
+        channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "📢┃anuncios")
+        rows = [{"fecha": m["timestamp"], "enlace": f"https://discord.com/channels/{GUILD}/{channel['id']}/{m['id']}",
+                 "texto": m["content"][:160]}
+                for m in api.call("GET", f"/channels/{channel['id']}/messages?limit=15") if m["author"].get("bot")]
+        OUT_DIR.mkdir(exist_ok=True)
+        (OUT_DIR / "anuncios.json").write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return 0
     if action == "partidos":
         # Abre ya los hilos de los partidos de los próximos 14 días.
         os.environ.setdefault("PARTIDOS_DIAS", "14")
