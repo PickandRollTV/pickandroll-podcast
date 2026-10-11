@@ -1,5 +1,11 @@
 [
   {
+    "id": "2898022009",
+    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v VALENCIA BASKET | Jornada 3 Liga Endesa 2026-10-11 16:14",
+    "inicio": "2026-10-11T16:06:46+00:00",
+    "duracion_min": 7
+  },
+  {
     "id": "2896169724",
     "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v ZALGIRIS | EuroLeague Round 4",
     "inicio": "2026-10-09T17:30:15+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🏀 JOVENTUT BADALONA v BARÇA | FINAL SUPERCOPA ENDESA 🏆",
     "inicio": "2026-09-20T16:01:19+00:00",
     "duracion_min": 304
-  },
-  {
-    "id": "2878537661",
-    "titulo": "🏀 VALENCIA BASKET v BARÇA | SEMIFINAL SUPERCOPA ENDESA 🏆",
-    "inicio": "2026-09-19T17:31:24+00:00",
-    "duracion_min": 294
   }
 ]
