@@ -111,6 +111,9 @@ def main():
                 message = {"content": f"📺 **¿Te lo perdiste?** El directo completo ya está en YouTube:\n### {video['title']}\n{url}\n📰 La crónica y el análisis, en <{with_utm(CONFIG['website_url'], 'directo-completo')}>"}
                 if target:
                     discord("POST", f"/channels/{target['id']}/messages", token, message)
+                general = channel(lambda c: "general" in c["name"] and c["type"] == 0)
+                if general:
+                    discord("POST", f"/channels/{general['id']}/messages", token, message)
                 matches = json.loads(MATCHES_FILE.read_text(encoding="utf-8")) if MATCHES_FILE.exists() else {}
                 for entry in matches.values():
                     start = datetime.datetime.fromisoformat(entry["start"])

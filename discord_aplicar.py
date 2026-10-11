@@ -550,7 +550,8 @@ def main():
         print(f"{len(api.log)} porras borradas")
         return 0
     if action == "aviso":
-        # Publica en #anuncios el texto de MENSAJE; {directos}, {partidos} y {noticias} mencionan a esos roles.
+        # Publica en #anuncios el texto de MENSAJE; {directos}, {partidos} y {noticias} mencionan a esos roles y
+        # {everyone} a todo el servidor (con copia en #general). BORRAR: ids de avisos de #anuncios que sustituye.
         api = Discord(token, True)
         ids = json.loads((OUT_DIR / "roles-avisos.json").read_text(encoding="utf-8"))
         roles = {"directos": ids["🔴 Directos"], "partidos": ids["🏀 Partidos"], "noticias": ids["📰 Noticias web"]}
@@ -558,9 +559,19 @@ def main():
         used = [rid for key, rid in roles.items() if "{" + key + "}" in text]
         for key, rid in roles.items():
             text = text.replace("{" + key + "}", f"<@&{rid}>")
-        channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "📢┃anuncios")
+        everyone = "{everyone}" in text
+        text = text.replace("{everyone}", "@everyone")
+        channels = api.call("GET", f"/guilds/{GUILD}/channels")
+        channel = next(c for c in channels if c["name"] == "📢┃anuncios")
         api.call("POST", f"/channels/{channel['id']}/messages",
-                 {"content": text[:2000], "allowed_mentions": {"parse": [], "roles": used}}, "Aviso en #anuncios")
+                 {"content": text[:2000], "allowed_mentions": {"parse": ["everyone"] if everyone else [], "roles": used}}, "Aviso en #anuncios")
+        if everyone:
+            # Copia sin mención en #general, para que lo vea todo el mundo.
+            general = next(c for c in channels if c["name"] == "💬┃general")
+            api.call("POST", f"/channels/{general['id']}/messages",
+                     {"content": text.replace("@everyone", "").strip()[:2000], "allowed_mentions": {"parse": []}}, "Aviso en #general")
+        for old in filter(None, os.environ.get("BORRAR", "").replace(" ", "").split(",")):
+            api.call("DELETE", f"/channels/{channel['id']}/messages/{old}", note=f"Borrar aviso anterior {old}")
         print("Aviso publicado")
         return 0
     if action == "ver-anuncios":

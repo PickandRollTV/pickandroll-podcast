@@ -227,7 +227,7 @@ def main():
             entry["final"] = True
             print(f"Final publicado: {key}")
 
-    # 4. "DIA DE PARTIT" de la web: aviso destacado en #anuncios para los de 🏀 Partidos.
+    # 4. "DIA DE PARTIT" de la web: aviso para todo el servidor en #anuncios y #general.
     announced = state.setdefault("_dia_de_partit", [])
     first_time = not announced and not any(not k.startswith("_") for k in state)
     for news in history:
@@ -240,14 +240,19 @@ def main():
             thread = next((e["thread"] for k, e in state.items() if not k.startswith("_")
                            and abs(datetime.datetime.fromisoformat(e["start"]) - published) < datetime.timedelta(hours=18)), None)
             link = with_utm(news["link"], "dia-de-partit")
+            general = next((c for c in channels if "general" in c["name"] and c["type"] == 0), None)
+            text = (f"🚨🏀 **{news['title']}**\n👉 Toda la previa en la web: <{link}>"
+                    + (f"\n💬 Coméntalo en <#{thread}>" if thread else ""))
+            embeds = [{"title": news["title"][:256], "url": link, "color": 0xA50044,
+                       **({"image": {"url": news["image"]}} if news.get("image") else {})}]
+            # Para todo el servidor: @everyone en #anuncios y copia sin mención en #general.
             if target:
                 discord("POST", f"/channels/{target['id']}/messages", token, {
-                    "content": (f"<@&{role_id}> " if role_id else "") + f"🚨🏀 **{news['title']}**\n👉 Toda la previa en la web: <{link}>"
-                               + (f"\n💬 Coméntalo en <#{thread}>" if thread else ""),
-                    "embeds": [{"title": news["title"][:256], "url": link, "color": 0xA50044,
-                                **({"image": {"url": news["image"]}} if news.get("image") else {})}],
-                    "allowed_mentions": {"roles": [role_id] if role_id else []},
-                })
+                    "content": "@everyone " + text, "embeds": embeds, "allowed_mentions": {"parse": ["everyone"]}})
+            if general:
+                discord("POST", f"/channels/{general['id']}/messages", token, {
+                    "content": text, "embeds": embeds, "allowed_mentions": {"parse": []}})
+            if target or general:
                 print(f"Dia de Partit anunciado: {news['title']}")
         announced.append(news["link"])
     state["_dia_de_partit"] = announced[-100:]

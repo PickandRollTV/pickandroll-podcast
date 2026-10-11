@@ -76,18 +76,21 @@ def main():
         if not target:
             print(f"No encuentro el canal {ANNOUNCE_NAME}")
             return 1
-        role_id = json.loads(ROLES_FILE.read_text(encoding="utf-8")).get("🔴 Directos") if ROLES_FILE.exists() else None
         url = f"https://www.twitch.tv/{CHANNEL}"
         web = with_utm(CONFIG["website_url"], "directo")
+        # Aviso para todo el servidor: @everyone en #anuncios y copia sin mención en #general.
+        general = next((c for c in channels if "general" in c["name"] and c["type"] == 0), None)
+        text = f"🔴 **¡Estamos en directo!**\n### {title or 'PickandRollTV'}\n👉 Entra ya: <{url}>\n📰 Previa y claves en <{web}>"
+        embed = {
+            "title": title or "PickandRollTV en directo", "url": url, "color": 0xE91916,
+            "description": f"Jugando a **{game}**" if game else "Directo en Twitch",
+            "image": {"url": f"https://static-cdn.jtvnw.net/previews-ttv/live_user_{CHANNEL}-1280x720.jpg?t={int(time.time())}"},
+        }
         discord("POST", f"/channels/{target['id']}/messages", token, {
-            "content": (f"<@&{role_id}> " if role_id else "") + f"🔴 **¡Estamos en directo!**\n### {title or 'PickandRollTV'}\n👉 Entra ya: <{url}>\n📰 Previa y claves en <{web}>",
-            "allowed_mentions": {"roles": [role_id] if role_id else []},
-            "embeds": [{
-                "title": title or "PickandRollTV en directo", "url": url, "color": 0xE91916,
-                "description": f"Jugando a **{game}**" if game else "Directo en Twitch",
-                "image": {"url": f"https://static-cdn.jtvnw.net/previews-ttv/live_user_{CHANNEL}-1280x720.jpg?t={int(time.time())}"},
-            }],
-        })
+            "content": "@everyone " + text, "allowed_mentions": {"parse": ["everyone"]}, "embeds": [embed]})
+        if general:
+            discord("POST", f"/channels/{general['id']}/messages", token, {
+                "content": text, "allowed_mentions": {"parse": []}, "embeds": [embed]})
         print("Aviso publicado en #anuncios")
 
     if live != bool(state.get("en_directo")):

@@ -20,6 +20,10 @@ on:
         description: "Para aviso: texto que se publica en #anuncios ({directos}, {partidos} o {noticias} mencionan a esos roles; \\n es salto de línea)"
         type: string
         default: ""
+      borrar:
+        description: "Para aviso: ids de mensajes de #anuncios que sustituye (se borran)"
+        type: string
+        default: ""
       roles:
         description: "Cambiar también los roles (quitar moderación a MVP y crear Moderador)"
         type: boolean
@@ -50,6 +54,7 @@ jobs:
           NUMEROS: ${{ inputs.numeros }}
           TOTAL_MVP: ${{ inputs.total_mvp }}
           MENSAJE: ${{ inputs.mensaje }}
+          BORRAR: ${{ inputs.borrar }}
         run: python discord_aplicar.py
       - name: Guardar el registro de cambios
         if: always()
