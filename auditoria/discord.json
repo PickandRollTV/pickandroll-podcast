@@ -1,26 +1,29 @@
 {
-  "fecha": "2026-10-07T14:31:18.515658+00:00",
+  "fecha": "2026-10-07T22:32:15.016130+00:00",
   "servidor": {
     "nombre": "PickandRollTV",
-    "descripcion": "La comunidad de PickandRollTV: Barça Basket, Euroliga, ACB y NBA. Directos, noticias y tertulia.",
+    "descripcion": "🌐 pickandroll.tv · La comunidad de PickandRollTV: Barça Basket, Euroliga, ACB y NBA. Noticias, directos y tertulia.",
     "miembros": 117,
-    "conectados": 9,
+    "conectados": 12,
     "funciones": [
-      "SOUNDBOARD",
+      "AUTO_MODERATION",
+      "GUILD_ONBOARDING",
       "NEWS",
-      "CHANNEL_ICON_EMOJIS_GENERATED",
       "COMMUNITY",
       "TIERLESS_BOOSTING_SYSTEM_MESSAGE",
+      "GUILD_ONBOARDING_EVER_ENABLED",
+      "SOUNDBOARD",
+      "GUILD_ONBOARDING_HAS_PROMPTS",
       "WELCOME_SCREEN_ENABLED",
-      "AUTO_MODERATION"
+      "CHANNEL_ICON_EMOJIS_GENERATED"
     ],
     "verificacion": 2,
     "filtro_contenido_explicito": 2,
     "notificaciones_por_defecto": "solo menciones",
     "nivel_mejoras": 0,
     "mejoras": 0,
-    "canal_reglas": "📜-normas",
-    "canal_sistema": "👋-bienvenida",
+    "canal_reglas": "📜┃normas",
+    "canal_sistema": "👋┃bienvenida",
     "canal_afk": null,
     "icono": true,
     "banner": false,
@@ -29,18 +32,13 @@
   },
   "roles": [
     {
-      "nombre": "ROOKIE",
-      "color": "#3498db",
+      "nombre": "PickandRollTV Bot.",
+      "color": null,
       "separado": false,
       "mencionable": false,
-      "gestionado_por_bot": false,
+      "gestionado_por_bot": true,
       "permisos": [
-        "ver",
-        "escribir",
-        "escribir_en_hilos",
-        "reaccionar",
-        "conectar",
-        "mencionar_everyone"
+        "administrador"
       ]
     },
     {
@@ -54,15 +52,7 @@
         "escribir",
         "escribir_en_hilos",
         "reaccionar",
-        "conectar",
-        "gestionar_servidor",
-        "gestionar_canales",
-        "gestionar_roles",
-        "mencionar_everyone",
-        "gestionar_mensajes",
-        "expulsar",
-        "banear",
-        "aislar"
+        "conectar"
       ]
     },
     {
@@ -83,6 +73,20 @@
         "gestionar_mensajes",
         "expulsar",
         "banear"
+      ]
+    },
+    {
+      "nombre": "ROOKIE",
+      "color": "#3498db",
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": false,
+      "permisos": [
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar"
       ]
     },
     {
@@ -176,13 +180,44 @@
       ]
     },
     {
-      "nombre": "PickandRollTV Bot.",
-      "color": null,
+      "nombre": "🔴 Directos",
+      "color": "#e91916",
       "separado": false,
       "mencionable": false,
-      "gestionado_por_bot": true,
+      "gestionado_por_bot": false,
+      "permisos": []
+    },
+    {
+      "nombre": "📰 Noticias web",
+      "color": "#a50044",
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": false,
+      "permisos": []
+    },
+    {
+      "nombre": "🏀 Partidos",
+      "color": "#edbb00",
+      "separado": false,
+      "mencionable": false,
+      "gestionado_por_bot": false,
+      "permisos": []
+    },
+    {
+      "nombre": "Moderador",
+      "color": "#a50044",
+      "separado": true,
+      "mencionable": false,
+      "gestionado_por_bot": false,
       "permisos": [
-        "administrador"
+        "ver",
+        "escribir",
+        "escribir_en_hilos",
+        "reaccionar",
+        "conectar",
+        "gestionar_mensajes",
+        "expulsar",
+        "aislar"
       ]
     },
     {
@@ -203,7 +238,7 @@
   "canales": [
     {
       "id": "929099438989905961",
-      "nombre": "📌 Empieza aquí",
+      "nombre": "📌 𝗜𝗡𝗜𝗖𝗜𝗢",
       "tipo": "categoría",
       "categoria": null,
       "posicion": 0,
@@ -222,7 +257,7 @@
     },
     {
       "id": "929099439426121728",
-      "nombre": "🏀 PickandRoll",
+      "nombre": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
       "tipo": "categoría",
       "categoria": null,
       "posicion": 1,
@@ -241,10 +276,10 @@
     },
     {
       "id": "929099439426121732",
-      "nombre": "Canales de voz",
+      "nombre": "🔊 𝗩𝗢𝗭",
       "tipo": "categoría",
       "categoria": null,
-      "posicion": 1,
+      "posicion": 2,
       "tema": null,
       "modo_lento_segundos": 0,
       "nsfw": false,
@@ -260,10 +295,10 @@
     },
     {
       "id": "1557399252685295636",
-      "nombre": "⭐ Zona Sub",
+      "nombre": "⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕",
       "tipo": "categoría",
       "categoria": null,
-      "posicion": 2,
+      "posicion": 3,
       "tema": null,
       "modo_lento_segundos": 0,
       "nsfw": false,
@@ -289,6 +324,14 @@
           "deniega": [
             "ver"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "ver",
+            "escribir"
+          ],
+          "deniega": []
         },
         {
           "rol": "Twitch Subscriber",
@@ -303,10 +346,10 @@
     },
     {
       "id": "1557399259349917747",
-      "nombre": "🔒 Staff",
+      "nombre": "🔒 𝗦𝗧𝗔𝗙𝗙",
       "tipo": "categoría",
       "categoria": null,
-      "posicion": 8,
+      "posicion": 4,
       "tema": null,
       "modo_lento_segundos": 0,
       "nsfw": false,
@@ -332,16 +375,24 @@
           "deniega": [
             "ver"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "ver",
+            "escribir"
+          ],
+          "deniega": []
         }
       ],
       "ultimo_mensaje": null
     },
     {
       "id": "1557399262499967070",
-      "nombre": "🗄️ Archivo",
+      "nombre": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
       "tipo": "categoría",
       "categoria": null,
-      "posicion": 9,
+      "posicion": 5,
       "tema": null,
       "modo_lento_segundos": 0,
       "nsfw": false,
@@ -365,12 +416,12 @@
       "ultimo_mensaje": null
     },
     {
-      "id": "959459731578167427",
-      "nombre": "👋-bienvenida",
+      "id": "956699792086560768",
+      "nombre": "📰┃noticias-web",
       "tipo": "texto",
-      "categoria": "📌 Empieza aquí",
+      "categoria": "📌 𝗜𝗡𝗜𝗖𝗜𝗢",
       "posicion": 0,
-      "tema": "Bienvenido a la comunidad de PickandRollTV. Empieza por #normas.",
+      "tema": "🌐 Lo último de pickandroll.tv, al momento. Noticias, previas, crónicas y análisis del Barça.",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -398,22 +449,29 @@
             "escribir",
             "escribir_en_hilos"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
         }
       ],
-      "ultimo_mensaje": "2026-10-07T13:09:14.523000+00:00",
+      "ultimo_mensaje": "2026-10-07T17:24:18.835000+00:00",
       "actividad_90_dias": {
-        "mensajes": 4,
-        "mensajes_30_dias": 4,
-        "mensajes_de_bots": 3,
-        "personas": 1,
-        "ultimo": "2026-10-07T13:09:14.523000+00:00"
+        "mensajes": 8,
+        "mensajes_30_dias": 8,
+        "mensajes_de_bots": 8,
+        "personas": 0,
+        "ultimo": "2026-10-07T17:24:18.835000+00:00"
       }
     },
     {
       "id": "1143993237170823288",
       "nombre": "🍸 𝐏𝐢𝐜𝐤𝐚𝐧𝐝𝐑𝐨𝐥𝐥𝐓𝐕 𝐋𝐎𝐔𝐍𝐆𝐄",
       "tipo": "voz",
-      "categoria": "Canales de voz",
+      "categoria": "🔊 𝗩𝗢𝗭",
       "posicion": 0,
       "tema": null,
       "modo_lento_segundos": 0,
@@ -457,55 +515,10 @@
       }
     },
     {
-      "id": "929099438989905962",
-      "nombre": "📜-normas",
-      "tipo": "texto",
-      "categoria": "📌 Empieza aquí",
-      "posicion": 1,
-      "tema": "Normas del servidor. Léelas antes de escribir.",
-      "modo_lento_segundos": 0,
-      "nsfw": false,
-      "everyone": {
-        "ver": true,
-        "escribir": false,
-        "escribir_en_hilos": false,
-        "reaccionar": true,
-        "conectar": true
-      },
-      "excepciones_de_permisos": [
-        {
-          "rol": "MVP 🏆",
-          "permite": [
-            "escribir"
-          ],
-          "deniega": []
-        },
-        {
-          "rol": "@everyone",
-          "permite": [
-            "ver",
-            "reaccionar"
-          ],
-          "deniega": [
-            "escribir",
-            "escribir_en_hilos"
-          ]
-        }
-      ],
-      "ultimo_mensaje": "2024-06-12T09:54:12.023000+00:00",
-      "actividad_90_dias": {
-        "mensajes": 0,
-        "mensajes_30_dias": 0,
-        "mensajes_de_bots": 0,
-        "personas": 0,
-        "ultimo": null
-      }
-    },
-    {
       "id": "958460303459377192",
       "nombre": "🏀 𝐏𝐀𝐑𝐐𝐔𝐄𝐓🔵🔴",
       "tipo": "voz",
-      "categoria": "Canales de voz",
+      "categoria": "🔊 𝗩𝗢𝗭",
       "posicion": 1,
       "tema": null,
       "modo_lento_segundos": 0,
@@ -528,20 +541,20 @@
           "deniega": []
         },
         {
-          "rol": "Nekotina",
-          "permite": [
-            "ver",
-            "conectar"
-          ],
-          "deniega": []
-        },
-        {
           "rol": "@everyone",
           "permite": [],
           "deniega": [
             "ver",
             "conectar"
           ]
+        },
+        {
+          "rol": "Nekotina",
+          "permite": [
+            "ver",
+            "conectar"
+          ],
+          "deniega": []
         },
         {
           "rol": "miembro concreto",
@@ -562,12 +575,12 @@
       }
     },
     {
-      "id": "1557399274432761930",
-      "nombre": "📢-anuncios",
-      "tipo": "anuncios",
-      "categoria": "📌 Empieza aquí",
-      "posicion": 2,
-      "tema": "Directos, novedades y avisos de PickandRollTV.",
+      "id": "959459731578167427",
+      "nombre": "👋┃bienvenida",
+      "tipo": "texto",
+      "categoria": "📌 𝗜𝗡𝗜𝗖𝗜𝗢",
+      "posicion": 1,
+      "tema": "Te damos la bienvenida a PickandRollTV. Empieza por <#929099438989905962>. · 🌐 pickandroll.tv",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -595,6 +608,117 @@
             "escribir",
             "escribir_en_hilos"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
+        }
+      ],
+      "ultimo_mensaje": "2026-10-07T15:29:00.707000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 5,
+        "mensajes_30_dias": 5,
+        "mensajes_de_bots": 4,
+        "personas": 1,
+        "ultimo": "2026-10-07T15:29:00.707000+00:00"
+      }
+    },
+    {
+      "id": "929099438989905962",
+      "nombre": "📜┃normas",
+      "tipo": "texto",
+      "categoria": "📌 𝗜𝗡𝗜𝗖𝗜𝗢",
+      "posicion": 2,
+      "tema": "Normas del servidor. Léelas antes de escribir. · 🌐 pickandroll.tv",
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": false,
+        "escribir_en_hilos": false,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver",
+            "reaccionar"
+          ],
+          "deniega": [
+            "escribir",
+            "escribir_en_hilos"
+          ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
+        }
+      ],
+      "ultimo_mensaje": "2026-10-07T15:29:02.054000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 1,
+        "mensajes_30_dias": 1,
+        "mensajes_de_bots": 1,
+        "personas": 0,
+        "ultimo": "2026-10-07T15:29:02.054000+00:00"
+      }
+    },
+    {
+      "id": "1557399274432761930",
+      "nombre": "📢┃anuncios",
+      "tipo": "anuncios",
+      "categoria": "📌 𝗜𝗡𝗜𝗖𝗜𝗢",
+      "posicion": 3,
+      "tema": "Directos, novedades y avisos de PickandRollTV. · 🌐 pickandroll.tv",
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": false,
+        "escribir_en_hilos": false,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver",
+            "reaccionar"
+          ],
+          "deniega": [
+            "escribir",
+            "escribir_en_hilos"
+          ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
         }
       ],
       "ultimo_mensaje": null,
@@ -607,57 +731,12 @@
       }
     },
     {
-      "id": "956699792086560768",
-      "nombre": "📰-noticias-web",
-      "tipo": "texto",
-      "categoria": "📌 Empieza aquí",
-      "posicion": 3,
-      "tema": "Cada noticia nueva de pickandroll.tv, al momento.",
-      "modo_lento_segundos": 0,
-      "nsfw": false,
-      "everyone": {
-        "ver": true,
-        "escribir": false,
-        "escribir_en_hilos": false,
-        "reaccionar": true,
-        "conectar": true
-      },
-      "excepciones_de_permisos": [
-        {
-          "rol": "MVP 🏆",
-          "permite": [
-            "escribir"
-          ],
-          "deniega": []
-        },
-        {
-          "rol": "@everyone",
-          "permite": [
-            "ver",
-            "reaccionar"
-          ],
-          "deniega": [
-            "escribir",
-            "escribir_en_hilos"
-          ]
-        }
-      ],
-      "ultimo_mensaje": "2026-10-07T14:24:31.315000+00:00",
-      "actividad_90_dias": {
-        "mensajes": 3,
-        "mensajes_30_dias": 3,
-        "mensajes_de_bots": 3,
-        "personas": 0,
-        "ultimo": "2026-10-07T14:24:31.315000+00:00"
-      }
-    },
-    {
       "id": "929099439426121729",
-      "nombre": "💬-general",
+      "nombre": "💬┃general",
       "tipo": "texto",
-      "categoria": "🏀 PickandRoll",
+      "categoria": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
       "posicion": 4,
-      "tema": "Charla de Barça, Euroliga, ACB y NBA.",
+      "tema": "Charla de Barça, Euroliga, ACB y NBA. · 🌐 pickandroll.tv",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -676,22 +755,113 @@
           "deniega": []
         }
       ],
-      "ultimo_mensaje": "2026-10-02T11:07:23.183000+00:00",
+      "ultimo_mensaje": "2026-10-07T20:48:56.958000+00:00",
       "actividad_90_dias": {
-        "mensajes": 1024,
-        "mensajes_30_dias": 103,
+        "mensajes": 1023,
+        "mensajes_30_dias": 108,
         "mensajes_de_bots": 18,
-        "personas": 16,
-        "ultimo": "2026-10-02T11:07:23.183000+00:00"
+        "personas": 15,
+        "ultimo": "2026-10-07T20:48:56.958000+00:00"
       }
     },
     {
       "id": "1557399286390722721",
-      "nombre": "🏟️-partidos",
+      "nombre": "🏟️┃partidos",
       "tipo": "foro",
-      "categoria": "🏀 PickandRoll",
+      "categoria": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
       "posicion": 5,
-      "tema": "Un hilo por partido: previa, directo y postpartido.",
+      "tema": "Un hilo por partido: previa, directo y postpartido. · 🌐 pickandroll.tv",
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver"
+          ],
+          "deniega": []
+        }
+      ],
+      "ultimo_mensaje": "2026-10-07T18:13:02.915000+00:00",
+      "etiquetas_foro": [
+        "Euroliga",
+        "Liga Endesa",
+        "Copa del Rey",
+        "Supercopa",
+        "Amistoso"
+      ],
+      "hilos": [
+        {
+          "nombre": "🏀 Asisa Joventut vs Barça | Liga Endesa",
+          "mensajes_totales": 0,
+          "actividad_90_dias": {
+            "mensajes": 1,
+            "mensajes_30_dias": 1,
+            "mensajes_de_bots": 1,
+            "personas": 0,
+            "ultimo": "2026-10-07T18:13:02.915000+00:00"
+          }
+        },
+        {
+          "nombre": "🏀 Barça vs Olympiacos Piraeus | Euroliga",
+          "mensajes_totales": 0,
+          "actividad_90_dias": {
+            "mensajes": 1,
+            "mensajes_30_dias": 1,
+            "mensajes_de_bots": 1,
+            "personas": 0,
+            "ultimo": "2026-10-07T18:13:01.568000+00:00"
+          }
+        },
+        {
+          "nombre": "🏀 Barça vs Maccabi Rapyd Tel Aviv | Euroliga",
+          "mensajes_totales": 0,
+          "actividad_90_dias": {
+            "mensajes": 1,
+            "mensajes_30_dias": 1,
+            "mensajes_de_bots": 1,
+            "personas": 0,
+            "ultimo": "2026-10-07T18:13:01.040000+00:00"
+          }
+        },
+        {
+          "nombre": "🏀 Barça vs Valencia Basket | Liga Endesa",
+          "mensajes_totales": 0,
+          "actividad_90_dias": {
+            "mensajes": 1,
+            "mensajes_30_dias": 1,
+            "mensajes_de_bots": 1,
+            "personas": 0,
+            "ultimo": "2026-10-07T18:13:00.690000+00:00"
+          }
+        },
+        {
+          "nombre": "🏀 Barça vs Zalgiris Kaunas | Euroliga",
+          "mensajes_totales": 0,
+          "actividad_90_dias": {
+            "mensajes": 1,
+            "mensajes_30_dias": 1,
+            "mensajes_de_bots": 1,
+            "personas": 0,
+            "ultimo": "2026-10-07T18:13:00.133000+00:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1557406340010221690",
+      "nombre": "🔴┃directo",
+      "tipo": "texto",
+      "categoria": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
+      "posicion": 6,
+      "tema": "Chat para comentar el directo de PickandRollTV en Twitch mientras está en marcha. · 🌐 pickandroll.tv",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -711,21 +881,21 @@
         }
       ],
       "ultimo_mensaje": null,
-      "etiquetas_foro": [
-        "Euroliga",
-        "Liga Endesa",
-        "Copa del Rey",
-        "Supercopa",
-        "Amistoso"
-      ]
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
     },
     {
       "id": "1252234382425718805",
-      "nombre": "🔄-mercado-y-plantilla",
+      "nombre": "🔄┃mercado-y-plantilla",
       "tipo": "texto",
-      "categoria": "🏀 PickandRoll",
-      "posicion": 6,
-      "tema": "Fichajes, rumores y plantilla del Barça.",
+      "categoria": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
+      "posicion": 8,
+      "tema": "Fichajes, rumores y plantilla del Barça. · 🌐 pickandroll.tv",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -755,11 +925,11 @@
     },
     {
       "id": "929099439426121731",
-      "nombre": "💡-ideas-y-propuestas",
+      "nombre": "💡┃ideas-y-propuestas",
       "tipo": "texto",
-      "categoria": "🏀 PickandRoll",
-      "posicion": 7,
-      "tema": "¿Qué te gustaría ver en el canal? Propón contenido y mejoras.",
+      "categoria": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
+      "posicion": 9,
+      "tema": "¿Qué te gustaría ver en el canal? Propón contenido y mejoras. · 🌐 pickandroll.tv",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -789,11 +959,11 @@
     },
     {
       "id": "1252586051755573341",
-      "nombre": "❤️-apoya-el-canal",
+      "nombre": "❤️┃apoya-el-canal",
       "tipo": "texto",
-      "categoria": "🏀 PickandRoll",
-      "posicion": 8,
-      "tema": "Web, donaciones, merchandising y patrocinadores de PickandRollTV.",
+      "categoria": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
+      "posicion": 10,
+      "tema": "Web, donaciones, merchandising y patrocinadores de PickandRollTV. · 🌐 pickandroll.tv",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -821,24 +991,83 @@
             "escribir",
             "escribir_en_hilos"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
         }
       ],
-      "ultimo_mensaje": "2026-05-12T17:08:37.464000+00:00",
+      "ultimo_mensaje": "2026-10-07T15:29:03.286000+00:00",
       "actividad_90_dias": {
-        "mensajes": 0,
-        "mensajes_30_dias": 0,
-        "mensajes_de_bots": 0,
+        "mensajes": 1,
+        "mensajes_30_dias": 1,
+        "mensajes_de_bots": 1,
         "personas": 0,
-        "ultimo": null
+        "ultimo": "2026-10-07T15:29:03.286000+00:00"
+      }
+    },
+    {
+      "id": "1557416725912363079",
+      "nombre": "☕┃donaciones",
+      "tipo": "texto",
+      "categoria": "🏀 𝗣𝗜𝗖𝗞𝗔𝗡𝗗𝗥𝗢𝗟𝗟",
+      "posicion": 11,
+      "tema": "Invítanos a un café en Buy Me a Coffee y ayuda a que PickandRollTV siga creciendo. · 🌐 pickandroll.tv",
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": true,
+        "escribir": false,
+        "escribir_en_hilos": false,
+        "reaccionar": true,
+        "conectar": true
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "MVP 🏆",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
+        },
+        {
+          "rol": "@everyone",
+          "permite": [
+            "ver",
+            "reaccionar"
+          ],
+          "deniega": [
+            "escribir",
+            "escribir_en_hilos"
+          ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "escribir"
+          ],
+          "deniega": []
+        }
+      ],
+      "ultimo_mensaje": "2026-10-07T15:38:05.641000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 1,
+        "mensajes_30_dias": 1,
+        "mensajes_de_bots": 1,
+        "personas": 0,
+        "ultimo": "2026-10-07T15:38:05.641000+00:00"
       }
     },
     {
       "id": "1557399301473312778",
-      "nombre": "⭐-zona-sub",
+      "nombre": "⭐┃zona-sub",
       "tipo": "texto",
-      "categoria": "⭐ Zona Sub",
-      "posicion": 9,
-      "tema": "Canal exclusivo para suscriptores de Twitch.",
+      "categoria": "⭐ 𝗭𝗢𝗡𝗔 𝗦𝗨𝗕",
+      "posicion": 12,
+      "tema": "Canal exclusivo para suscriptores de Twitch. ¡Gracias por tu apoyo! · 🌐 pickandroll.tv",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -863,6 +1092,14 @@
           "deniega": [
             "ver"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "ver",
+            "escribir"
+          ],
+          "deniega": []
         },
         {
           "rol": "Twitch Subscriber",
@@ -884,11 +1121,11 @@
     },
     {
       "id": "929099439426121730",
-      "nombre": "material-para-el-canal",
+      "nombre": "🎬┃material-para-el-canal",
       "tipo": "texto",
-      "categoria": "🔒 Staff",
-      "posicion": 10,
-      "tema": null,
+      "categoria": "🔒 𝗦𝗧𝗔𝗙𝗙",
+      "posicion": 13,
+      "tema": "Clips, imágenes y material para los directos y la web.",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -913,6 +1150,14 @@
           "deniega": [
             "ver"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "ver",
+            "escribir"
+          ],
+          "deniega": []
         }
       ],
       "ultimo_mensaje": "2026-10-07T14:28:34.636000+00:00",
@@ -926,11 +1171,11 @@
     },
     {
       "id": "982406567540441099",
-      "nombre": "bot-musica",
+      "nombre": "🎵┃bot-musica",
       "tipo": "texto",
-      "categoria": "🔒 Staff",
-      "posicion": 11,
-      "tema": null,
+      "categoria": "🔒 𝗦𝗧𝗔𝗙𝗙",
+      "posicion": 14,
+      "tema": "Comandos del bot de música.",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -963,6 +1208,14 @@
             "escribir"
           ],
           "deniega": []
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "ver",
+            "escribir"
+          ],
+          "deniega": []
         }
       ],
       "ultimo_mensaje": "2022-11-03T21:22:31.306000+00:00",
@@ -976,11 +1229,11 @@
     },
     {
       "id": "1250872435880886324",
-      "nombre": "merchandising",
+      "nombre": "👕┃merchandising",
       "tipo": "texto",
-      "categoria": "🔒 Staff",
-      "posicion": 12,
-      "tema": null,
+      "categoria": "🔒 𝗦𝗧𝗔𝗙𝗙",
+      "posicion": 15,
+      "tema": "Ideas y diseños del merchandising de PickandRollTV.",
       "modo_lento_segundos": 0,
       "nsfw": false,
       "everyone": {
@@ -1005,6 +1258,14 @@
           "deniega": [
             "ver"
           ]
+        },
+        {
+          "rol": "Moderador",
+          "permite": [
+            "ver",
+            "escribir"
+          ],
+          "deniega": []
         }
       ],
       "ultimo_mensaje": null,
@@ -1020,8 +1281,8 @@
       "id": "1251187799017787413",
       "nombre": "tertulia",
       "tipo": "texto",
-      "categoria": "🗄️ Archivo",
-      "posicion": 13,
+      "categoria": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
+      "posicion": 16,
       "tema": null,
       "modo_lento_segundos": 0,
       "nsfw": false,
@@ -1052,11 +1313,46 @@
       }
     },
     {
+      "id": "929099439426121734",
+      "nombre": "banquillo",
+      "tipo": "voz",
+      "categoria": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
+      "posicion": 17,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": false,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": false
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [],
+          "deniega": [
+            "ver",
+            "conectar"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2025-09-17T19:02:31.561000+00:00",
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
       "id": "1248574516070846535",
       "nombre": "propuestas-contenido",
       "tipo": "texto",
-      "categoria": "🗄️ Archivo",
-      "posicion": 14,
+      "categoria": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
+      "posicion": 17,
       "tema": null,
       "modo_lento_segundos": 0,
       "nsfw": false,
@@ -1090,8 +1386,8 @@
       "id": "929099438989905963",
       "nombre": "plataformas",
       "tipo": "texto",
-      "categoria": "🗄️ Archivo",
-      "posicion": 15,
+      "categoria": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
+      "posicion": 18,
       "tema": null,
       "modo_lento_segundos": 0,
       "nsfw": false,
@@ -1122,80 +1418,10 @@
       }
     },
     {
-      "id": "1250163184107655229",
-      "nombre": "patrocinadores",
-      "tipo": "texto",
-      "categoria": "🗄️ Archivo",
-      "posicion": 16,
-      "tema": null,
-      "modo_lento_segundos": 0,
-      "nsfw": false,
-      "everyone": {
-        "ver": false,
-        "escribir": true,
-        "escribir_en_hilos": true,
-        "reaccionar": true,
-        "conectar": false
-      },
-      "excepciones_de_permisos": [
-        {
-          "rol": "@everyone",
-          "permite": [],
-          "deniega": [
-            "ver",
-            "conectar"
-          ]
-        }
-      ],
-      "ultimo_mensaje": "2024-06-12T09:35:14.188000+00:00",
-      "actividad_90_dias": {
-        "mensajes": 0,
-        "mensajes_30_dias": 0,
-        "mensajes_de_bots": 0,
-        "personas": 0,
-        "ultimo": null
-      }
-    },
-    {
-      "id": "929099439426121734",
-      "nombre": "banquillo",
-      "tipo": "voz",
-      "categoria": "🗄️ Archivo",
-      "posicion": 17,
-      "tema": null,
-      "modo_lento_segundos": 0,
-      "nsfw": false,
-      "everyone": {
-        "ver": false,
-        "escribir": true,
-        "escribir_en_hilos": true,
-        "reaccionar": true,
-        "conectar": false
-      },
-      "excepciones_de_permisos": [
-        {
-          "rol": "@everyone",
-          "permite": [],
-          "deniega": [
-            "ver",
-            "conectar"
-          ]
-        }
-      ],
-      "ultimo_mensaje": "2025-09-17T19:02:31.561000+00:00",
-      "actividad_90_dias": {
-        "mensajes": 0,
-        "mensajes_30_dias": 0,
-        "mensajes_de_bots": 0,
-        "personas": 0,
-        "ultimo": null
-      }
-    },
-    {
       "id": "959257658425225267",
       "nombre": "invitado",
       "tipo": "voz",
-      "categoria": "🗄️ Archivo",
+      "categoria": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
       "posicion": 18,
       "tema": null,
       "modo_lento_segundos": 0,
@@ -1218,6 +1444,41 @@
         }
       ],
       "ultimo_mensaje": null,
+      "actividad_90_dias": {
+        "mensajes": 0,
+        "mensajes_30_dias": 0,
+        "mensajes_de_bots": 0,
+        "personas": 0,
+        "ultimo": null
+      }
+    },
+    {
+      "id": "1250163184107655229",
+      "nombre": "patrocinadores",
+      "tipo": "texto",
+      "categoria": "🗄️ 𝗔𝗥𝗖𝗛𝗜𝗩𝗢",
+      "posicion": 19,
+      "tema": null,
+      "modo_lento_segundos": 0,
+      "nsfw": false,
+      "everyone": {
+        "ver": false,
+        "escribir": true,
+        "escribir_en_hilos": true,
+        "reaccionar": true,
+        "conectar": false
+      },
+      "excepciones_de_permisos": [
+        {
+          "rol": "@everyone",
+          "permite": [],
+          "deniega": [
+            "ver",
+            "conectar"
+          ]
+        }
+      ],
+      "ultimo_mensaje": "2024-06-12T09:35:14.188000+00:00",
       "actividad_90_dias": {
         "mensajes": 0,
         "mensajes_30_dias": 0,
@@ -1266,21 +1527,21 @@
     },
     "miembros_por_rol": {
       "PICK'N'ROLLER": 88,
-      "MVP 🏆": 25,
       "Twitch Subscriber": 17,
+      "MVP 🏆": 17,
       "Twitch Subscriber: Tier 1": 16,
       "MEE6": 1,
       "Nekotina": 1,
       "Twitch Subscriber: Tier 3": 1,
       "PickandRollTV Bot.": 1
     },
-    "sin_ningun_rol": 10
+    "sin_ningun_rol": 15
   },
   "emojis": 0,
   "stickers": 0,
   "invitaciones": [
     {
-      "canal": "💬-general",
+      "canal": "💬┃general",
       "usos": 0,
       "max_usos": 0,
       "caduca_en_segundos": 2592000,
@@ -1294,7 +1555,7 @@
       "creada": "2026-09-19T21:25:40.389000+00:00"
     },
     {
-      "canal": "👋-bienvenida",
+      "canal": "👋┃bienvenida",
       "usos": 0,
       "max_usos": 0,
       "caduca_en_segundos": 0,
@@ -1308,14 +1569,21 @@
       "creada": "2026-10-04T19:23:32.882000+00:00"
     },
     {
-      "canal": "💬-general",
+      "canal": "💬┃general",
       "usos": 1,
       "max_usos": 0,
       "caduca_en_segundos": 2592000,
       "creada": "2026-09-10T11:18:33.657000+00:00"
     },
     {
-      "canal": "👋-bienvenida",
+      "canal": "📰┃noticias-web",
+      "usos": 0,
+      "max_usos": 0,
+      "caduca_en_segundos": 2592000,
+      "creada": "2026-10-07T14:59:11.385000+00:00"
+    },
+    {
+      "canal": "👋┃bienvenida",
       "usos": 0,
       "max_usos": 0,
       "caduca_en_segundos": 2592000,
@@ -1332,7 +1600,7 @@
   "webhooks": [
     {
       "nombre": "PickandRollTV",
-      "canal": "📰-noticias-web"
+      "canal": "📰┃noticias-web"
     }
   ],
   "eventos": [],
@@ -1354,8 +1622,14 @@
     }
   ],
   "bienvenida": {
-    "description": "Baloncesto en español: Barça, Euroliga, ACB y NBA.",
+    "description": "Baloncesto en español: Barça, Euroliga, ACB y NBA. Todas las noticias en pickandroll.tv",
     "welcome_channels": [
+      {
+        "channel_id": "956699792086560768",
+        "description": "Lo último de pickandroll.tv",
+        "emoji_id": null,
+        "emoji_name": "📰"
+      },
       {
         "channel_id": "929099438989905962",
         "description": "Lee las normas",
@@ -1369,12 +1643,6 @@
         "emoji_name": "💬"
       },
       {
-        "channel_id": "956699792086560768",
-        "description": "Las noticias de la web",
-        "emoji_id": null,
-        "emoji_name": "📰"
-      },
-      {
         "channel_id": "1557399286390722721",
         "description": "Comenta cada partido",
         "emoji_id": null,
@@ -1384,11 +1652,83 @@
   },
   "onboarding": {
     "guild_id": "929099438989905960",
-    "prompts": [],
-    "default_channel_ids": [],
-    "enabled": false,
+    "prompts": [
+      {
+        "id": "1557454348445818983",
+        "title": "¿De qué quieres que te avisemos?",
+        "options": [
+          {
+            "id": "1557454348970098738",
+            "title": "📰 Noticias web",
+            "description": "Aviso con cada noticia nueva de pickandroll.tv (recomendado)",
+            "emoji": {
+              "id": null,
+              "name": null,
+              "animated": false
+            },
+            "role_ids": [
+              "1557406332234104976"
+            ],
+            "channel_ids": []
+          },
+          {
+            "id": "1557454348970098739",
+            "title": "🔴 Directos",
+            "description": "Aviso cuando PickandRollTV empieza directo",
+            "emoji": {
+              "id": null,
+              "name": null,
+              "animated": false
+            },
+            "role_ids": [
+              "1557406328597774517"
+            ],
+            "channel_ids": []
+          },
+          {
+            "id": "1557454348970098740",
+            "title": "🏀 Partidos",
+            "description": "Aviso cuando se abre el hilo de cada partido",
+            "emoji": {
+              "id": null,
+              "name": null,
+              "animated": false
+            },
+            "role_ids": [
+              "1557406336453578824"
+            ],
+            "channel_ids": []
+          }
+        ],
+        "single_select": false,
+        "required": false,
+        "in_onboarding": true,
+        "type": 0
+      }
+    ],
+    "default_channel_ids": [
+      "956699792086560768",
+      "929099439426121729",
+      "1557399286390722721",
+      "959459731578167427",
+      "929099439426121731",
+      "929099438989905962",
+      "1557399274432761930",
+      "1252234382425718805",
+      "1557406340010221690",
+      "1252586051755573341"
+    ],
+    "enabled": true,
     "mode": 0,
     "below_requirements": false,
+    "additional_connections": [
+      {
+        "connection_type": 1,
+        "application_id": null,
+        "provider_id": "twitch",
+        "description": null
+      }
+    ],
     "responses": [],
     "onboarding_prompts_seen": {},
     "onboarding_responses_seen": {}

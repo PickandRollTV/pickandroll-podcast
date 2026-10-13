@@ -1,0 +1,24 @@
+name: Resumen semanal de la web en Discord
+
+on:
+  schedule:
+    # Domingo a las 18:00 UTC (20:00 en Barcelona en verano, 19:00 en invierno).
+    - cron: "0 18 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  resumen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Publicar el resumen semanal
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python discord_resumen.py

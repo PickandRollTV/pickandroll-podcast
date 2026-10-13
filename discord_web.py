@@ -25,6 +25,7 @@ import pathlib
 import re
 import sys
 import time
+import unicodedata
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -32,6 +33,9 @@ import xml.etree.ElementTree as ET
 ROOT = pathlib.Path(__file__).resolve().parent
 CONFIG_FILE = ROOT / "config.json"
 STATE_FILE = ROOT / "discord_publicados.json"
+# Titular, enlace, fecha e imagen de lo publicado, para el resumen semanal (discord_resumen.py).
+HISTORY_FILE = ROOT / "discord_historial.json"
+MAX_HISTORY = 200
 USER_AGENT = "Mozilla/5.0 (compatible; PickandRollTV-Discord/1.0; +https://pickandroll.tv)"
 CONTENT_NS = "{http://purl.org/rss/1.0/modules/content/}encoded"
 MEDIA_NS = "{http://search.yahoo.com/mrss/}"
@@ -83,6 +87,21 @@ def with_utm(link, campaign):
     query = urllib.parse.parse_qsl(parts.query)
     query += [("utm_source", "discord"), ("utm_medium", "social"), ("utm_campaign", campaign)]
     return urllib.parse.urlunsplit(parts._replace(query=urllib.parse.urlencode(query)))
+
+
+# En Discord solo se avisa de las noticias del Barça: las de la categoría "Actualidad Barça"
+# de la web, o las que llevan el Barça en el titular o en las etiquetas.
+BARCA_TAGS = {"actualidad barca", "barca", "barca basket", "fcbarcelona", "fcbbasket", "fc barcelona"}
+
+
+def normalize(text):
+    return unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode().lower().strip()
+
+
+def is_barca(news):
+    if any(normalize(c) in BARCA_TAGS for c in news["categories"]):
+        return True
+    return bool(re.search(r"\bbarca\b|\bbarcelona\b", normalize(news["title"])))
 
 
 def parse_items(feed_xml):
@@ -155,6 +174,9 @@ def main():
         print("Falta el secreto DISCORD_WEBHOOK: no se publica nada")
         return 0
     role_id = os.environ.get("DISCORD_ROLE_ID", "").strip() or None
+    roles_file = ROOT / "auditoria" / "roles-avisos.json"
+    if not role_id and roles_file.exists():
+        role_id = json.loads(roles_file.read_text(encoding="utf-8")).get("📰 Noticias web")
     settings = json.loads(CONFIG_FILE.read_text(encoding="utf-8")).get("discord", {})
     items = parse_items(fetch(settings.get("feed_url", "https://pickandroll.tv/feed/")))
 
@@ -162,27 +184,41 @@ def main():
     published = [] if first_run else json.loads(STATE_FILE.read_text(encoding="utf-8"))
     seen = set(published)
     new = [news for news in items if news["guid"] not in seen]
+    # Las que no son del Barça se dan por vistas sin publicarlas.
+    others = [news for news in new if not is_barca(news)]
+    for news in others:
+        print(f"No es del Barça, no se publica: {news['title']}")
+    published += [news["guid"] for news in others]
+    new = [news for news in new if is_barca(news)]
     # Las más antiguas primero, para que en Discord queden en orden.
     new.sort(key=lambda news: news["published"] or datetime.datetime.min.replace(tzinfo=datetime.timezone.utc))
     if first_run:
         print(f"Primera pasada: se publica la última noticia y se apuntan {len(new) - 1} sin publicarlas")
-        published = [news["guid"] for news in new[:-1]]
+        published += [news["guid"] for news in new[:-1]]
         new = new[-1:]
+    history = json.loads(HISTORY_FILE.read_text(encoding="utf-8")) if HISTORY_FILE.exists() else []
     status = 0
     for news in new[-MAX_PER_RUN:]:
         try:
-            post(webhook, build_message(news, settings, role_id))
+            message = build_message(news, settings, role_id)
+            post(webhook, message)
             print(f"Publicada: {news['title']}")
         except Exception as error:
             print(f"No se pudo publicar {news['link']}: {error}", file=sys.stderr)
             status = 1
             break
         published.append(news["guid"])
+        history.append({
+            "title": news["title"], "link": news["link"],
+            "date": (news["published"] or datetime.datetime.now(datetime.timezone.utc)).astimezone(datetime.timezone.utc).isoformat(),
+            "image": message["embeds"][0].get("image", {}).get("url"),
+        })
         time.sleep(2)
     # Las que se saltan por pasar del máximo se dan por vistas.
     published += [news["guid"] for news in new[:-MAX_PER_RUN]]
 
     STATE_FILE.write_text(json.dumps(published[-MAX_REMEMBERED:], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    HISTORY_FILE.write_text(json.dumps(history[-MAX_HISTORY:], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return status
 
 
