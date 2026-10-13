@@ -298,5 +298,22 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2898022009-2631786c.jpg",
     "cover_key": "2631786c",
     "resultado": "89-86"
+  },
+  {
+    "guid": "twitch:2899824317",
+    "source": "twitch",
+    "vod_id": "2899824317",
+    "title": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v MACCABI TEL AVIV | ROUND 5 EUROLEAGUE",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2899824317\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-13T17:31:26+00:00",
+    "duration": 15541,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/b8e152d5272a1e24b48f_pickandrolltv_318006586596_1791912679//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2899824317",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2899824317/v2899824317.mp3",
+    "audio_bytes": 186500020,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 3:38: 3:18 Somos el último piloto. | 3:22 Somos campeons. | 3:26 Somos centenarios. | 3:30 Un escut. | 3:36 Todo un clav. | 3:38 Buenas tardes y bienvenidos amigos, amigas a Picanroll.",
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2899824317-63a67fda.jpg",
+    "cover_key": "63a67fda"
   }
 ]
