@@ -7,7 +7,7 @@
       "zalgiris"
     ],
     "news": [],
-    "final": false,
+    "final": true,
     "home": "Barça",
     "away": "Zalgiris Kaunas"
   },
@@ -19,7 +19,7 @@
       "valencia"
     ],
     "news": [],
-    "final": false,
+    "final": true,
     "home": "Barça",
     "away": "Valencia Basket"
   },
