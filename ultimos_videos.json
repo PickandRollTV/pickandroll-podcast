@@ -1,5 +1,11 @@
 [
   {
+    "id": "2899824317",
+    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v MACCABI TEL AVIV | ROUND 5 EUROLEAGUE 2026-10-13 17:33",
+    "inicio": "2026-10-13T17:31:26+00:00",
+    "duracion_min": 1
+  },
+  {
     "id": "2898022009",
     "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v VALENCIA BASKET | Jornada 3 Liga Endesa",
     "inicio": "2026-10-11T16:06:46+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🏀 BARÇA BASKET v ANADOLU EFES | EUROLEAGUE ROUND 1 🏆",
     "inicio": "2026-09-24T17:31:36+00:00",
     "duracion_min": 287
-  },
-  {
-    "id": "2879416124",
-    "titulo": "🏀 JOVENTUT BADALONA v BARÇA | FINAL SUPERCOPA ENDESA 🏆",
-    "inicio": "2026-09-20T16:01:19+00:00",
-    "duracion_min": 304
   }
 ]
