@@ -31,7 +31,9 @@
       "maccabi",
       "rapyd"
     ],
-    "news": [],
+    "news": [
+      "https://pickandroll.tv/juan-nunez-baja-barca-maccabi/"
+    ],
     "final": false,
     "home": "Barça",
     "away": "Maccabi Rapyd Tel Aviv"
