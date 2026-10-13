@@ -47,6 +47,7 @@ def main():
         merge_remote()
         git("add", *FILES)
         git("add", "ultimo_error.txt", "ultima_pasada.txt", check=False)
+        git("add", "twitch_fallos.txt", check=False)
         if git("diff", "--cached", "--quiet", check=False).returncode == 0:
             print("Nada que guardar")
             return 0
