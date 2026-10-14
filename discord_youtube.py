@@ -99,8 +99,8 @@ def share_video(video, state, ctx):
             targets = [channel(lambda c: "anuncios" in c["name"] and c["type"] in (0, 5)),
                        channel(lambda c: "general" in c["name"] and c["type"] == 0)]
             matches = json.loads(MATCHES_FILE.read_text(encoding="utf-8")) if MATCHES_FILE.exists() else {}
-            targets += [{"id": e["thread"]} for e in matches.values()
-                        if abs(datetime.datetime.fromisoformat(e["start"]) - video["published"]) < datetime.timedelta(hours=12)]
+            targets += [{"id": e["thread"]} for k, e in matches.items() if not k.startswith("_")
+                        and abs(datetime.datetime.fromisoformat(e["start"]) - video["published"]) < datetime.timedelta(hours=12)]
             for target in filter(None, targets):
                 try:
                     discord("POST", f"/channels/{target['id']}/messages", token, message)

@@ -15,9 +15,7 @@
     "DE2U73HNhlI"
   ],
   "directos": [
-    "rNyDc6QEQ3M",
-    "RBDKvymRJIg",
-    "KvOpo6UwrnU"
+    "rNyDc6QEQ3M"
   ],
   "vistos": [
     "aypNtltpya4",
@@ -37,9 +35,6 @@
     "B9ciK-tC6n8",
     "XsGaseI2tXk",
     "DE2U73HNhlI",
-    "lZEq8jUSepY",
-    "RBDKvymRJIg",
-    "KvOpo6UwrnU"
-  ],
-  "ultimo_error": "2026-10-14 11:49 No se pudo compartir KvOpo6UwrnU: list indices must be integers or slices, not str"
+    "lZEq8jUSepY"
+  ]
 }
