@@ -574,6 +574,15 @@ def main():
             api.call("DELETE", f"/channels/{channel['id']}/messages/{old}", note=f"Borrar aviso anterior {old}")
         print("Aviso publicado")
         return 0
+    if action == "editar":
+        # Cambia el texto de mensajes ya publicados en #anuncios (ids en BORRAR) por MENSAJE, sin volver a avisar.
+        api = Discord(token, True)
+        channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "📢┃anuncios")
+        text = os.environ.get("MENSAJE", "").replace("\\n", "\n")
+        for message_id in filter(None, os.environ.get("BORRAR", "").replace(" ", "").split(",")):
+            api.call("PATCH", f"/channels/{channel['id']}/messages/{message_id}",
+                     {"content": text[:2000], "allowed_mentions": {"parse": []}}, f"Editar aviso {message_id}")
+        return 0
     if action == "ver-anuncios":
         # Guarda los últimos mensajes del bot en #anuncios con su enlace (sin nombres de miembros).
         api = Discord(token, True)

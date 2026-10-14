@@ -54,6 +54,9 @@ def live_info():
         return False, "", ""
     title = get_text(f"https://decapi.me/twitch/title/{CHANNEL}")
     game = get_text(f"https://decapi.me/twitch/game/{CHANNEL}")
+    # decapi devuelve el error como texto ("An error occurred retrieving data from the API."): no es un título.
+    title = "" if "error occurred" in title.lower() else title
+    game = "" if "error occurred" in game.lower() else game
     return True, title, game
 
 

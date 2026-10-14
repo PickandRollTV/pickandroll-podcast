@@ -75,8 +75,60 @@ def is_short(video):
         opener.open(urllib.request.Request(f"https://www.youtube.com/shorts/{video['id']}", method="HEAD",
                                            headers={"User-Agent": UA}), timeout=20)
         return True
-    except urllib.error.HTTPError:
-        return False
+    except urllib.error.HTTPError as error:
+        if error.code in (301, 302, 303, 307, 308, 404):
+            return False
+        raise
+
+
+def share_video(video, state, ctx):
+    """Publica un vídeo nuevo si toca. Devuelve True si queda resuelto (publicado o descartado)."""
+    url = f"https://www.youtube.com/watch?v={video['id']}"
+    token, channel, live, last_end, now, first_run = (ctx[k] for k in ("token", "channel", "live", "last_end", "now", "first_run"))
+    if "en directo" in video["title"].lower():
+        # Solo cuando ya ha terminado: Twitch dice que el directo acabó después de publicarse y tiene visitas.
+        if not (last_end and last_end > video["published"] and video["views"] > 0 and not live.get("en_directo")):
+            return False
+        # Se marca antes de publicar: si algo falla a medias, no se repite en la siguiente pasada.
+        state["directos"].append(video["id"])
+        state["vistos"].append(video["id"])
+        ctx["save"]()
+        if not first_run and now - video["published"] < datetime.timedelta(days=2):
+            message = {"content": f"📺 **¿Te lo perdiste?** El directo completo ya está en YouTube:\n### {video['title']}\n{url}\n📰 La crónica y el análisis, en <{with_utm(CONFIG['website_url'], 'directo-completo')}>"}
+            targets = [channel(lambda c: "anuncios" in c["name"] and c["type"] in (0, 5)),
+                       channel(lambda c: "general" in c["name"] and c["type"] == 0)]
+            matches = json.loads(MATCHES_FILE.read_text(encoding="utf-8")) if MATCHES_FILE.exists() else {}
+            targets += [{"id": e["thread"]} for e in matches.values()
+                        if abs(datetime.datetime.fromisoformat(e["start"]) - video["published"]) < datetime.timedelta(hours=12)]
+            for target in filter(None, targets):
+                try:
+                    discord("POST", f"/channels/{target['id']}/messages", token, message)
+                except Exception as error:
+                    print(f"No se pudo publicar el directo en {target['id']}: {error}")
+            print(f"Directo compartido: {video['title']}")
+        return True
+    if not is_short(video):
+        state["vistos"].append(video["id"])
+        return True
+    state["shorts"].append(video["id"])
+    state["vistos"].append(video["id"])
+    ctx["save"]()
+    if not first_run:
+        target = channel(lambda c: c["name"] == SHORTS_CHANNEL[0])
+        if not target:
+            news = channel(lambda c: "noticias-web" in c["name"])
+            target = discord("POST", f"/guilds/{GUILD}/channels", token, {
+                "name": SHORTS_CHANNEL[0], "type": 0, "topic": SHORTS_CHANNEL[1],
+                "parent_id": news.get("parent_id") if news else None,
+                "position": (news or {}).get("position", 0) + 1,
+                "permission_overwrites": (news or {}).get("permission_overwrites", []),
+            })
+            ctx["channels"].append(target)
+        short = f"https://www.youtube.com/shorts/{video['id']}"
+        discord("POST", f"/channels/{target['id']}/messages", token,
+                {"content": f"📱 **Nuevo Short:** {video['title']}\n{short}\n🌐 Toda la actualidad del Barça en <{with_utm(CONFIG['website_url'], 'shorts')}>"})
+        print(f"Short compartido: {video['title']}")
+    return True
 
 
 def main():
@@ -86,66 +138,44 @@ def main():
         return 1
     first_run = not STATE_FILE.exists()
     state = json.loads(STATE_FILE.read_text(encoding="utf-8")) if not first_run else {"shorts": [], "directos": [], "vistos": []}
-    items = videos()
+
+    def save():
+        for key in ("shorts", "directos", "vistos"):
+            state[key] = state[key][-300:]
+        STATE_FILE.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+
+    def note_error(message):
+        # Se guarda el último fallo para poder revisarlo; no se marca la ejecución como fallida.
+        print(message)
+        state["ultimo_error"] = f"{datetime.datetime.now(datetime.timezone.utc):%Y-%m-%d %H:%M} {message[:200]}"
+
+    try:
+        items = videos()
+    except Exception as error:
+        # YouTube falla a ratos desde los servidores de GitHub: se reintenta en la siguiente pasada.
+        note_error(f"No se pudo leer el feed de YouTube: {error}")
+        if not first_run:
+            save()
+        return 0
     live = json.loads(LIVE_FILE.read_text(encoding="utf-8")) if LIVE_FILE.exists() else {}
-    last_end = datetime.datetime.fromisoformat(live["ultimo_fin"]) if live.get("ultimo_fin") else None
-    now = datetime.datetime.now(datetime.timezone.utc)
-    channels = None
+    ctx = {"token": token, "live": live, "first_run": first_run, "save": save, "channels": [],
+           "last_end": datetime.datetime.fromisoformat(live["ultimo_fin"]) if live.get("ultimo_fin") else None,
+           "now": datetime.datetime.now(datetime.timezone.utc)}
 
     def channel(match):
-        nonlocal channels
-        channels = channels or discord("GET", f"/guilds/{GUILD}/channels", token)
-        return next((c for c in channels if match(c)), None)
+        if not ctx["channels"]:
+            ctx["channels"] = discord("GET", f"/guilds/{GUILD}/channels", token)
+        return next((c for c in ctx["channels"] if match(c)), None)
+    ctx["channel"] = channel
 
     for video in sorted(items, key=lambda v: v["published"]):
         if video["id"] in state["vistos"]:
             continue
-        url = f"https://www.youtube.com/watch?v={video['id']}"
-
-        if "en directo" in video["title"].lower():
-            # Solo cuando ya ha terminado: Twitch dice que el directo acabó después de publicarse y tiene visitas.
-            if not (last_end and last_end > video["published"] and video["views"] > 0 and not live.get("en_directo")):
-                continue
-            if not first_run and now - video["published"] < datetime.timedelta(days=2):
-                target = channel(lambda c: "anuncios" in c["name"] and c["type"] in (0, 5))
-                message = {"content": f"📺 **¿Te lo perdiste?** El directo completo ya está en YouTube:\n### {video['title']}\n{url}\n📰 La crónica y el análisis, en <{with_utm(CONFIG['website_url'], 'directo-completo')}>"}
-                if target:
-                    discord("POST", f"/channels/{target['id']}/messages", token, message)
-                general = channel(lambda c: "general" in c["name"] and c["type"] == 0)
-                if general:
-                    discord("POST", f"/channels/{general['id']}/messages", token, message)
-                matches = json.loads(MATCHES_FILE.read_text(encoding="utf-8")) if MATCHES_FILE.exists() else {}
-                for entry in matches.values():
-                    start = datetime.datetime.fromisoformat(entry["start"])
-                    if abs(start - video["published"]) < datetime.timedelta(hours=12):
-                        discord("POST", f"/channels/{entry['thread']}/messages", token, message)
-                print(f"Directo compartido: {video['title']}")
-            state["directos"].append(video["id"])
-        else:
-            if not is_short(video):
-                state["vistos"].append(video["id"])
-                continue
-            if not first_run:
-                target = channel(lambda c: c["name"] == SHORTS_CHANNEL[0])
-                if not target:
-                    news = channel(lambda c: "noticias-web" in c["name"])
-                    target = discord("POST", f"/guilds/{GUILD}/channels", token, {
-                        "name": SHORTS_CHANNEL[0], "type": 0, "topic": SHORTS_CHANNEL[1],
-                        "parent_id": news.get("parent_id") if news else None,
-                        "position": (news or {}).get("position", 0) + 1,
-                        "permission_overwrites": (news or {}).get("permission_overwrites", []),
-                    })
-                    channels.append(target)
-                short = f"https://www.youtube.com/shorts/{video['id']}"
-                discord("POST", f"/channels/{target['id']}/messages", token,
-                        {"content": f"📱 **Nuevo Short:** {video['title']}\n{short}\n🌐 Toda la actualidad del Barça en <{with_utm(CONFIG['website_url'], 'shorts')}>"})
-                print(f"Short compartido: {video['title']}")
-            state["shorts"].append(video["id"])
-        state["vistos"].append(video["id"])
-
-    for key in state:
-        state[key] = state[key][-300:]
-    STATE_FILE.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+        try:
+            share_video(video, state, ctx)
+        except Exception as error:
+            note_error(f"No se pudo compartir {video['id']}: {error}")
+    save()
     return 0
 
 
