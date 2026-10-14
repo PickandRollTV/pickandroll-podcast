@@ -86,8 +86,9 @@ def share_video(video, state, ctx):
     url = f"https://www.youtube.com/watch?v={video['id']}"
     token, channel, live, last_end, now, first_run = (ctx[k] for k in ("token", "channel", "live", "last_end", "now", "first_run"))
     if "en directo" in video["title"].lower():
-        # Solo cuando ya ha terminado: Twitch dice que el directo acabó después de publicarse y tiene visitas.
-        if not (last_end and last_end > video["published"] and video["views"] > 0 and not live.get("en_directo")):
+        # Solo cuando ya no estamos en directo y el vídeo tiene visitas. Vale tanto para la emisión que
+        # YouTube guarda sola como para la grabación que se sube después (publicada tras el fin del directo).
+        if live.get("en_directo") or video["views"] <= 0:
             return False
         # Se marca antes de publicar: si algo falla a medias, no se repite en la siguiente pasada.
         state["directos"].append(video["id"])
