@@ -51,7 +51,8 @@
       "https://pickandroll.tv/previa-jornada-6-euroliga-horarios/",
       "https://pickandroll.tv/tyler-dorsey-olympiacos-apartado-barca/",
       "https://pickandroll.tv/olympiacos-analisis-rival-barca-palau-euroliga/",
-      "https://pickandroll.tv/balcerowski-sekulic-olympiacos-tenemos-que-ganarlo/"
+      "https://pickandroll.tv/balcerowski-sekulic-olympiacos-tenemos-que-ganarlo/",
+      "https://pickandroll.tv/barca-olympiacos-dia-de-partit-r6-euroleague/"
     ],
     "final": false,
     "home": "Barça",
@@ -70,5 +71,7 @@
     "home": "Asisa Joventut",
     "away": "Barça"
   },
-  "_dia_de_partit": []
+  "_dia_de_partit": [
+    "https://pickandroll.tv/barca-olympiacos-dia-de-partit-r6-euroleague/"
+  ]
 }
