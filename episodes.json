@@ -316,5 +316,22 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2899824317-ec31a03e.jpg",
     "cover_key": "ec31a03e",
     "resultado": "90-87"
+  },
+  {
+    "guid": "twitch:2902425155",
+    "source": "twitch",
+    "vod_id": "2902425155",
+    "title": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v OLYMPIACOS | ROUND 6 EUROLEAGUE",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2902425155\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-16T17:34:17+00:00",
+    "duration": 16174,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/4518443b499581d81683_pickandrolltv_318017716194_1792172050//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2902425155",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2902425155/v2902425155.mp3",
+    "audio_bytes": 194091988,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 5:31: 3:04 Somos el 24 de agosto. Somos 24 de agosto. | 3:08 Somos los amarritos que volen, que confía en la quiebra. | 3:16 Somos el 2003, el 2010. Somos el último piloto. | 3:27 Somos campeones, somos centenarios. | 3:36 Un escudo, todo un clav. | 5:31 Buenas tardes y bienvenidos amigos, amigas a Picanrol.",
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2902425155-1ea8645d.jpg",
+    "cover_key": "1ea8645d"
   }
 ]
