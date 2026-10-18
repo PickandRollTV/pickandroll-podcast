@@ -334,5 +334,22 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2902425155-d3859e85.jpg",
     "cover_key": "d3859e85",
     "resultado": "100-105"
+  },
+  {
+    "guid": "twitch:2904283509",
+    "source": "twitch",
+    "vod_id": "2904283509",
+    "title": "🔴 EN DIRECTO | 🏀 ASISA JOVENTUT v BARÇA BASKET | JORNADA 4 LIGA ENDESA",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2904283509\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-18T16:00:38+00:00",
+    "duration": 16055,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/4ad107d52f45405fd609_pickandrolltv_318053415140_1792339231//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2904283509",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2904283509/v2904283509.mp3",
+    "audio_bytes": 192660052,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 3:37: 3:09 Somos el 2003, el 2010. | 3:18 Somos el último pilota. | 3:22 Somos campeons. | 3:25 Somos centenarios. | 3:30 Un escut, un clav. | 3:37 Buenas tardes y bienvenidos amigas a Pican Roll.",
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2904283509-ff110ecc.jpg",
+    "cover_key": "ff110ecc"
   }
 ]
