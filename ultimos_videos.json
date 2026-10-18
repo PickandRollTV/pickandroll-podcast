@@ -1,5 +1,11 @@
 [
   {
+    "id": "2904283509",
+    "titulo": "🔴 EN DIRECTO | 🏀 ASISA JOVENTUT v BARÇA BASKET | JORNADA 4 LIGA ENDESA 2026-10-18 16:17",
+    "inicio": "2026-10-18T16:00:38+00:00",
+    "duracion_min": 16
+  },
+  {
     "id": "2902425155",
     "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v OLYMPIACOS | ROUND 6 EUROLEAGUE",
     "inicio": "2026-10-16T17:34:17+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🏀 DUBAI BASKETBALL v BARÇA BASKET | 🏆Euroleague Round 2",
     "inicio": "2026-09-29T15:30:30+00:00",
     "duracion_min": 224
-  },
-  {
-    "id": "2884729939",
-    "titulo": "🏀 BARÇA BASKET v LEYMA CORUÑA | LIGA ENDESA J1🏆",
-    "inicio": "2026-09-26T18:01:09+00:00",
-    "duracion_min": 241
   }
 ]
