@@ -82,5 +82,15 @@
   },
   "_dia_de_partit": [
     "https://pickandroll.tv/barca-olympiacos-dia-de-partit-r6-euroleague/"
-  ]
+  ],
+  "30553-65": {
+    "thread": "1562452628221468722",
+    "start": "2026-10-22T18:30:00+00:00",
+    "competition": "Euroliga",
+    "rival": [
+      "milan"
+    ],
+    "news": [],
+    "final": false
+  }
 }
