@@ -352,5 +352,22 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2904283509-e28bcede.jpg",
     "cover_key": "e28bcede",
     "resultado": "113-89"
+  },
+  {
+    "guid": "twitch:2907780419",
+    "source": "twitch",
+    "vod_id": "2907780419",
+    "title": "🔴 EN DIRECTO | 🏀 ARMANI OLIMPIA MILAN v BARÇA BASKET | ROUND 7 EUROLEAGUE",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2907780419\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-22T17:32:26+00:00",
+    "duration": 17380,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/3d61e0a621947fa39241_pickandrolltv_318105944035_1792690340//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2907780419",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2907780419/v2907780419.mp3",
+    "audio_bytes": 208567732,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 6:23: 3:21 Somos el último piloto. | 3:25 Somos los campeones. | 3:27 Somos los centenarios. | 3:35 Somos un escudo. | 3:37 Un clave. | 6:23 Buenas tardes, bienvenidos amigas a Pican Roll.",
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2907780419-1b6eed9e.jpg",
+    "cover_key": "1b6eed9e"
   }
 ]
