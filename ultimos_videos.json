@@ -1,5 +1,11 @@
 [
   {
+    "id": "2907780419",
+    "titulo": "🔴 EN DIRECTO | 🏀 ARMANI OLIMPIA MILAN v BARÇA BASKET | ROUND 7 EUROLEAGUE 2026-10-22 18:07",
+    "inicio": "2026-10-22T17:32:26+00:00",
+    "duracion_min": 34
+  },
+  {
     "id": "2904283509",
     "titulo": "🔴 EN DIRECTO | 🏀 ASISA JOVENTUT v BARÇA BASKET | JORNADA 4 LIGA ENDESA",
     "inicio": "2026-10-18T16:00:38+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3",
     "inicio": "2026-10-02T16:37:35+00:00",
     "duracion_min": 230
-  },
-  {
-    "id": "2887250903",
-    "titulo": "🏀 DUBAI BASKETBALL v BARÇA BASKET | 🏆Euroleague Round 2",
-    "inicio": "2026-09-29T15:30:30+00:00",
-    "duracion_min": 224
   }
 ]
