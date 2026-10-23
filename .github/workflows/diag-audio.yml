@@ -1,0 +1,17 @@
+name: Diagnóstico de audio
+on: workflow_dispatch
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install yt-dlp numpy
+      - run: yt-dlp -F https://www.twitch.tv/videos/2907780419
+      - run: |
+          for f in audio_only best worst; do
+            yt-dlp -q -f $f --download-sections "*1800-1860" -o "$f.%(ext)s" https://www.twitch.tv/videos/2907780419 || continue
+            ff=$(ls $f.*); ffprobe -v error -select_streams a -show_entries stream=codec_name,bit_rate,sample_rate,channels,profile -of default=nw=1 "$ff"
+            ffmpeg -v error -i "$ff" -map 0:a -ac 1 -f f32le - | python3 -c "
+          import sys,numpy as np
+          x=np.frombuffer(sys.stdin.buffer.read(),np.float32); S=np.abs(np.fft.rfft(x))**2; fr=np.fft.rfftfreq(len(x),1/48000)
+          print('$f', [round(10*np.log10(S[(fr>=a)&(fr<b)].mean()+1e-20)) for a,b in [(0,4e3),(4e3,8e3),(8e3,11e3),(11e3,14e3),(14e3,16e3),(16e3,20e3)]], 'peak', x.max())"
+          done
