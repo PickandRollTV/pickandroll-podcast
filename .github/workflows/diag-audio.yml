@@ -3,6 +3,7 @@ on: workflow_dispatch
 jobs:
   diag:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install yt-dlp numpy
       - run: yt-dlp -F https://www.twitch.tv/videos/2907780419 | tail -15 | while read l; do echo "::notice::$l"; done
