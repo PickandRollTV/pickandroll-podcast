@@ -345,13 +345,14 @@
     "duration": 16055,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/4ad107d52f45405fd609_pickandrolltv_318053415140_1792339231//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2904283509",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2904283509/v2904283509.mp3",
-    "audio_bytes": 192660052,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2904283509/v2904283509-hq.mp3",
+    "audio_bytes": 256893740,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:37: 3:09 Somos el 2003, el 2010. | 3:18 Somos el último pilota. | 3:22 Somos campeons. | 3:25 Somos centenarios. | 3:30 Un escut, un clav. | 3:37 Buenas tardes y bienvenidos amigas a Pican Roll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2904283509-e28bcede.jpg",
     "cover_key": "e28bcede",
-    "resultado": "113-89"
+    "resultado": "113-89",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2907780419",
@@ -363,12 +364,13 @@
     "duration": 17380,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/3d61e0a621947fa39241_pickandrolltv_318105944035_1792690340//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2907780419",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2907780419/v2907780419.mp3",
-    "audio_bytes": 208567732,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2907780419/v2907780419-hq.mp3",
+    "audio_bytes": 278092629,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 6:23: 3:21 Somos el último piloto. | 3:25 Somos campeones. | 3:27 Somos centenarios. | 3:35 Un escudo. | 3:37 Todo un clav. | 6:23 Buenas tardes. Bienvenidos, amigas, amigas, a Picanroll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2907780419-f18ed7c3.jpg",
     "cover_key": "f18ed7c3",
-    "resultado": "81-89"
+    "resultado": "81-89",
+    "audio_calidad": 2
   }
 ]
