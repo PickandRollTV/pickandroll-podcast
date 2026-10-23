@@ -19,13 +19,14 @@ import datetime
 import json
 import os
 import pathlib
+import re
 import subprocess
 import sys
 import tempfile
 import time
 
 from feed import write_feed
-from intro import intro_offset
+from intro import LEAD_IN_SECONDS, intro_offset
 from miniaturas import add_covers
 from presentacion import clean_title, episode_title
 from resultados import find_score
@@ -53,6 +54,8 @@ RECENT_VODS = 8
 # poder leerse (8 pasadas = 2 horas).
 TWITCH_TRIES = 3
 TWITCH_FAILS_BEFORE_ALERT = 8
+# Sube cuando cambia cómo se baja o se convierte el audio: los episodios anteriores se rehacen.
+AUDIO_QUALITY = 2
 
 
 def load_json(path, default):
@@ -107,10 +110,11 @@ def download_audio(vod, workdir):
     out = workdir / f"{vod['id']}.mp3"
     subprocess.run(
         ["yt-dlp", "--no-warnings", "--quiet",
-         # Twitch ofrece una pista "audio_only"; si no está, la calidad de vídeo más baja.
-         "-f", "audio_only/worst", "-x", "--audio-format", "mp3", "--audio-quality", "96K",
-         # Mono: es una retransmisión hablada y el archivo pesa la mitad.
-         "--postprocessor-args", "ExtractAudio:-ac 1",
+         # La pista "Audio_Only" de Twitch (AAC a ~350 kbps). Antes pedíamos "audio_only/worst":
+         # el id no coincidía por las mayúsculas y bajaba el vídeo de 160p, con audio a 48 kbps.
+         "-f", "bestaudio/best", "-x", "--audio-format", "mp3", "--audio-quality", "128K",
+         # Volumen a -16 LUFS (lo que recomienda Spotify) y sin picos que saturen.
+         "--postprocessor-args", "ExtractAudio:-ac 2 -ar 44100 -af loudnorm=I=-16:TP=-1.5:LRA=11",
          "-o", str(workdir / "%(id)s.%(ext)s"), vod["url"]],
         check=True, capture_output=True, text=True,
     )
@@ -193,7 +197,43 @@ def apply_manual_trims(episodes, config):
             episode["audio_bytes"] = audio.stat().st_size
             episode["duration"] = audio_seconds(audio)
         episode["recorte_manual"] = seconds
+        episode["audio_calidad"] = AUDIO_QUALITY
         episode.pop("recorte_extra", None)
+        changed = True
+    return changed
+
+
+def improve_old_audio(episodes, config):
+    """Vuelve a bajar de Twitch, con la calidad actual, los directos publicados con la anterior.
+
+    Se sube con otro nombre de archivo para que Spotify vea que el audio ha cambiado. Cada
+    pasada rehace unos pocos, empezando por los más recientes, para no alargarla demasiado.
+    """
+    changed = False
+    old = [e for e in episodes if e.get("source") == "twitch" and e.get("audio_calidad", 1) < AUDIO_QUALITY]
+    for episode in sorted(old, key=lambda e: e["published"], reverse=True)[:int(config.get("audios_a_rehacer_por_pasada", 2))]:
+        if episode.get("recorte_manual") is not None:
+            seconds = int(episode["recorte_manual"])
+        else:
+            greeting = re.match(r"Saludo en (\d+):(\d\d)", episode.get("recorte", ""))
+            seconds = (int(max(int(greeting[1]) * 60 + int(greeting[2]) - LEAD_IN_SECONDS, 0)) if greeting
+                       else int(config.get("countdown_seconds", 0)))
+        vod = {"id": episode["vod_id"], "url": f"https://www.twitch.tv/videos/{episode['vod_id']}"}
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                audio = trim_start(download_audio(vod, pathlib.Path(tmp)), seconds)
+                audio = audio.rename(audio.with_name(f"{audio.stem}-hq{audio.suffix}"))
+                episode["audio_url"] = upload_audio(f"twitch-{episode['vod_id']}", episode["title"], audio)
+                episode["audio_bytes"] = audio.stat().st_size
+                episode["duration"] = audio_seconds(audio)
+        except subprocess.CalledProcessError as error:
+            # Si Twitch ya borró el directo, se queda con el audio que tenía.
+            LOG.append(f"Audio de {episode['vod_id']}: no se pudo rehacer {error!r} {(error.stderr or '')[-500:]}")
+            episode["audio_calidad"] = AUDIO_QUALITY
+            changed = True
+            continue
+        LOG.append(f"Audio de {episode['vod_id']}: rehecho con la calidad nueva, recortando {seconds} s")
+        episode["audio_calidad"] = AUDIO_QUALITY
         changed = True
     return changed
 
@@ -278,6 +318,7 @@ def main():
             continue
         episode = episode_from_vod(vod, url, size, skip, config)
         episode["recorte"] = trim_note[:3000]
+        episode["audio_calidad"] = AUDIO_QUALITY
         episodes.append(episode)
         # Guardamos y publicamos tras cada episodio: así sale en Spotify sin esperar al resto
         # del lote, y no se vuelve a subir si algo falla después.
@@ -290,6 +331,7 @@ def main():
     # El resultado suele publicarse un rato después del partido; se reintenta en cada pasada.
     try:
         trimmed = apply_manual_trims(episodes, config)
+        trimmed |= improve_old_audio(episodes, config)
     except Exception as error:
         LOG.append(f"No se pudo recortar a mano: {error!r} {getattr(error, 'stderr', '')}"[:2000])
         trimmed = False
