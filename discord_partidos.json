@@ -100,5 +100,18 @@
       "https://pickandroll.tv/joel-parra-es-un-sueno-sekulic-milan-barca/"
     ],
     "final": true
+  },
+  "30562-40": {
+    "thread": "1563181864796033158",
+    "start": "2026-10-24T19:00:00+00:00",
+    "competition": "Liga Endesa",
+    "rival": [
+      "casademont",
+      "zaragoza"
+    ],
+    "news": [
+      "https://pickandroll.tv/casademont-zaragoza-analisis-rival-barca/"
+    ],
+    "final": false
   }
 }
