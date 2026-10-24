@@ -1,5 +1,11 @@
 [
   {
+    "id": "2909670862",
+    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v CASADEMONT ZARAGOZA | JORNADA 5 LIGA ENDESA 2026-10-24 18:17",
+    "inicio": "2026-10-24T18:01:53+00:00",
+    "duracion_min": 15
+  },
+  {
     "id": "2907780419",
     "titulo": "🔴 EN DIRECTO | 🏀 ARMANI OLIMPIA MILAN v BARÇA BASKET | ROUND 7 EUROLEAGUE",
     "inicio": "2026-10-22T17:32:26+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🔴 EN DIRECTO | 🏀 UCAM MURCIA v BARÇA BASKET | LigaEndesa Jornada 2",
     "inicio": "2026-10-04T16:17:07+00:00",
     "duracion_min": 261
-  },
-  {
-    "id": "2889896671",
-    "titulo": "🔴 EN DIRECTO | 🏀 BESIKTAS v BARÇA BASKET | Euroleague Round 3",
-    "inicio": "2026-10-02T16:37:35+00:00",
-    "duracion_min": 230
   }
 ]
