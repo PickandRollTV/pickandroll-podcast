@@ -384,5 +384,23 @@
     "cover_key": "f18ed7c3",
     "resultado": "81-89",
     "audio_calidad": 2
+  },
+  {
+    "guid": "twitch:2909670862",
+    "source": "twitch",
+    "vod_id": "2909670862",
+    "title": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v CASADEMONT ZARAGOZA | JORNADA 5 LIGA ENDESA",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2909670862\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-24T18:01:53+00:00",
+    "duration": 14087,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/800242bfd5b9e4e75b18_pickandrolltv_318098197090_1792864906//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2909670862",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2909670862/v2909670862.mp3",
+    "audio_bytes": 225388394,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 3:38: 3:03 Somos 24 agosto, de samarretas que volen. | 3:08 De confiar en la quip. | 3:14 Somos el 2003, el 2010. | 3:19 Somos la última pilota, somos campeons, somos centenaris. | 3:31 Un escut, un clam. | 3:38 Buenas tardes y bienvenidos amigos a Picanrol.",
+    "audio_calidad": 2,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2909670862-21a3e754.jpg",
+    "cover_key": "21a3e754"
   }
 ]
