@@ -309,13 +309,14 @@
     "duration": 15541,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/b8e152d5272a1e24b48f_pickandrolltv_318006586596_1791912679//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2899824317",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2899824317/v2899824317.mp3",
-    "audio_bytes": 186500020,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2899824317/v2899824317-hq.mp3",
+    "audio_bytes": 248667467,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:38: 3:18 Somos el último piloto. | 3:22 Somos campeons. | 3:26 Somos centenarios. | 3:30 Un escut. | 3:36 Todo un clav. | 3:38 Buenas tardes y bienvenidos amigos, amigas a Picanroll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2899824317-ec31a03e.jpg",
     "cover_key": "ec31a03e",
-    "resultado": "90-87"
+    "resultado": "90-87",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2902425155",
@@ -327,13 +328,14 @@
     "duration": 16174,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/4518443b499581d81683_pickandrolltv_318017716194_1792172050//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2902425155",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2902425155/v2902425155.mp3",
-    "audio_bytes": 194091988,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2902425155/v2902425155-hq.mp3",
+    "audio_bytes": 258792528,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:31: 3:04 Somos el 24 de agosto. Somos 24 de agosto. | 3:08 Somos los amarritos que volen, que confía en la quiebra. | 3:16 Somos el 2003, el 2010. Somos el último piloto. | 3:27 Somos campeones, somos centenarios. | 3:36 Un escudo, todo un clav. | 5:31 Buenas tardes y bienvenidos amigos, amigas a Picanrol.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2902425155-d3859e85.jpg",
     "cover_key": "d3859e85",
-    "resultado": "100-105"
+    "resultado": "100-105",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2904283509",
