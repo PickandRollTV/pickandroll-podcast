@@ -163,15 +163,16 @@
     "title": "🏀 JOVENTUT BADALONA v BARÇA | FINAL SUPERCOPA ENDESA 🏆",
     "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2879416124\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
     "published": "2026-09-20T16:01:19+00:00",
-    "duration": 18028,
+    "duration": 18030,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/a1b4972cf24bcb9e0926_pickandrolltv_317779223778_1789920073/thumb/custom-cd02a52c-8d12-4e8e-9d5e-060f8063c123-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2879416124",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2879416124/v2879416124.mp3",
-    "audio_bytes": 216335668,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2879416124/v2879416124-hq.mp3",
+    "audio_bytes": 288491455,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:40: 3:29 Somos centenarios. | 3:32 Un escudo, un clav. | 3:40 ¡Bienvenidos a Pican Roll!",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2879416124-4c8b3a82.jpg",
-    "cover_key": "4c8b3a82"
+    "cover_key": "4c8b3a82",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2882894090",
@@ -180,16 +181,17 @@
     "title": "🏀 BARÇA BASKET v ANADOLU EFES | EUROLEAGUE ROUND 1 🏆",
     "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2882894090\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
     "published": "2026-09-24T17:31:36+00:00",
-    "duration": 16873,
+    "duration": 16875,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/83d6a3a2a9c908af0f8e_pickandrolltv_317813341666_1790271089/thumb/custom-a8d80430-feb6-4c56-b219-bdb43b4af909-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2882894090",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2882894090/v2882894090.mp3",
-    "audio_bytes": 202482004,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2882894090/v2882894090-hq.mp3",
+    "audio_bytes": 270010135,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:59: 3:22 Somos campeones, somos centenaris. | 3:35 Un escut, todo un clav. | 5:59 Buenas tardes y bienvenidos amigas, amigas, a Pican Roll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2882894090-7542c5d9.jpg",
     "cover_key": "7542c5d9",
-    "resultado": "89-82"
+    "resultado": "89-82",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2884729939",
