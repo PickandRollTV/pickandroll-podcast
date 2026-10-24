@@ -273,13 +273,14 @@
     "duration": 16316,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/8716ff0da5213ea3d341_pickandrolltv_317951565666_1791567010//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2896169724",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2896169724/v2896169724.mp3",
-    "audio_bytes": 195799540,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2896169724/v2896169724-hq.mp3",
+    "audio_bytes": 261067062,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:25: 3:03 Somos el 2003, el 2010. | 3:07 Somos el último piloto. | 3:13 Somos campeones. | 3:16 Somos centenarios. | 3:20 Un escut, un clav. | 3:25 Buenas tardes amigos, amigas, bienvenidos a Pecan Roll,",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2896169724-b115263f.jpg",
     "cover_key": "b115263f",
-    "resultado": "81-88"
+    "resultado": "81-88",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2898022009",
@@ -291,13 +292,14 @@
     "duration": 14532,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/bdcc47e25b01706ff830_pickandrolltv_317972199522_1791734799//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2898022009",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2898022009/v2898022009.mp3",
-    "audio_bytes": 174375796,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2898022009/v2898022009-hq.mp3",
+    "audio_bytes": 232513763,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:37: 3:14 Somos el 2003, el 2010. | 3:18 Somos el último piloto. | 3:22 Somos campeónes. | 3:25 Somos centenarios. | 3:29 Un escut, un clam. | 3:37 Buenas tardes y bienvenidos, amigas, amigas a Picanroll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2898022009-2631786c.jpg",
     "cover_key": "2631786c",
-    "resultado": "89-86"
+    "resultado": "89-86",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2899824317",
