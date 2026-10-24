@@ -198,16 +198,17 @@
     "title": "🏀 BARÇA BASKET v LEYMA CORUÑA | LIGA ENDESA J1🏆",
     "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2884729939\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
     "published": "2026-09-26T18:01:09+00:00",
-    "duration": 14194,
+    "duration": 14196,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/5ce4e5e328d6e05d7f21_pickandrolltv_317855216996_1790445662/thumb/custom-9b52bbdc-2eb9-4712-a4a1-f36e226f9bcc-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2884729939",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2884729939/v2884729939.mp3",
-    "audio_bytes": 170334580,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2884729939/v2884729939-hq.mp3",
+    "audio_bytes": 227144659,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:08: 3:30 Un escut. | 3:36 Todo un clav. | 5:08 ¡Bienvenidos amigos, amigos de Pican Roll!",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2884729939-a595e277.jpg",
     "cover_key": "a595e277",
-    "resultado": "119-101"
+    "resultado": "119-101",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2887250903",
@@ -216,16 +217,17 @@
     "title": "🏀 DUBAI BASKETBALL v BARÇA BASKET | 🏆Euroleague Round 2",
     "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2887250903\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
     "published": "2026-09-29T15:30:30+00:00",
-    "duration": 13230,
+    "duration": 13232,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/d791e20784a76351a783_pickandrolltv_317890946915_1790695823/thumb/custom-b1c3c9f6-25ea-4a11-a161-1cf906b28bd6-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2887250903",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2887250903/v2887250903.mp3",
-    "audio_bytes": 158757268,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2887250903/v2887250903-hq.mp3",
+    "audio_bytes": 211720712,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:56: 3:30 Un escut. | 3:36 Todo un clav. | 3:56 Buenas tardes y bienvenidos a Pick and Roll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2887250903-0ebea850.jpg",
     "cover_key": "0ebea850",
-    "resultado": "94-87"
+    "resultado": "94-87",
+    "audio_calidad": 2
   },
   {
     "guid": "twitch:2889896671",
