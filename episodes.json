@@ -262,14 +262,14 @@
     "duration": 15389,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/1e2569de957f8c875fbb_pickandrolltv_317936944483_1791130620//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2891818597",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597-hq.mp3",
-    "audio_bytes": 246226585,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2891818597/v2891818597-q3.mp3",
+    "audio_bytes": 307783197,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:21: 3:25 Somos campos, somos centenarios. | 3:36 Un escudo, un clav. | 5:21 ¡Bienvenidos a la maqueda para nuestro video!",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2891818597-e4f215f3.jpg",
     "cover_key": "e4f215f3",
     "resultado": "100-94",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2896169724",
@@ -281,14 +281,14 @@
     "duration": 16316,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/8716ff0da5213ea3d341_pickandrolltv_317951565666_1791567010//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2896169724",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2896169724/v2896169724-hq.mp3",
-    "audio_bytes": 261067062,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2896169724/v2896169724-q3.mp3",
+    "audio_bytes": 326333793,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:25: 3:03 Somos el 2003, el 2010. | 3:07 Somos el último piloto. | 3:13 Somos campeones. | 3:16 Somos centenarios. | 3:20 Un escut, un clav. | 3:25 Buenas tardes amigos, amigas, bienvenidos a Pecan Roll,",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2896169724-b115263f.jpg",
     "cover_key": "b115263f",
     "resultado": "81-88",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2898022009",
