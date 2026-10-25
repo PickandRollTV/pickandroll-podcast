@@ -224,14 +224,14 @@
     "duration": 13232,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/d791e20784a76351a783_pickandrolltv_317890946915_1790695823/thumb/custom-b1c3c9f6-25ea-4a11-a161-1cf906b28bd6-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2887250903",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2887250903/v2887250903-hq.mp3",
-    "audio_bytes": 211720712,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2887250903/v2887250903-q3.mp3",
+    "audio_bytes": 264650854,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:56: 3:30 Un escut. | 3:36 Todo un clav. | 3:56 Buenas tardes y bienvenidos a Pick and Roll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2887250903-0ebea850.jpg",
     "cover_key": "0ebea850",
     "resultado": "94-87",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2889896671",
@@ -243,14 +243,14 @@
     "duration": 13044,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/0bbaa3653fe8dbc2ca8e_pickandrolltv_317917527651_1790959049//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2889896671",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2889896671/v2889896671-hq.mp3",
-    "audio_bytes": 208708061,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2889896671/v2889896671-q3.mp3",
+    "audio_bytes": 260885042,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 12:56: 14:04 adiado querido es parte eso es parte de el show business tú sabes exacto aquí esto es otra cosa | 14:16 decíamos la jornada ayer japo el 102 98 real madrid | 14:24 camisanz camisanz real madrid 0 3 0 3 van ahora mismo la calificación último | 14:35 lo que sí que la verdad japo el ayer se ha ganado de 20 y el tercer cuarto pecho fría total que se | 14:44 puse en madrid en el partido vaya y la fima la fima no en el último cuarto menos mal que arreglaron | 14:52 un poco las cosas y ganaron el que tenía que ganar vaya dice miquel miquel terror dice bueno",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2889896671-f9031773.jpg",
     "cover_key": "f9031773",
     "resultado": "82-95",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2891818597",
