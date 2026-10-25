@@ -129,14 +129,14 @@
     "duration": 7466,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/6cb9f405e6c3081e8a8d_pickandrolltv_317760421218_1789752760/thumb/custom-7b2c57cc-8495-4e0a-9e37-b2734422e753-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2877581873",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2877581873/v2877581873-hq.mp3",
-    "audio_bytes": 119465417,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2877581873/v2877581873-q3.mp3",
+    "audio_bytes": 149331735,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:15: 4:21 2010 | 4:25 Som l'ultima pilota | 4:28 Som campio | 4:33 Som centenaris | 4:39 Un escut, un clam | 5:15 Buenas tardes y bienvenidos amigos amigas a Picanroll",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2877581873-1d380b92.jpg",
     "cover_key": "1d380b92",
     "resultado": "86-87",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2878537661",
