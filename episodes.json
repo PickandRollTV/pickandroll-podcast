@@ -376,14 +376,14 @@
     "duration": 17380,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/3d61e0a621947fa39241_pickandrolltv_318105944035_1792690340//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2907780419",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2907780419/v2907780419-hq.mp3",
-    "audio_bytes": 278092629,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2907780419/v2907780419-q3.mp3",
+    "audio_bytes": 347615752,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 6:23: 3:21 Somos el último piloto. | 3:25 Somos campeones. | 3:27 Somos centenarios. | 3:35 Un escudo. | 3:37 Todo un clav. | 6:23 Buenas tardes. Bienvenidos, amigas, amigas, a Picanroll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2907780419-f18ed7c3.jpg",
     "cover_key": "f18ed7c3",
     "resultado": "81-89",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2909670862",
@@ -395,11 +395,11 @@
     "duration": 14087,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/800242bfd5b9e4e75b18_pickandrolltv_318098197090_1792864906//thumb/thumb0-0x0.jpg",
     "link": "https://www.twitch.tv/videos/2909670862",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2909670862/v2909670862.mp3",
-    "audio_bytes": 225388394,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2909670862/v2909670862-q3.mp3",
+    "audio_bytes": 281742772,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 3:38: 3:03 Somos 24 agosto, de samarretas que volen. | 3:08 De confiar en la quip. | 3:14 Somos el 2003, el 2010. | 3:19 Somos la última pilota, somos campeons, somos centenaris. | 3:31 Un escut, un clam. | 3:38 Buenas tardes y bienvenidos amigos a Picanrol.",
-    "audio_calidad": 2,
+    "audio_calidad": 3,
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2909670862-b4994343.jpg",
     "cover_key": "b4994343",
     "resultado": "99-81"
