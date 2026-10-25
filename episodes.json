@@ -186,14 +186,14 @@
     "duration": 16875,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/83d6a3a2a9c908af0f8e_pickandrolltv_317813341666_1790271089/thumb/custom-a8d80430-feb6-4c56-b219-bdb43b4af909-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2882894090",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2882894090/v2882894090-hq.mp3",
-    "audio_bytes": 270010135,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2882894090/v2882894090-q3.mp3",
+    "audio_bytes": 337512634,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:59: 3:22 Somos campeones, somos centenaris. | 3:35 Un escut, todo un clav. | 5:59 Buenas tardes y bienvenidos amigas, amigas, a Pican Roll.",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2882894090-7542c5d9.jpg",
     "cover_key": "7542c5d9",
     "resultado": "89-82",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2884729939",
@@ -205,14 +205,14 @@
     "duration": 14196,
     "image": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/5ce4e5e328d6e05d7f21_pickandrolltv_317855216996_1790445662/thumb/custom-9b52bbdc-2eb9-4712-a4a1-f36e226f9bcc-0x0.jpeg",
     "link": "https://www.twitch.tv/videos/2884729939",
-    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2884729939/v2884729939-hq.mp3",
-    "audio_bytes": 227144659,
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2884729939/v2884729939-q3.mp3",
+    "audio_bytes": 283930789,
     "audio_type": "audio/mpeg",
     "recorte": "Saludo en 5:08: 3:30 Un escut. | 3:36 Todo un clav. | 5:08 ¡Bienvenidos amigos, amigos de Pican Roll!",
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2884729939-a595e277.jpg",
     "cover_key": "a595e277",
     "resultado": "119-101",
-    "audio_calidad": 2
+    "audio_calidad": 3
   },
   {
     "guid": "twitch:2887250903",
