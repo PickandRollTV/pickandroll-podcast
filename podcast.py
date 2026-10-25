@@ -55,7 +55,7 @@ RECENT_VODS = 8
 TWITCH_TRIES = 3
 TWITCH_FAILS_BEFORE_ALERT = 8
 # Sube cuando cambia cómo se baja o se convierte el audio: los episodios anteriores se rehacen.
-AUDIO_QUALITY = 2
+AUDIO_QUALITY = 3
 
 
 def load_json(path, default):
@@ -106,20 +106,40 @@ def write_status(vods):
     ])
 
 
+# Limpieza del audio: fuera el retumbe de graves (por debajo de 80 Hz) y un compresor suave
+# para que las voces flojas y las fuertes se oigan parecidas en el coche o con auriculares.
+CLEAN_AUDIO = "highpass=f=80,acompressor=threshold=-22dB:ratio=3:attack=5:release=250:makeup=2"
+# Volumen final que recomienda Spotify.
+TARGET_LUFS = -16
+
+
 def download_audio(vod, workdir):
-    out = workdir / f"{vod['id']}.mp3"
+    # La pista "Audio_Only" de Twitch (AAC a ~350 kbps). Antes pedíamos "audio_only/worst":
+    # el id no coincidía por las mayúsculas y bajaba el vídeo de 160p, con audio a 48 kbps.
     subprocess.run(
-        ["yt-dlp", "--no-warnings", "--quiet",
-         # La pista "Audio_Only" de Twitch (AAC a ~350 kbps). Antes pedíamos "audio_only/worst":
-         # el id no coincidía por las mayúsculas y bajaba el vídeo de 160p, con audio a 48 kbps.
-         "-f", "bestaudio/best", "-x", "--audio-format", "mp3", "--audio-quality", "128K",
-         # Volumen a -16 LUFS (lo que recomienda Spotify) y sin picos que saturen.
-         "--postprocessor-args", "ExtractAudio:-ac 2 -ar 44100 -af loudnorm=I=-16:TP=-1.5:LRA=11",
-         "-o", str(workdir / "%(id)s.%(ext)s"), vod["url"]],
+        ["yt-dlp", "--no-warnings", "--quiet", "-f", "bestaudio/best",
+         "-o", str(workdir / "original.%(ext)s"), vod["url"]],
         check=True, capture_output=True, text=True,
     )
-    # yt-dlp nombra el archivo con el id de Twitch, que empieza por "v".
-    return next(workdir.glob("*.mp3"), out)
+    source = next(workdir.glob("original.*"))
+    # Primero se mide el volumen del audio ya limpio y luego se convierte una sola vez a MP3,
+    # con la ganancia justa y un limitador para que ningún pico sature.
+    measure = subprocess.run(
+        ["ffmpeg", "-nostats", "-i", str(source), "-vn", "-af", f"{CLEAN_AUDIO},ebur128=framelog=quiet",
+         "-f", "null", "-"],
+        check=True, capture_output=True, text=True,
+    ).stderr
+    loudness = float(re.findall(r"I:\s+(-?[\d.]+) LUFS", measure)[-1])
+    gain = min(max(TARGET_LUFS - loudness, -20), 20)
+    out = workdir / f"v{vod['id']}.mp3"
+    subprocess.run(
+        ["ffmpeg", "-loglevel", "error", "-y", "-i", str(source), "-vn",
+         "-af", f"{CLEAN_AUDIO},volume={gain:.1f}dB,alimiter=limit=0.79:level=false",
+         "-ar", "44100", "-ac", "2", "-c:a", "libmp3lame", "-b:a", "160k", str(out)],
+        check=True, capture_output=True, text=True,
+    )
+    source.unlink()
+    return out
 
 
 def trim_start(audio_path, seconds):
@@ -222,7 +242,7 @@ def improve_old_audio(episodes, config):
         try:
             with tempfile.TemporaryDirectory() as tmp:
                 audio = trim_start(download_audio(vod, pathlib.Path(tmp)), seconds)
-                audio = audio.rename(audio.with_name(f"{audio.stem}-hq{audio.suffix}"))
+                audio = audio.rename(audio.with_name(f"{audio.stem}-q{AUDIO_QUALITY}{audio.suffix}"))
                 episode["audio_url"] = upload_audio(f"twitch-{episode['vod_id']}", episode["title"], audio)
                 episode["audio_bytes"] = audio.stat().st_size
                 episode["duration"] = audio_seconds(audio)
