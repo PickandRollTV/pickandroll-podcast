@@ -403,5 +403,23 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2909670862-b4994343.jpg",
     "cover_key": "b4994343",
     "resultado": "99-81"
+  },
+  {
+    "guid": "twitch:2912342097",
+    "source": "twitch",
+    "vod_id": "2912342097",
+    "title": "🔴 EN DIRECTO | 🏀 BAYERN BASKETBALL v BARÇA BASKET | ROUND 8 EUROLEAGUE",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2912342097\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-27T18:06:47+00:00",
+    "duration": 13964,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/f470aac8289453f1bb25_pickandrolltv_318145878116_1793124400//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2912342097",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2912342097/v2912342097.mp3",
+    "audio_bytes": 279280469,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 5:57: 3:13 El 2003 o el 2010. | 3:22 Somos lunes. Somos campeones. | 3:29 Somos centenarios. | 3:34 Un escud, un clav. | 3:41 Ché, ché, ché. | 5:57 Tieta, amigos, amigas, bienvenidos a Pick and Roll.",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2912342097-bccc10a5.jpg",
+    "cover_key": "bccc10a5"
   }
 ]
