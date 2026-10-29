@@ -1,2 +1,3 @@
-No se pudo leer Twitch: Twitch no devolvió ningún directo guardado de pickandrolltv
+No se pudo leer Twitch: Command '['yt-dlp', '--no-warnings', '--skip-download', '-j', 'https://www.twitch.tv/videos/2912342097']' returned non-zero exit status 1.
+ERROR: [twitch:vod] 2912342097: Failed to download m3u8 information: HTTP Error 500: Internal Server Error (caused by <HTTPError 500: Internal Server Error>)
 
