@@ -136,5 +136,19 @@
       "https://pickandroll.tv/resumen-bayern-barca-84-88/"
     ],
     "final": true
+  },
+  "30553-89": {
+    "thread": "1565364977471062159",
+    "start": "2026-10-30T19:30:00+00:00",
+    "competition": "Euroliga",
+    "rival": [
+      "valencia"
+    ],
+    "news": [
+      "https://pickandroll.tv/previa-jornada-9-euroliga-barca-valencia/",
+      "https://pickandroll.tv/valencia-basket-analisis-rival-barca-euroliga/",
+      "https://pickandroll.tv/juan-nunez-esguince-tobillo-baja-valencia/"
+    ],
+    "final": false
   }
 }
