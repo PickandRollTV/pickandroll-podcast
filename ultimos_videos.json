@@ -1,5 +1,11 @@
 [
   {
+    "id": "2915018820",
+    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v VALENCIA BASKET | ROUND 9 EUROLEAGUE 2026-10-30 19:27",
+    "inicio": "2026-10-30T18:32:47+00:00",
+    "duracion_min": 54
+  },
+  {
     "id": "2912342097",
     "titulo": "🔴 EN DIRECTO | 🏀 BAYERN BASKETBALL v BARÇA BASKET | ROUND 8 EUROLEAGUE",
     "inicio": "2026-10-27T18:06:47+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v VALENCIA BASKET | Jornada 3 Liga Endesa",
     "inicio": "2026-10-11T16:06:46+00:00",
     "duracion_min": 245
-  },
-  {
-    "id": "2896169724",
-    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v ZALGIRIS | EuroLeague Round 4",
-    "inicio": "2026-10-09T17:30:15+00:00",
-    "duracion_min": 275
   }
 ]
