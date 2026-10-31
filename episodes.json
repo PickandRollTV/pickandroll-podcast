@@ -422,5 +422,23 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2912342097-20844c23.jpg",
     "cover_key": "20844c23",
     "resultado": "84-88"
+  },
+  {
+    "guid": "twitch:2915018820",
+    "source": "twitch",
+    "vod_id": "2915018820",
+    "title": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v VALENCIA BASKET | ROUND 9 EUROLEAGUE",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2915018820\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-10-30T18:32:47+00:00",
+    "duration": 17088,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/89dca344fee7c364dfb4_pickandrolltv_318180712164_1793385160//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2915018820",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2915018820/v2915018820.mp3",
+    "audio_bytes": 341744469,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 5:12: 3:09 Que confiá en la química. | 3:11 Somos el 2003 o el 2010. | 3:22 Somos el último pilota. | 3:24 Somos campeónes. | 3:28 Somos centenarios. | 5:12 Bienvenidos amigos a Pican Roll.",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2915018820-dace3e80.jpg",
+    "cover_key": "dace3e80"
   }
 ]
