@@ -156,5 +156,17 @@
       "https://pickandroll.tv/parra-cuando-el-palau-esta-asi-robinson-sekulic-barca-valencia/"
     ],
     "final": true
+  },
+  "30562-54": {
+    "thread": "1566122234769047553",
+    "start": "2026-11-01T18:00:00+00:00",
+    "competition": "Liga Endesa",
+    "rival": [
+      "unicaja"
+    ],
+    "news": [
+      "https://pickandroll.tv/willy-hernangomez-unicaja-evolucion-analisis/"
+    ],
+    "final": false
   }
 }
