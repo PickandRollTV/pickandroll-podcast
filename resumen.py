@@ -222,7 +222,8 @@ def build_short(clip, hook, out):
     """9:16: el directo encajado en el centro sobre su propio fondo desenfocado, con el gancho arriba."""
     run("ffmpeg", "-loglevel", "error", "-y", "-i", clip, "-filter_complex",
         "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:5,eq=brightness=-0.15[bg];"
-        "[0:v]scale=1080:-2[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,"
+        # Del directo se queda la parte derecha (marcador + cámara del narrador), más grande en el móvil.
+        "[0:v]scale=1920:1080,crop=1620:1080:300:0,scale=1080:-2[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,"
         f"drawtext=fontfile='{FONT}':text='{esc(hook)}':fontsize=92:fontcolor={NAVY}:box=1:boxcolor={YELLOW}:"
         "boxborderw=26:x=(w-text_w)/2:y=330,"
         f"drawtext=fontfile='{FONT}':text='pickandroll.tv':fontsize=60:fontcolor=white:box=1:boxcolor={GARNET}:"
@@ -347,10 +348,16 @@ def make(episode, config, cfg, workdir):
 
     # Capítulos de YouTube: portada en 0:00 y un capítulo cada ~4 jugadas, en tiempos del resumen.
     clip_len = cfg["antes_del_grito"] + cfg["despues_del_grito"]
+    # Nombres aproximados por la posición dentro del partido (sin inventar cuartos ni minutos).
     chapters = ["0:00 Inicio"]
-    for k in range(0, len(peaks), 4):
-        game_min = (peaks[k] - lo) // 60
-        chapters.append(f"{mmss(3 + k * clip_len)} Jugadas desde el minuto {game_min} del directo")
+    tramos = [(0.0, "Primera parte"), (0.5, "Segunda parte"), (0.85, "Los últimos minutos")]
+    puesto = set()
+    for k, p in enumerate(peaks):
+        frac = (p - lo) / max(1, hi - lo)
+        nombre = [n for f, n in tramos if frac >= f][-1]
+        if nombre not in puesto:
+            puesto.add(nombre)
+            chapters.append(f"{mmss(3 + k * clip_len)} {nombre}")
     chapters.append(f"{mmss(3 + len(peaks) * clip_len)} Final")
 
     # Short: el pico más alto de todos, con más contexto antes del grito.
