@@ -45,6 +45,33 @@ Solo se publican directos que empiecen después de `publish_streams_after` en
 
 *Actions → Publicar directos en el podcast → Run workflow* lo ejecuta en el momento.
 
+## Resumen en vídeo de cada partido
+
+`resumen.py` (lo lanza `resumen.yml` al terminar *Publicar directos en el podcast*) hace un
+resumen de unos 9 minutos de cada directo de partido: los títulos con " vs " o " v " que
+vienen de Twitch y a partir de `resumen.desde`.
+
+1. Elige el directo más reciente que aún no tenga resumen.
+2. Mide segundo a segundo cuánto sube la voz de la narración (ffmpeg) y, con Whisper
+   `tiny`, busca el tramo de unos 135 minutos con más palabras de partido.
+3. Elige los picos de ese tramo hasta llenar los 9 minutos.
+4. Baja de Twitch solo esos trozos y monta la portada (3 s), las jugadas y el cierre
+   (20 s, para la pantalla final de YouTube), con volumen de -14 LUFS.
+5. Hace un Short vertical de 24 s con el mejor pico.
+6. Sube `resumen.mp4`, `short.mp4`, `miniatura.jpg` y `datos.json` a la release
+   `resumen-<id del directo>` y lo anota en `resumenes.json` con estado `listo`.
+
+Se lanza al salir un episodio nuevo y, como red de seguridad, cada 3 horas. Los resúmenes
+con estado `listo` los publica después la tarea de YouTube de PickandRollTV. Si una
+ejecución falla tres veces, se deja de intentar para no gastar minutos de Actions.
+
+Para rehacer uno: *Actions → Resumen en vídeo del directo → Run workflow*, con el id del
+directo de Twitch en `vod` (vacío = el último pendiente). Si marcas `prueba`, el resultado
+queda como `prueba` y no se publica.
+
+El diseño de las tarjetas (portada, cierre y gancho del Short) está en
+[`motion/prompt-motion.md`](motion/prompt-motion.md).
+
 ## Cómo se ve en Spotify
 
 `presentacion.py` deja los títulos con un formato fijo ("Equipo vs Equipo | Competición
