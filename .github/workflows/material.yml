@@ -1,0 +1,32 @@
+name: Material de montaje del directo
+
+on:
+  workflow_dispatch:
+    inputs:
+      vod: {type: string, required: true}
+      desde: {type: string, required: true, description: "segundo del directo"}
+      hasta: {type: string, required: true}
+      trozo: {type: string, default: "1500"}
+      modelo: {type: string, default: "small"}
+
+permissions:
+  contents: write
+
+jobs:
+  material:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install -r requirements.txt
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          VOD: ${{ inputs.vod }}
+          DESDE: ${{ inputs.desde }}
+          HASTA: ${{ inputs.hasta }}
+          TROZO: ${{ inputs.trozo }}
+          MODELO: ${{ inputs.modelo }}
+        run: python material.py
