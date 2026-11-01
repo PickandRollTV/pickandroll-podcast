@@ -441,5 +441,23 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2915018820-6c1003f9.jpg",
     "cover_key": "6c1003f9",
     "resultado": "98-94"
+  },
+  {
+    "guid": "twitch:2916823508",
+    "source": "twitch",
+    "vod_id": "2916823508",
+    "title": "🔴 EN DIRECTO | 🏀  UNICAJA v BARÇA BASKET | JORNADA 6 LIGA ENDESA",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2916823508\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-11-01T17:01:43+00:00",
+    "duration": 14082,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/d96c7fb9e50907756c66_pickandrolltv_318203896036_1793552498//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2916823508",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2916823508/v2916823508.mp3",
+    "audio_bytes": 281638804,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 3:37: 3:09 El 2003, el 2010. | 3:18 Somos la última pilota. | 3:22 Somos campeones. | 3:26 Somos centenarios. | 3:30 Un escut, un clam. | 3:37 Buenas tardes y bienvenidos amigos y amigas a Pican Roll.",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2916823508-2b1340f6.jpg",
+    "cover_key": "2b1340f6"
   }
 ]
