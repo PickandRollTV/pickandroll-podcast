@@ -1,7 +1,14 @@
 {
   "2915018820": {
-    "estado": "error",
-    "error": "TypeError(\"open() got an unexpected keyword argument 'metadata_errors'\") ",
-    "intentos": 1
+    "estado": "prueba",
+    "titulo": "RESUMEN Barça 98-94 Valencia | Euroliga Jornada 9 narrado en directo",
+    "marcador": "Barça 98-94 Valencia",
+    "creado": "2026-11-01T01:48:50.332371+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2915018820/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2915018820/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2915018820/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2915018820/datos.json"
+    }
   }
 }
