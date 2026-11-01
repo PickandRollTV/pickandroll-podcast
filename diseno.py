@@ -190,7 +190,7 @@ def wrap(text, style, size, width, max_lines=5):
 
 
 def character(image, bottom, height=1600, right=None):
-    right = W + 84 if right is None else right
+    right = (W + SIZE) // 2 + 84 if right is None else right
     person = Image.open(PERSONAJE).convert("RGBA")
     person = person.resize((round(person.width * height / person.height), height), Image.LANCZOS)
     layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
@@ -210,9 +210,12 @@ def render(home, score, away, competition, kicker_date, wide=False, pie="PICKAND
     # La versión apaisada (16:9) se dibuja con el mismo alto y más ancho, y se entrega a 3840x2160.
     global W
     W = round(SIZE * 16 / 9) if wide else SIZE
-    column = 2500 if wide else 1180
+    column = 1180
     image = background()
-    margin = 300
+    # En 16:9 todo va en el cuadrado central: Spotify recorta la miniatura a cuadrado en
+    # muchas vistas, y así no se pierde nada. A los lados solo queda el fondo.
+    ox = (W - SIZE) // 2
+    margin = 300 + ox
     width = SIZE - margin * 2
     band_top = 2430
 
@@ -222,7 +225,7 @@ def render(home, score, away, competition, kicker_date, wide=False, pie="PICKAND
     # Como la tarjeta de la web: arriba el logo horizontal y debajo la etiqueta roja.
     logo = Image.open(LOGO_H).convert("RGBA")
     logo = logo.crop(logo.getbbox())
-    lw = 1250 if wide else 980
+    lw = 980
     logo = logo.resize((lw, round(logo.height * lw / logo.width)), Image.LANCZOS)
     shadow = Image.new("L", image.size, 0)
     shadow.paste(logo.getchannel("A"), (margin - 40 + 20, 200 + 28))
@@ -233,7 +236,7 @@ def render(home, score, away, competition, kicker_date, wide=False, pie="PICKAND
     content_top = tag_top + tag_h
 
     # A la derecha, el personaje de PickandRollTV girando el balón, saliendo de la franja de abajo.
-    character(image, band_top, *((2050, None) if wide else (1600, None)))
+    character(image, band_top, 1600)
 
     if not home and headline:
         # Programas sin partido (previas, especiales): el título en grande, en varias líneas.
@@ -246,9 +249,9 @@ def render(home, score, away, competition, kicker_date, wide=False, pie="PICKAND
 
     if home:
         big = score.replace("-", "–") if score else "VS"
-        home_font = fit(short_name(home), "Black", 470 if wide else 340, column)
-        score_font = fit(big, "Black", 900 if wide else 620, column)
-        away_font = fit(short_name(away), "Black", 470 if wide else 340, column)
+        home_font = fit(short_name(home), "Black", 340, column)
+        score_font = fit(big, "Black", 620, column)
+        away_font = fit(short_name(away), "Black", 340, column)
         # Se colocan por la altura de las mayúsculas (sin contar la cedilla de BARÇA), con
         # el mismo hueco entre el equipo de arriba y el marcador que entre el marcador y el de abajo,
         # y el bloque centrado entre la etiqueta y la franja.

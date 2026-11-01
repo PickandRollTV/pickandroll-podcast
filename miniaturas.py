@@ -85,7 +85,7 @@ def add_covers(episodes, docs_dir, base_url, title_of):
     for episode in episodes:
         title = title_of(episode)
         wide = wide_ids == "todas" or episode["guid"] in wide_ids
-        key = hashlib.sha1(f"v14|{'16x9|' if wide else ''}{title}".encode()).hexdigest()[:8]
+        key = hashlib.sha1(f"v15|{'16x9|' if wide else ''}{title}".encode()).hexdigest()[:8]
         if episode.get("cover_key") == key:
             continue
         slug = re.sub(r"[^a-z0-9]+", "-", episode["guid"].lower()).strip("-")
