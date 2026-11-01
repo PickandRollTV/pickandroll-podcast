@@ -19,7 +19,7 @@ if subprocess.run(["gh", "release", "view", tag, "--repo", repo], capture_output
     run("gh", "release", "create", tag, "--repo", repo, "--title", f"Material de montaje {vod}",
         "--notes", "Trozos del directo y transcripción para montar el resumen a mano. No se publica.")
 
-for n, s in enumerate(range(a0, a1, step)):
+for n, s in [(int(os.environ.get("N", "0")), a0)]:
     e = min(a1, s + step)
     f = out / f"parte-{n:02d}-{s}.mp4"
     run("yt-dlp", "--no-warnings", "-f", "best[height<=720]/best", "--download-sections", f"*{s}-{e}",

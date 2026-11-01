@@ -17,14 +17,15 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: resumen
-  cancel-in-progress: false
 
 jobs:
   resumen:
     runs-on: ubuntu-latest
     timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        n: [0, 1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -40,8 +41,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           VOD: ${{ inputs.vod }}
-          DESDE: "4100"
-          HASTA: "11000"
-          TROZO: "1380"
+          N: ${{ matrix.n }}
           MODELO: small
-        run: python material.py
+        run: |
+          export DESDE=$((4100 + N*1380)); export HASTA=$((DESDE + 1380)); export TROZO=1380
+          python material.py
