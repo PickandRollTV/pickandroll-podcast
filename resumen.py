@@ -120,15 +120,18 @@ def game_window_by_words(mp3, minutes, workdir):
         from faster_whisper import WhisperModel
     except ImportError:
         return None
-    wav = workdir / "voz.wav"
-    run("ffmpeg", "-loglevel", "error", "-y", "-i", mp3, "-ac", "1", "-ar", "16000", wav)
+    import numpy
+    # Se decodifica con ffmpeg (como intro.py): el PyAV de faster-whisper falla con algunas versiones.
+    pcm = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(mp3), "-ac", "1", "-ar", "16000",
+                          "-f", "f32le", "-"], check=True, capture_output=True).stdout
+    samples = numpy.frombuffer(pcm, dtype=numpy.float32)
+    del pcm
     model = WhisperModel("tiny", device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
-    segments, _ = model.transcribe(str(wav), language="es", beam_size=1, vad_filter=True,
+    segments, _ = model.transcribe(samples, language="es", beam_size=1, vad_filter=True,
                                    condition_on_previous_text=False)
     per_minute = {}
     for seg in segments:
         per_minute[int(seg.start // 60)] = per_minute.get(int(seg.start // 60), 0) + len(GAME_WORDS.findall(seg.text))
-    wav.unlink()
     if not per_minute:
         return None
     last = max(per_minute) + 1
