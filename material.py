@@ -24,15 +24,17 @@ for n, s in [(int(os.environ.get("N", "0")), a0)]:
     f = out / f"parte-{n:02d}-{s}.mp4"
     run("yt-dlp", "--no-warnings", "-f", "best[height<=720]/best", "--download-sections", f"*{s}-{e}",
         "--force-keyframes-at-cuts", "-o", f, url)
-    wav = out / f"parte-{n:02d}.wav"
-    run("ffmpeg", "-loglevel", "error", "-y", "-i", f, "-ac", "1", "-ar", "16000", wav)
+    run("gh", "release", "upload", tag, f, "--repo", repo, "--clobber")
+    import numpy as np
+    raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(f), "-vn", "-ac", "1", "-ar", "16000", "-f", "s16le", "-"],
+                         capture_output=True, check=True).stdout
+    audio = np.frombuffer(raw, np.int16).astype(np.float32) / 32768
     from faster_whisper import WhisperModel
     m = WhisperModel(modelo, device="cpu", compute_type="int8")
-    segs, _ = m.transcribe(str(wav), language="es", word_timestamps=True, vad_filter=False,
+    segs, _ = m.transcribe(audio, language="es", word_timestamps=True, vad_filter=False,
                            initial_prompt="Narración en directo de PickandRollTV del Unicaja contra el Barça. Parra, Punter, Kravish, Perry, Hunt, Willy Hernangómez, Evbuomwan, Nkamhoua, Brizuela, Tyrese Martin, Justin Robinson, Umude.")
     data = [{"ini": round(s + g.start, 2), "fin": round(s + g.end, 2), "texto": g.text.strip(),
              "palabras": [[round(s + w.start, 2), round(s + w.end, 2), w.word] for w in (g.words or [])]} for g in segs]
     j = out / f"parte-{n:02d}-{s}.json"
     j.write_text(json.dumps(data, ensure_ascii=False))
-    run("gh", "release", "upload", tag, f, j, "--repo", repo, "--clobber")
-    f.unlink(); wav.unlink()
+    run("gh", "release", "upload", tag, j, "--repo", repo, "--clobber")
