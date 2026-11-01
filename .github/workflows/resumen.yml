@@ -1,0 +1,52 @@
+name: Resumen en vídeo del directo
+
+# Lo lanza "Publicar directos en el podcast" cuando sale un episodio nuevo.
+# A mano: Actions > Resumen en vídeo del directo > Run workflow (vod vacío = el último pendiente).
+on:
+  workflow_dispatch:
+    inputs:
+      vod:
+        description: "Id del directo de Twitch a resumir (vacío = el último pendiente)"
+        type: string
+        default: ""
+  schedule:
+    # Red de seguridad por si no llegó el aviso del podcast.
+    - cron: "40 */3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: resumen
+  cancel-in-progress: false
+
+jobs:
+  resumen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install -r requirements.txt opencv-python-headless numpy
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-tiny
+      - name: Montar el resumen y el Short
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESUMEN_VOD: ${{ inputs.vod }}
+        run: python resumen.py
+      - name: Guardar resumenes.json
+        if: always()
+        run: |
+          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
+          [ -f resumenes.json ] || exit 0
+          git add resumenes.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Resumen en vídeo"
+          for i in 1 2 3; do git pull -q --rebase -X theirs origin main && git push -q && exit 0; sleep 5; done
+          exit 1

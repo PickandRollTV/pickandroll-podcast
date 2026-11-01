@@ -90,3 +90,16 @@ de los mensajes ni nombres de miembros). Guarda el resultado en `auditoria/`.
   miembros con el rol MVP (no se guarda en el repositorio).
 
 La casilla de roles quita al rol MVP los permisos de moderación y crea el rol Moderador.
+
+## Resumen en vídeo de cada directo
+
+`resumen.yml` se lanza solo cuando el podcast publica un directo nuevo (y cada 3 h como red de seguridad). `resumen.py`:
+
+1. Baja el MP3 del episodio y lo transcribe con Whisper tiny para localizar el partido (los ~135 minutos con más palabras de narración: canasta, triple, rebote...).
+2. Dentro del partido mide cuánto sube la voz de la narración segundo a segundo y elige los picos (14 s de jugada antes del grito y 6 s después) hasta llenar 9 minutos.
+3. Baja de Twitch solo esos trozos, los une con portada, marca y un cierre de 20 s (para la pantalla final de YouTube), y hace un Short vertical con el pico más alto.
+4. Sube `resumen.mp4`, `short.mp4`, `miniatura.jpg` y `datos.json` (título, descripción con capítulos y etiquetas) a la release `resumen-<vod>` y lo apunta en `resumenes.json`.
+
+La publicación en YouTube y TikTok la hace la tarea programada de PickandRollTV (Zernio). La miniatura sale del pack del partido (`resumen_..._16x9_youtube.jpg`) con el marcador puesto por `miniatura_resumen.py`; si no hay pack, se usa `miniatura.jpg`.
+
+Ajustes en `config.json` > `resumen` (desde, minutos_objetivo, minutos_partido, segundos_cierre). Para rehacer uno: Run workflow con el id del directo.

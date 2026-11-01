@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 # Nunca dos ejecuciones a la vez, para no publicar el mismo directo dos veces.
 concurrency:
@@ -29,6 +30,8 @@ jobs:
         with:
           path: ~/.cache/huggingface
           key: whisper-small
+      - name: Contar episodios antes
+        run: echo "ANTES=$(python -c "import json;print(len(json.load(open('episodes.json'))))")" >> "$GITHUB_ENV"
       - name: Buscar directos terminados y publicarlos
         env:
           GH_TOKEN: ${{ github.token }}
@@ -36,3 +39,10 @@ jobs:
       - name: Guardar el feed actualizado
         if: always()
         run: python guardar.py
+      - name: Lanzar el resumen en vídeo si hay episodio nuevo
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          DESPUES=$(python -c "import json;print(len(json.load(open('episodes.json'))))")
+          if [ "$DESPUES" -gt "${ANTES:-$DESPUES}" ]; then gh workflow run resumen.yml --ref main; fi

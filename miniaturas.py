@@ -59,10 +59,10 @@ def competition_label(rest):
     return re.sub(r"\s+(Jornada \d+)$", r" · \1", label)
 
 
-def render(title, published, wide=False):
+def render(title, published, wide=False, **extra):
     from functools import partial
     from diseno import render as draw_cover
-    draw_cover = partial(draw_cover, wide=wide)
+    draw_cover = partial(draw_cover, wide=wide, **extra)
 
     home, score, away, rest = split_match(title)
     if not home:

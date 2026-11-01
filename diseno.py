@@ -206,7 +206,7 @@ def character(image, bottom, height=1600, right=None):
     image.paste(layer, (0, 0), ImageChops.multiply(layer.getchannel("A"), clip))
 
 
-def render(home, score, away, competition, kicker_date, wide=False):
+def render(home, score, away, competition, kicker_date, wide=False, pie="PICKANDROLLTV  ·  PODCAST", podcast=True):
     # La versión apaisada (16:9) se dibuja con el mismo alto y más ancho, y se entrega a 3840x2160.
     global W
     W = round(SIZE * 16 / 9) if wide else SIZE
@@ -263,11 +263,15 @@ def render(home, score, away, competition, kicker_date, wide=False):
 
     # Abajo: la franja de la web con Spotify y la marca, y el resultado como el botón amarillo.
     band(image, band_top)
-    spotify = Image.open(SPOTIFY).convert("RGBA").resize((150, 150), Image.LANCZOS)
-    image.paste(spotify, (margin - 40, band_top + 95), spotify)
     draw = ImageDraw.Draw(image)
-    draw.text((margin - 40, band_top + 380), "PICKANDROLLTV  ·  PODCAST", font=font("Bold", 100), fill=WHITE, anchor="ls")
-    result = barca_result(home or "", score, away or "")
+    if podcast:
+        spotify = Image.open(SPOTIFY).convert("RGBA").resize((150, 150), Image.LANCZOS)
+        image.paste(spotify, (margin - 40, band_top + 95), spotify)
+        draw.text((margin - 40, band_top + 380), pie, font=font("Bold", 100), fill=WHITE, anchor="ls")
+    else:
+        # Miniatura de YouTube: el texto de la franja en grande y nada abajo a la derecha (ahí va la duración).
+        draw.text((margin - 40, band_top + 330), pie, font=font("ExtraBold", 190), fill=YELLOW, anchor="ls")
+    result = barca_result(home or "", score, away or "") if podcast else None
     if result:
         won = result == "VICTORIA"
         pill(image, W - margin + 40, band_top + 228, result, font("ExtraBold", 110),
