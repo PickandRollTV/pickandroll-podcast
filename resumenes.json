@@ -1,0 +1,7 @@
+{
+  "2915018820": {
+    "estado": "error",
+    "error": "TypeError(\"open() got an unexpected keyword argument 'metadata_errors'\") ",
+    "intentos": 1
+  }
+}
