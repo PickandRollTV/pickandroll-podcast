@@ -13,9 +13,6 @@ on:
         description: "Solo prueba: se monta pero no se publica en YouTube"
         type: boolean
         default: false
-  schedule:
-    # Red de seguridad por si no llegó el aviso del podcast.
-    - cron: "40 */3 * * *"
 
 permissions:
   contents: write
@@ -27,7 +24,7 @@ concurrency:
 jobs:
   resumen:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -39,19 +36,12 @@ jobs:
         with:
           path: ~/.cache/huggingface
           key: whisper-tiny
-      - name: Montar el resumen y el Short
+      - name: Material de montaje (rama de trabajo)
         env:
           GH_TOKEN: ${{ github.token }}
-          RESUMEN_VOD: ${{ inputs.vod }}
-          RESUMEN_PRUEBA: ${{ inputs.prueba }}
-        run: python resumen.py
-      - name: Guardar resumenes.json
-        if: always()
-        run: |
-          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
-          [ -f resumenes.json ] || exit 0
-          git add resumenes.json
-          git diff --cached --quiet && exit 0
-          git commit -q -m "Resumen en vídeo"
-          for i in 1 2 3; do git pull -q --rebase -X theirs origin main && git push -q && exit 0; sleep 5; done
-          exit 1
+          VOD: ${{ inputs.vod }}
+          DESDE: "4100"
+          HASTA: "11000"
+          TROZO: "1380"
+          MODELO: small
+        run: python material.py
