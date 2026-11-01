@@ -9,6 +9,10 @@ on:
         description: "Id del directo de Twitch a resumir (vacío = el último pendiente)"
         type: string
         default: ""
+      prueba:
+        description: "Solo prueba: se monta pero no se publica en YouTube"
+        type: boolean
+        default: false
   schedule:
     # Red de seguridad por si no llegó el aviso del podcast.
     - cron: "40 */3 * * *"
@@ -39,6 +43,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RESUMEN_VOD: ${{ inputs.vod }}
+          RESUMEN_PRUEBA: ${{ inputs.prueba }}
         run: python resumen.py
       - name: Guardar resumenes.json
         if: always()

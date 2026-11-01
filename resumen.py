@@ -402,7 +402,9 @@ def main():
             save_json(RESUMENES_FILE, done)
             print(f"Falló el resumen de {episode['vod_id']}: {error!r}\n{detail[-3000:]}", file=sys.stderr)
             return 1
-    done[episode["vod_id"]] = {"estado": "listo", "titulo": data["titulo"], "marcador": data["marcador"],
+    # Las pruebas a mano no se publican: la tarea de YouTube solo publica las que están "listo".
+    estado = "prueba" if os.environ.get("RESUMEN_PRUEBA") == "true" else "listo"
+    done[episode["vod_id"]] = {"estado": estado, "titulo": data["titulo"], "marcador": data["marcador"],
                                "creado": datetime.datetime.now(datetime.timezone.utc).isoformat(), "archivos": urls}
     save_json(RESUMENES_FILE, done)
     print(f"Resumen listo: {data['titulo']}")
