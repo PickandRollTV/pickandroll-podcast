@@ -10,5 +10,17 @@
       "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2915018820/miniatura.jpg",
       "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2915018820/datos.json"
     }
+  },
+  "2916823508": {
+    "estado": "listo",
+    "titulo": "RESUMEN Unicaja 89-92 Barça | Liga Endesa Jornada 6 narrado en directo",
+    "marcador": "Unicaja 89-92 Barça",
+    "creado": "2026-11-02T07:07:51.763293+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2916823508/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2916823508/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2916823508/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2916823508/datos.json"
+    }
   }
 }
