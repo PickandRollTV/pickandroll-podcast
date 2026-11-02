@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Monta el vídeo resumen y un Short de cada directo de partido ya publicado en el podcast.
 
-Flujo de cada ejecución (lo lanza resumen.yml al acabar "Publicar directos en el podcast"):
-  1. Busca en episodes.json el directo de partido más reciente que aún no tenga resumen.
+Modo automático (cada 3 h y al acabar "Publicar directos en el podcast"): SOLO AVISA.
+  Si hay un partido terminado sin entrada en resumenes.json, lo apunta como "avisado" y abre
+  un issue. No monta ni publica nada: el resumen lo monta el hilo del resumen.
+
+Modo a mano (Run workflow con el id del directo): monta el borrador así y lo deja
+"pendiente_aprobacion". Solo se publica lo que está "listo", y "listo" lo pone Jaume con su sí.
+  1. Usa el directo indicado (nunca rehace uno ya cerrado salvo forzar).
   2. Baja su MP3 del podcast y mide, segundo a segundo, cuánto sube la voz de la narración.
      Los gritos de la narración marcan las jugadas buenas.
   3. Localiza el partido (el tramo de ~2 h 15 min con más emoción) y elige ahí los picos
@@ -10,7 +15,7 @@ Flujo de cada ejecución (lo lanza resumen.yml al acabar "Publicar directos en e
   4. Baja de Twitch SOLO esos trozos de vídeo, los une con portada y cierre (20 s para la
      pantalla final de YouTube) y hace un Short vertical con el mejor pico.
   5. Sube resumen.mp4, short.mp4, miniatura.jpg y datos.json a la release "resumen-<vod>"
-     y lo apunta en resumenes.json. Lo publica en YouTube la tarea de PickandRollTV.
+     y lo apunta en resumenes.json como "pendiente_aprobacion".
 
 Variables de entorno: GITHUB_REPOSITORY y GH_TOKEN (las pone GitHub Actions).
 Para rehacer uno: RESUMEN_VOD=<id del directo>.
@@ -309,7 +314,7 @@ def upload(tag, title, files):
         run("gh", "release", "upload", tag, *files, "--repo", repo, "--clobber")
     else:
         run("gh", "release", "create", tag, *files, "--repo", repo, "--title", title,
-            "--notes", "Resumen y Short del directo (se publican en YouTube automáticamente).")
+            "--notes", "Borrador del resumen y el Short. No se publica sin el sí de Jaume.")
     run("gh", "release", "edit", tag, "--repo", repo, "--draft=false")
     base = f"https://github.com/{repo}/releases/download/{tag}"
     return {pathlib.Path(f).name: f"{base}/{pathlib.Path(f).name}" for f in files}
@@ -383,9 +388,38 @@ def make(episode, config, cfg, workdir):
     return data, urls
 
 
+# Estados de resumenes.json:
+#   avisado               partido terminado; la tarea automática solo avisa (issue), no monta nada
+#   pendiente_aprobacion  montado a mano (Run workflow con su id); NUNCA se publica sin el sí de Jaume
+#   listo                 Jaume lo aprobó por escrito (lo pone a mano el hilo del resumen)
+#   publicado / hecho_manual / descartado / prueba   cerrado: no se vuelve a montar
+# Solo "listo" se publica. Un partido con cualquier estado que no sea "error" no se vuelve a montar.
+CERRADOS = {"listo", "publicado", "hecho_manual", "descartado", "pendiente_aprobacion", "prueba"}
+
+
 def finished(entry):
-    """Ya hecho, o fallado 3 veces (se deja de intentar para no gastar minutos de Actions)."""
+    """Ya avisado o hecho, o fallado 3 veces (se deja de intentar para no gastar minutos de Actions)."""
     return bool(entry) and (entry.get("estado") != "error" or entry.get("intentos", 0) >= 3)
+
+
+def now():
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+
+def avisar(episode):
+    """Abre un issue para que el hilo del resumen lo monte. No monta ni publica nada."""
+    repo = os.environ.get("GITHUB_REPOSITORY")
+    if not repo:
+        return ""
+    body = (f"Ha terminado el directo «{episode['title']}» (vod {episode['vod_id']}).\n\n"
+            "Esta tarea ya no monta resúmenes sola. El resumen lo monta el hilo del resumen, "
+            "con el último resumen aprobado como modelo, y no se publica sin el sí de Jaume.\n\n"
+            f"Para montar el borrador automático: Actions > Resumen en vídeo del directo > Run workflow con vod = {episode['vod_id']}.")
+    out = subprocess.run(["gh", "issue", "create", "--repo", repo,
+                          "--title", f"Partido terminado: {episode['title']} (montar resumen)", "--body", body],
+                         capture_output=True, text=True)
+    print(out.stdout or out.stderr)
+    return out.stdout.strip()
 
 
 def main():
@@ -395,29 +429,47 @@ def main():
     done = load_json(RESUMENES_FILE, {})
     since = datetime.datetime.fromisoformat(cfg["desde"].replace("Z", "+00:00"))
     wanted = os.environ.get("RESUMEN_VOD", "").strip()
-    pending = [e for e in episodes if is_match(e) and (
-        e["vod_id"] == wanted if wanted else
-        not finished(done.get(e["vod_id"])) and datetime.datetime.fromisoformat(e["published"]) >= since)]
-    if not pending:
-        print("Ningún directo nuevo para resumir")
+
+    if not wanted:
+        # Modo automático (cada 3 h o al salir un episodio): solo avisa, nunca monta.
+        nuevos = [e for e in episodes if is_match(e) and not finished(done.get(e["vod_id"]))
+                  and datetime.datetime.fromisoformat(e["published"]) >= since]
+        if not nuevos:
+            print("Ningún partido nuevo terminado")
+            return 0
+        for episode in nuevos:
+            done[episode["vod_id"]] = {"estado": "avisado", "titulo": episode["title"],
+                                       "avisado": now(), "issue": avisar(episode)}
+        save_json(RESUMENES_FILE, done)
         return 0
-    episode = sorted(pending, key=lambda e: e["published"])[-1]
+
+    # Modo a mano: solo con el id del directo. No rehace un partido ya cerrado salvo RESUMEN_FORZAR.
+    previo = done.get(wanted, {})
+    if previo.get("estado") in CERRADOS and os.environ.get("RESUMEN_FORZAR") != "true":
+        print(f"El partido {wanted} ya está «{previo['estado']}»: no se monta otro resumen. "
+              "Para rehacerlo de verdad, marca forzar.")
+        return 0
+    pending = [e for e in episodes if is_match(e) and e["vod_id"] == wanted]
+    if not pending:
+        print(f"No encuentro el directo {wanted} en episodes.json")
+        return 1
+    episode = pending[-1]
     with tempfile.TemporaryDirectory() as tmp:
         try:
             data, urls = make(episode, config, cfg, pathlib.Path(tmp))
         except Exception as error:
             detail = getattr(error, "stderr", "") or ""
-            done[episode["vod_id"]] = {"estado": "error", "error": f"{error!r} {detail[-1500:]}",
-                                       "intentos": done.get(episode["vod_id"], {}).get("intentos", 0) + 1}
+            done[episode["vod_id"]] = {**previo, "estado": "error", "error": f"{error!r} {detail[-1500:]}",
+                                       "intentos": previo.get("intentos", 0) + 1}
             save_json(RESUMENES_FILE, done)
             print(f"Falló el resumen de {episode['vod_id']}: {error!r}\n{detail[-3000:]}", file=sys.stderr)
             return 1
-    # Las pruebas a mano no se publican: la tarea de YouTube solo publica las que están "listo".
-    estado = "prueba" if os.environ.get("RESUMEN_PRUEBA") == "true" else "listo"
+    # Nunca sale "listo" de aquí: queda pendiente del sí de Jaume.
+    estado = "prueba" if os.environ.get("RESUMEN_PRUEBA") == "true" else "pendiente_aprobacion"
     done[episode["vod_id"]] = {"estado": estado, "titulo": data["titulo"], "marcador": data["marcador"],
-                               "creado": datetime.datetime.now(datetime.timezone.utc).isoformat(), "archivos": urls}
+                               "creado": now(), "archivos": urls}
     save_json(RESUMENES_FILE, done)
-    print(f"Resumen listo: {data['titulo']}")
+    print(f"Resumen montado, pendiente de aprobación: {data['titulo']}")
     return 0
 
 

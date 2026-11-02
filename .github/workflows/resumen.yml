@@ -1,24 +1,31 @@
 name: Resumen en vídeo del directo
 
-# Lo lanza "Publicar directos en el podcast" cuando sale un episodio nuevo.
-# A mano: Actions > Resumen en vídeo del directo > Run workflow (vod vacío = el último pendiente).
+# Automático (cada 3 h y cuando "Publicar directos en el podcast" saca un episodio): SOLO AVISA
+# con un issue de que el partido ha terminado. No monta resúmenes.
+# A mano: Actions > Resumen en vídeo del directo > Run workflow con el id del directo: monta el
+# borrador y lo deja "pendiente_aprobacion" (no se publica sin el sí de Jaume).
 on:
   workflow_dispatch:
     inputs:
       vod:
-        description: "Id del directo de Twitch a resumir (vacío = el último pendiente)"
+        description: "Id del directo de Twitch a resumir (vacío = solo avisar de partidos nuevos)"
         type: string
         default: ""
       prueba:
         description: "Solo prueba: se monta pero no se publica en YouTube"
         type: boolean
         default: false
+      forzar:
+        description: "Rehacer aunque el partido ya tenga resumen (solo con el sí de Jaume)"
+        type: boolean
+        default: false
   schedule:
-    # Red de seguridad por si no llegó el aviso del podcast.
+    # Red de seguridad por si no llegó el aviso del podcast. Solo avisa.
     - cron: "40 */3 * * *"
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: resumen
@@ -44,6 +51,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RESUMEN_VOD: ${{ inputs.vod }}
           RESUMEN_PRUEBA: ${{ inputs.prueba }}
+          RESUMEN_FORZAR: ${{ inputs.forzar }}
         run: python resumen.py
       - name: Guardar resumenes.json
         if: always()
