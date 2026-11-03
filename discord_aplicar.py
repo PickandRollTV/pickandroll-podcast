@@ -583,6 +583,16 @@ def main():
             api.call("PATCH", f"/channels/{channel['id']}/messages/{message_id}",
                      {"content": text[:2000], "allowed_mentions": {"parse": []}}, f"Editar aviso {message_id}")
         return 0
+    if action == "ver-reacciones":
+        # Comprueba que el bot reacciona en #general: solo hora y reacciones, sin textos ni nombres.
+        api = Discord(token, True)
+        channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "💬┃general")
+        rows = [{"fecha": m["timestamp"][:16], "bot": bool(m["author"].get("bot")),
+                 "reacciones_del_bot": [r["emoji"]["name"] for r in m.get("reactions", []) if r.get("me")]}
+                for m in api.call("GET", f"/channels/{channel['id']}/messages?limit=15")]
+        OUT_DIR.mkdir(exist_ok=True)
+        (OUT_DIR / "reacciones.json").write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return 0
     if action == "ver-anuncios":
         # Guarda los últimos mensajes del bot en #anuncios con su enlace (sin nombres de miembros).
         api = Discord(token, True)
