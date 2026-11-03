@@ -587,7 +587,7 @@ def main():
         # Comprueba que el bot reacciona en #general: solo hora y reacciones, sin textos ni nombres.
         api = Discord(token, True)
         channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "💬┃general")
-        rows = [{"fecha": m["timestamp"][:16], "bot": bool(m["author"].get("bot")),
+        rows = [{"fecha": m["timestamp"][:16], "bot": bool(m["author"].get("bot")), "texto_visible": bool(m.get("content")),
                  "reacciones_del_bot": [r["emoji"]["name"] for r in m.get("reactions", []) if r.get("me")]}
                 for m in api.call("GET", f"/channels/{channel['id']}/messages?limit=15")]
         OUT_DIR.mkdir(exist_ok=True)
