@@ -1,8 +1,7 @@
 name: Compartir noticias de la web en Discord
 
 on:
-  schedule:
-    - cron: "5,20,35,50 * * * *"
+  # Lo lanza el bucle de discord-bucle.yml; aquí solo queda para lanzarlo a mano.
   workflow_dispatch:
 
 permissions:

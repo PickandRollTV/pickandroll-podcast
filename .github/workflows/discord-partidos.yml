@@ -1,8 +1,7 @@
 name: Hilos de partidos en Discord
 
 on:
-  schedule:
-    - cron: "7,22,37,52 * * * *"
+  # Lo lanza el bucle de discord-bucle.yml; aquí solo queda para lanzarlo a mano.
   workflow_dispatch:
 
 permissions:

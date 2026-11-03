@@ -1,0 +1,62 @@
+name: Discord en marcha (bucle)
+
+# GitHub retrasa o se salta muchas ejecuciones programadas ("schedule"), así que las tareas de
+# Discord van en un bucle: un trabajo que dura casi 6 horas, repasa todo cada minuto y, al acabar,
+# se lanza de nuevo a sí mismo. La ejecución programada solo sirve de respaldo por si el bucle se corta.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */3 * * *"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: discord-bucle
+  cancel-in-progress: false
+
+jobs:
+  bucle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Repasar Discord cada minuto
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_ROLE_ID: ${{ vars.DISCORD_ROLE_ID }}
+        run: |
+          git config user.name podcast-bot; git config user.email podcast-bot@users.noreply.github.com
+          save() {
+            git add discord_directo.json discord_youtube.json discord_partidos.json discord_publicados.json discord_historial.json 2>/dev/null || true
+            git diff --cached --quiet && return 0
+            git commit -q -m "Estado de Discord"
+            for i in 1 2 3; do git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && return 0; sleep 5; done
+            echo "No se pudo guardar el estado"
+          }
+          # Recoge lo que hayan guardado otras tareas antes de empezar cada vuelta.
+          sync() { git diff --quiet && git pull -q --rebase origin "${GITHUB_REF_NAME}" || true; }
+          start=$(date +%s); n=0
+          while [ $(( $(date +%s) - start )) -lt 20400 ]; do
+            sync
+            python discord_reacciones.py || true
+            if [ $((n % 3)) -eq 0 ]; then
+              python discord_directo.py || true
+              python discord_youtube.py || true
+            fi
+            if [ $((n % 10)) -eq 0 ]; then python discord_web.py || true; fi
+            if [ $((n % 15)) -eq 0 ]; then python discord_partidos.py || true; fi
+            save
+            n=$((n + 1))
+            sleep 60
+          done
+      - name: Volver a empezar
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run discord-bucle.yml --ref "${GITHUB_REF_NAME}"
