@@ -115,6 +115,25 @@ RENAMES = {
 FORUM_TAGS = ["Euroliga", "Liga Endesa", "Copa del Rey", "Supercopa", "Amistoso"]
 
 
+def post_with_image(token, channel_id, payload, image_path):
+    """Publica un mensaje con una imagen adjunta (multipart, como hace Discord al arrastrar un archivo)."""
+    image = pathlib.Path(image_path)
+    payload = dict(payload, attachments=[{"id": 0, "filename": image.name}])
+    boundary = "----pickandroll" + str(int(time.time()))
+    kind = "image/png" if image.suffix.lower() == ".png" else "image/jpeg"
+    body = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"payload_json\"\r\n"
+            f"Content-Type: application/json\r\n\r\n{json.dumps(payload)}\r\n"
+            f"--{boundary}\r\nContent-Disposition: form-data; name=\"files[0]\"; filename=\"{image.name}\"\r\n"
+            f"Content-Type: {kind}\r\n\r\n").encode() + image.read_bytes() + f"\r\n--{boundary}--\r\n".encode()
+    request = urllib.request.Request(
+        f"{API}/channels/{channel_id}/messages", method="POST", data=body,
+        headers={"Authorization": f"Bot {token}", "Content-Type": f"multipart/form-data; boundary={boundary}",
+                 "User-Agent": "DiscordBot (https://pickandroll.tv, 1.0) PickandRollTV"})
+    with urllib.request.urlopen(request, timeout=60) as response:
+        print("APLICO  Aviso con imagen", image.name)
+        return json.loads(response.read())
+
+
 class Discord:
     def __init__(self, token, apply):
         self.token, self.apply, self.log = token, apply, []
@@ -563,13 +582,19 @@ def main():
         text = text.replace("{everyone}", "@everyone")
         channels = api.call("GET", f"/guilds/{GUILD}/channels")
         channel = next(c for c in channels if c["name"] == "📢┃anuncios")
-        api.call("POST", f"/channels/{channel['id']}/messages",
-                 {"content": text[:2000], "allowed_mentions": {"parse": ["everyone"] if everyone else [], "roles": used}}, "Aviso en #anuncios")
+        # IMAGEN: ruta de una imagen del repositorio que va adjunta al aviso (sin vista previa de enlaces, para que se vea la imagen).
+        image = os.environ.get("IMAGEN", "").strip()
+
+        def send(target, payload, note):
+            if image:
+                return post_with_image(token, target, dict(payload, flags=4), ROOT / image)
+            return api.call("POST", f"/channels/{target}/messages", payload, note)
+
+        send(channel["id"], {"content": text[:2000], "allowed_mentions": {"parse": ["everyone"] if everyone else [], "roles": used}}, "Aviso en #anuncios")
         if everyone:
             # Copia sin mención en #general, para que lo vea todo el mundo.
             general = next(c for c in channels if c["name"] == "💬┃general")
-            api.call("POST", f"/channels/{general['id']}/messages",
-                     {"content": text.replace("@everyone", "").strip()[:2000], "allowed_mentions": {"parse": []}}, "Aviso en #general")
+            send(general["id"], {"content": text.replace("@everyone", "").strip()[:2000], "allowed_mentions": {"parse": []}}, "Aviso en #general")
         for old in filter(None, os.environ.get("BORRAR", "").replace(" ", "").split(",")):
             api.call("DELETE", f"/channels/{channel['id']}/messages/{old}", note=f"Borrar aviso anterior {old}")
         print("Aviso publicado")

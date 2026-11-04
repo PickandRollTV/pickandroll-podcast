@@ -24,6 +24,10 @@ on:
         description: "Para aviso: ids de mensajes de #anuncios que sustituye (se borran)"
         type: string
         default: ""
+      imagen:
+        description: "Para aviso: ruta en el repositorio de una imagen que va adjunta (por ejemplo avisos/foto.jpg)"
+        type: string
+        default: ""
       roles:
         description: "Cambiar también los roles (quitar moderación a MVP y crear Moderador)"
         type: boolean
@@ -55,6 +59,7 @@ jobs:
           TOTAL_MVP: ${{ inputs.total_mvp }}
           MENSAJE: ${{ inputs.mensaje }}
           BORRAR: ${{ inputs.borrar }}
+          IMAGEN: ${{ inputs.imagen }}
         run: python discord_aplicar.py
       - name: Guardar el registro de cambios
         if: always()
