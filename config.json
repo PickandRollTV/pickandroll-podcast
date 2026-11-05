@@ -56,7 +56,8 @@
     "e62062a6-4d3d-4ad9-af3b-7caaee45917d": "87-84",
     "212b1d29-a5b5-4b61-93bc-bab7876bc7e8": "78-109",
     "1b4b77c4-b517-4017-abd9-be0650c516dd": "75-80",
-    "ef840ddc-dc20-4e7a-bdd2-52cf903d33c0": "84-72"
+    "ef840ddc-dc20-4e7a-bdd2-52cf903d33c0": "84-72",
+    "2920392105": "90-93"
   },
   "miniaturas_apaisadas": "todas",
   "recortes_manuales": {
@@ -76,5 +77,8 @@
     "minutos_objetivo": 9,
     "minutos_partido": 135,
     "segundos_cierre": 20
+  },
+  "titulos": {
+    "2920392105": "🔴 EN DIRECTO | 🏀 HAPOEL TEL AVIV v BARÇA BASKET | ROUND 10 EUROLEAGUE"
   }
 }
