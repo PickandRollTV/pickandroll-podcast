@@ -600,13 +600,22 @@ def main():
         print("Aviso publicado")
         return 0
     if action == "editar":
-        # Cambia el texto de mensajes ya publicados en #anuncios (ids en BORRAR) por MENSAJE, sin volver a avisar.
+        # Cambia el texto de mensajes ya publicados en #anuncios o #general (ids en BORRAR) por MENSAJE, sin volver
+        # a avisar, y les quita la vista previa (imagen) que llevaran.
         api = Discord(token, True)
-        channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "📢┃anuncios")
+        channels = api.call("GET", f"/guilds/{GUILD}/channels")
+        targets = [c for c in channels if c["name"] in ("📢┃anuncios", "💬┃general")]
         text = os.environ.get("MENSAJE", "").replace("\\n", "\n")
         for message_id in filter(None, os.environ.get("BORRAR", "").replace(" ", "").split(",")):
-            api.call("PATCH", f"/channels/{channel['id']}/messages/{message_id}",
-                     {"content": text[:2000], "allowed_mentions": {"parse": []}}, f"Editar aviso {message_id}")
+            for channel in targets:
+                try:
+                    api.call("PATCH", f"/channels/{channel['id']}/messages/{message_id}",
+                             {"content": text[:2000], "embeds": [], "flags": 4, "allowed_mentions": {"parse": []}},
+                             f"Editar aviso {message_id} en {channel['name']}")
+                    break
+                except RuntimeError as error:
+                    if " 404 " not in str(error):
+                        raise
         return 0
     if action == "ver-reacciones":
         # Comprueba que el bot reacciona en #general: solo hora y reacciones, sin textos ni nombres.
@@ -621,9 +630,11 @@ def main():
     if action == "ver-anuncios":
         # Guarda los últimos mensajes del bot en #anuncios con su enlace (sin nombres de miembros).
         api = Discord(token, True)
-        channel = next(c for c in api.call("GET", f"/guilds/{GUILD}/channels") if c["name"] == "📢┃anuncios")
-        rows = [{"fecha": m["timestamp"], "enlace": f"https://discord.com/channels/{GUILD}/{channel['id']}/{m['id']}",
-                 "texto": m["content"][:160]}
+        channels = api.call("GET", f"/guilds/{GUILD}/channels")
+        rows = [{"canal": channel["name"], "fecha": m["timestamp"], "id": m["id"],
+                 "enlace": f"https://discord.com/channels/{GUILD}/{channel['id']}/{m['id']}",
+                 "texto": m["content"][:300], "imagenes": len(m.get("embeds", [])) + len(m.get("attachments", []))}
+                for channel in channels if channel["name"] in ("📢┃anuncios", "💬┃general")
                 for m in api.call("GET", f"/channels/{channel['id']}/messages?limit=15") if m["author"].get("bot")]
         OUT_DIR.mkdir(exist_ok=True)
         (OUT_DIR / "anuncios.json").write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
