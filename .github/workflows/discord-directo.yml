@@ -1,8 +1,7 @@
 name: Avisar en Discord de los directos, el directo completo y los Shorts
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
+  # Lo lanza el bucle de discord-bucle.yml; aquí solo queda para lanzarlo a mano.
   workflow_dispatch:
 
 permissions:

@@ -80,7 +80,9 @@ def episode_title(episode, config):
     # Resultados puestos a mano en config.json, por id del directo o, en los importados, por guid.
     manual = config.get("resultados", {})
     score = manual.get(episode.get("vod_id", "")) or manual.get(episode["guid"]) or episode.get("resultado")
-    return with_score(clean_title(episode["title"]), score)
+    # Títulos corregidos a mano, por id del directo, cuando en Twitch se quedó el del partido anterior.
+    title = config.get("titulos", {}).get(episode.get("vod_id", ""), episode["title"])
+    return with_score(clean_title(title), score)
 
 
 def twitch_description(episode, config):
