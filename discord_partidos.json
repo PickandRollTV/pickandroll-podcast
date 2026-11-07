@@ -190,5 +190,17 @@
       "https://pickandroll.tv/sekulic-hapoel-barca-numeros-no-mienten/"
     ],
     "final": true
+  },
+  "30562-58": {
+    "thread": "1568493215253012490",
+    "start": "2026-11-08T11:00:00+00:00",
+    "competition": "Liga Endesa",
+    "rival": [
+      "breogan"
+    ],
+    "news": [
+      "https://pickandroll.tv/previa-jornada-7-liga-endesa/"
+    ],
+    "final": false
   }
 }
