@@ -1,5 +1,11 @@
 [
   {
+    "id": "2923000144",
+    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v RIO BREOGÁN | JORNADA 7 LIGAENDESA",
+    "inicio": "2026-11-08T10:01:28+00:00",
+    "duracion_min": 279
+  },
+  {
     "id": "2920392105",
     "titulo": "🔴 EN DIRECTO | 🏀  HAPOEL v BARÇA BASKET | ROUND 10 EUROLEAGUE",
     "inicio": "2026-11-05T18:02:00+00:00",
@@ -40,11 +46,5 @@
     "titulo": "🔴 EN DIRECTO | 🏀 ASISA JOVENTUT v BARÇA BASKET | JORNADA 4 LIGA ENDESA",
     "inicio": "2026-10-18T16:00:38+00:00",
     "duracion_min": 271
-  },
-  {
-    "id": "2902425155",
-    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v OLYMPIACOS | ROUND 6 EUROLEAGUE",
-    "inicio": "2026-10-16T17:34:17+00:00",
-    "duracion_min": 275
   }
 ]
