@@ -478,5 +478,23 @@
     "audio_calidad": 3,
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2920392105-40a6ef55.jpg",
     "cover_key": "40a6ef55"
+  },
+  {
+    "guid": "twitch:2923000144",
+    "source": "twitch",
+    "vod_id": "2923000144",
+    "title": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v RIO BREOGÁN | JORNADA 7 LIGAENDESA",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2923000144\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-11-08T10:01:28+00:00",
+    "duration": 16406,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/b028bab7b0e1dd58cb44_pickandrolltv_318278218084_1794132081//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2923000144",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2923000144/v2923000144.mp3",
+    "audio_bytes": 328106461,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 6:13: 5:41 Somos 24 de agosto. | 5:44 De samarretas que volen, de confiar en la equic. | 5:53 3.000 de euros. | 6:03 Somos que... somos centenarios. | 6:12 Un escut. | 6:13 Hola amigos y amigas, bienvenidos a Pick and Roll,",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2923000144-af3b7fda.jpg",
+    "cover_key": "af3b7fda"
   }
 ]
