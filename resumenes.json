@@ -34,5 +34,17 @@
       "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2920392105/miniatura.jpg",
       "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2920392105/datos.json"
     }
+  },
+  "2923000144": {
+    "estado": "listo",
+    "titulo": "RESUMEN Barça 99-91 Rio Breogán | Liga Endesa Jornada 7 narrado en directo",
+    "marcador": "Barça 99-91 Rio Breogán",
+    "creado": "2026-11-08T15:46:33.744615+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2923000144/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2923000144/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2923000144/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2923000144/datos.json"
+    }
   }
 }
