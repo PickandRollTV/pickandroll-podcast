@@ -224,5 +224,19 @@
       "https://pickandroll.tv/panathinaikos-barca-dia-de-partit-r11-euroliga/"
     ],
     "final": true
+  },
+  "30562-70": {
+    "thread": "1571103258280198214",
+    "start": "2026-11-15T16:00:00+00:00",
+    "competition": "Liga Endesa",
+    "rival": [
+      "monbus",
+      "obradoiro"
+    ],
+    "news": [
+      "https://pickandroll.tv/previa-jornada-8-liga-endesa/",
+      "https://pickandroll.tv/obradoiro-barca-analisis-rival-rebote-perdidas/"
+    ],
+    "final": false
   }
 }
