@@ -46,5 +46,17 @@
       "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2923000144/miniatura.jpg",
       "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2923000144/datos.json"
     }
+  },
+  "2927790612": {
+    "estado": "listo",
+    "titulo": "RESUMEN Panathinaikos 74-76 Barça | Euroliga Jornada 11 narrado en directo",
+    "marcador": "Panathinaikos 74-76 Barça",
+    "creado": "2026-11-14T02:23:19.433912+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2927790612/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2927790612/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2927790612/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2927790612/datos.json"
+    }
   }
 }
