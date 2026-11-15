@@ -516,5 +516,23 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2927790612-da072929.jpg",
     "cover_key": "da072929",
     "resultado": "74-76"
+  },
+  {
+    "guid": "twitch:2929653562",
+    "source": "twitch",
+    "vod_id": "2929653562",
+    "title": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v OBRADOIRO | JORNADA 8 LIGA ENDESA",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2929653562\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-11-15T15:07:44+00:00",
+    "duration": 13744,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/563e1252b28a2b4d133c_pickandrolltv_318353535587_1794755258//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2929653562",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2929653562/v2929653562.mp3",
+    "audio_bytes": 274884583,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 6:23: 3:19 Som lúd | 3:25 Som campions | 3:28 Som centenaris | 3:30 ¡Clam! | 3:38 Buenas tardes amigos, amigas | 6:23 Bienvenidos a Pican Roll",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2929653562-6bb6e0bf.jpg",
+    "cover_key": "6bb6e0bf"
   }
 ]
