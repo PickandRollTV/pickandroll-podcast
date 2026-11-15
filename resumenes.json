@@ -58,5 +58,17 @@
       "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2927790612/miniatura.jpg",
       "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2927790612/datos.json"
     }
+  },
+  "2929653562": {
+    "estado": "listo",
+    "titulo": "RESUMEN Barça 108-83 Obradoiro | Liga Endesa Jornada 8 narrado en directo",
+    "marcador": "Barça 108-83 Obradoiro",
+    "creado": "2026-11-15T22:48:19.485207+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2929653562/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2929653562/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2929653562/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2929653562/datos.json"
+    }
   }
 }
