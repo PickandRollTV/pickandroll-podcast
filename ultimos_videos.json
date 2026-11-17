@@ -1,5 +1,11 @@
 [
   {
+    "id": "2931588378",
+    "titulo": "🔴 EN DIRECTO | BARÇA v PARÍS BASKETBALL | ROUND 12 EUROLEAGUE 2026-11-17 19:58",
+    "inicio": "2026-11-17T18:35:12+00:00",
+    "duracion_min": 83
+  },
+  {
     "id": "2929653562",
     "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v OBRADOIRO | JORNADA 8 LIGA ENDESA",
     "inicio": "2026-11-15T15:07:44+00:00",
@@ -39,12 +45,6 @@
     "id": "2912342097",
     "titulo": "🔴 EN DIRECTO | 🏀 BAYERN BASKETBALL v BARÇA BASKET | ROUND 8 EUROLEAGUE",
     "inicio": "2026-10-27T18:06:47+00:00",
-    "duracion_min": 238
-  },
-  {
-    "id": "2909670862",
-    "titulo": "🔴 EN DIRECTO | 🏀 BARÇA BASKET v CASADEMONT ZARAGOZA | JORNADA 5 LIGA ENDESA",
-    "inicio": "2026-10-24T18:01:53+00:00",
     "duracion_min": 238
   }
 ]
