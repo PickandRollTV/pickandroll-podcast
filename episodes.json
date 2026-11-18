@@ -535,5 +535,23 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2929653562-16915dae.jpg",
     "cover_key": "16915dae",
     "resultado": "108-83"
+  },
+  {
+    "guid": "twitch:2931588378",
+    "source": "twitch",
+    "vod_id": "2931588378",
+    "title": "🔴 EN DIRECTO | BARÇA v PARÍS BASKETBALL | ROUND 12 EUROLEAGUE",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2931588378\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-11-17T18:35:12+00:00",
+    "duration": 16794,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/ef7a0d023df3d2b289c4_pickandrolltv_318373876067_1794940505//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2931588378",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2931588378/v2931588378.mp3",
+    "audio_bytes": 335877889,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 4:44: 3:08 que confían aquí. | 3:15 El 2003, | 3:18 el 2010, | 3:29 son centenaris. | 3:34 Un escudo. | 4:44 Buenas tardes y bienvenidos,",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2931588378-c524148a.jpg",
+    "cover_key": "c524148a"
   }
 ]
