@@ -70,5 +70,17 @@
       "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2929653562/miniatura.jpg",
       "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2929653562/datos.json"
     }
+  },
+  "2931588378": {
+    "estado": "listo",
+    "titulo": "RESUMEN Barça 86-89 París | Euroliga Jornada 12 narrado en directo",
+    "marcador": "Barça 86-89 París",
+    "creado": "2026-11-18T01:31:54.141253+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2931588378/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2931588378/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2931588378/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2931588378/datos.json"
+    }
   }
 }
