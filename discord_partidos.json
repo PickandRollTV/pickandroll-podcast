@@ -253,5 +253,19 @@
     ],
     "news": [],
     "final": true
+  },
+  "30553-129": {
+    "thread": "1572967517524205569",
+    "start": "2026-11-20T19:30:00+00:00",
+    "competition": "Euroliga",
+    "rival": [
+      "crvena",
+      "meridianbet",
+      "zvezda"
+    ],
+    "news": [
+      "https://pickandroll.tv/previa-jornada-13-euroliga-horarios/"
+    ],
+    "final": false
   }
 }
