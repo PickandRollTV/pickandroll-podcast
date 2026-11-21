@@ -82,5 +82,17 @@
       "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2931588378/miniatura.jpg",
       "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2931588378/datos.json"
     }
+  },
+  "2935183039": {
+    "estado": "listo",
+    "titulo": "RESUMEN Barça 100-103 Estrella Roja | Euroliga Jornada 13 narrado en directo",
+    "marcador": "Barça 100-103 Estrella Roja",
+    "creado": "2026-11-21T03:42:36.913933+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2935183039/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2935183039/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2935183039/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2935183039/datos.json"
+    }
   }
 }
