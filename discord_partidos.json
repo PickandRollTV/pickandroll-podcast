@@ -271,5 +271,20 @@
       "https://pickandroll.tv/sekulic-hay-cosas-que-no-puedo-explicar-barca-zvezda/"
     ],
     "final": true
+  },
+  "30562-80": {
+    "thread": "1573657830786076805",
+    "start": "2026-11-22T17:00:00+00:00",
+    "competition": "Liga Endesa",
+    "rival": [
+      "laguna",
+      "tenerife"
+    ],
+    "news": [
+      "https://pickandroll.tv/previa-jornada-9-liga-endesa/",
+      "https://pickandroll.tv/fundacion-cb-canarias-barca-atletic-74-65-liga-u-jornada-9/",
+      "https://pickandroll.tv/tenerife-barca-analisis-rival-ritmo-perdidas/"
+    ],
+    "final": false
   }
 }
