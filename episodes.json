@@ -554,5 +554,23 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2931588378-f5442bcb.jpg",
     "cover_key": "f5442bcb",
     "resultado": "86-89"
+  },
+  {
+    "guid": "twitch:2935183039",
+    "source": "twitch",
+    "vod_id": "2935183039",
+    "title": "🔴 EN DIRECTO | BARÇA v ESTRELLA ROJA | ROUND 13 EUROLEAGUE",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2935183039\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-11-20T18:30:56+00:00",
+    "duration": 17783,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/66f2bdb42f509a87e6a5_pickandrolltv_318416295779_1795199449//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2935183039",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2935183039/v2935183039.mp3",
+    "audio_bytes": 355655195,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 5:01: 2:57 Somos el 24 de agosto. | 3:02 Somos 24 a goles. | 3:04 Somos los segurs, de samarretas que volen, que confían aquí. | 3:09 Al 2003, al 2010, somos campeons, somos centenaris. | 3:35 Un escut. | 5:01 Buenas tardes, bienvenidos amigos a Picanroll.",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2935183039-e584baf0.jpg",
+    "cover_key": "e584baf0"
   }
 ]
