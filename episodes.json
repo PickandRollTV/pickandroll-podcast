@@ -573,5 +573,23 @@
     "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2935183039-09886149.jpg",
     "cover_key": "09886149",
     "resultado": "100-103"
+  },
+  {
+    "guid": "twitch:2937412151",
+    "source": "twitch",
+    "vod_id": "2937412151",
+    "title": "🔴 EN DIRECTO | LA LAGUNA TENERIFE v BARÇA | JORNADA 9 LIGA ENDESA",
+    "description": "Directo completo en Twitch: https://www.twitch.tv/videos/2937412151\nCanal de YouTube: https://www.youtube.com/@PickandRollTV",
+    "published": "2026-11-22T16:00:34+00:00",
+    "duration": 13494,
+    "image": "https://static-cdn.jtvnw.net/cf_vods/d3stzm2eumvgb4/518ba95417a08c949884_pickandrolltv_318441643108_1795363227//thumb/thumb0-0x0.jpg",
+    "link": "https://www.twitch.tv/videos/2937412151",
+    "audio_url": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/twitch-2937412151/v2937412151.mp3",
+    "audio_bytes": 269877954,
+    "audio_type": "audio/mpeg",
+    "recorte": "Saludo en 6:01: 3:03 Somos los 24 de agosto. | 3:06 De samarretas que volen, te confía en la quie. | 3:14 Somos el 2003, el 2010. | 3:21 Somos los, somos campos, somos centenaris. | 3:30 Un escutclam. | 6:01 Bienvenidos a Pican Roll.",
+    "audio_calidad": 3,
+    "cover": "https://pickandrolltv.github.io/pickandroll-podcast/docs/episodios/twitch-2937412151-10562930.jpg",
+    "cover_key": "10562930"
   }
 ]
