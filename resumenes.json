@@ -94,5 +94,17 @@
       "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2935183039/miniatura.jpg",
       "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2935183039/datos.json"
     }
+  },
+  "2937412151": {
+    "estado": "listo",
+    "titulo": "RESUMEN La Laguna Tenerife 94-82 Barça | Liga Endesa Jornada 9 narrado en directo",
+    "marcador": "La Laguna Tenerife 94-82 Barça",
+    "creado": "2026-11-23T00:00:58.030268+00:00",
+    "archivos": {
+      "resumen.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2937412151/resumen.mp4",
+      "short.mp4": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2937412151/short.mp4",
+      "miniatura.jpg": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2937412151/miniatura.jpg",
+      "datos.json": "https://github.com/PickandRollTV/pickandroll-podcast/releases/download/resumen-2937412151/datos.json"
+    }
   }
 }
