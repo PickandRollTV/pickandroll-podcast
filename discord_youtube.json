@@ -551,5 +551,5 @@
     "ilQ5TOnyVX8",
     "iCkAZY9yb3g"
   ],
-  "ultimo_error": "2026-11-26 20:43 No se pudo leer el feed de YouTube: <urlopen error _ssl.c:994: The handshake operation timed out>"
+  "ultimo_error": "2026-11-27 04:21 No se pudo leer el feed de YouTube: HTTP Error 503: Service Unavailable"
 }
